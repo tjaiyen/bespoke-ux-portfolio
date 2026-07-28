@@ -25,16 +25,18 @@ export default function Home() {
     <>
       {/* Skip link lives in the root layout so every route gets it. */}
       <main id="main-content" className="mx-auto w-full max-w-4xl px-6 py-20">
-        <Reveal>
-          <h1 className="font-serif text-5xl leading-tight text-text-main">
-            Product design for enterprise operations
-          </h1>
-          <p className="mt-5 max-w-2xl font-sans text-lg text-text-muted">
-            Enterprise B2B, manufacturing operations, and financial systems. A
-            former manufacturing cost accountant turning ERP and financial data
-            into real-time operational visibility tools.
-          </p>
-        </Reveal>
+        {/* The hero is the LCP element, so it is NEVER wrapped in Reveal: framer-motion
+            SSRs `initial` as inline opacity:0, which hides the H1 until hydration +
+            whileInView — Lighthouse measured that as 2.8s of LCP render delay (85% of
+            LCP). Reveal below the fold only, where whileInView belongs. */}
+        <h1 className="font-serif text-5xl leading-tight text-text-main">
+          Product design for enterprise operations
+        </h1>
+        <p className="mt-5 max-w-2xl font-sans text-lg text-text-muted">
+          Enterprise B2B, manufacturing operations, and financial systems. A
+          former manufacturing cost accountant turning ERP and financial data
+          into real-time operational visibility tools.
+        </p>
 
         <Reveal index={1} className="mt-10">
           <Link

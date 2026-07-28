@@ -19,6 +19,10 @@ interface RevealProps {
  *      `y` compiles to a transform, which is composited and does not reflow.
  *   2. `prefers-reduced-motion` is respected. When set, the element renders in its
  *      final state with no transition at all — not a faster animation, none.
+ *   3. NEVER wrap the LCP element / above-the-fold hero. Framer Motion SSRs
+ *      `initial` as inline `opacity: 0`, so the element is invisible in the HTML
+ *      until hydration + whileInView fires — measured as 2.8s of LCP render delay
+ *      (85% of LCP) under Lighthouse throttling. Below the fold only.
  */
 export default function Reveal({ children, index = 0, className }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
