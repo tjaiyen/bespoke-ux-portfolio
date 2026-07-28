@@ -11,7 +11,8 @@
     "a11y:config": "node scripts/gen-pa11yci.mjs",
     "a11y:pa11y": "npm run a11y:config && pa11y-ci --config .pa11yci.json",
     "a11y:keyboard": "node scripts/a11y-keyboard-audit.mjs",
-    "a11y": "npm run a11y:contrast && npm run a11y:pa11y && npm run a11y:keyboard"
+    "a11y": "npm run a11y:contrast && npm run a11y:chrome && npm run a11y:pa11y && npm run a11y:keyboard",
+    "a11y:chrome": "node scripts/check-chrome.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

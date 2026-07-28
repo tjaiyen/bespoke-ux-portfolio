@@ -74,9 +74,17 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:3000 --timeout 60000
 
-      # PA11Y_CHROME_PATH pins to the browser the runner already provides. Puppeteer's
-      # bundled download has been observed to truncate silently — reporting success while
-      # leaving a stub with no framework binary, so every launch dies on dlopen.
+      # Preflight: prove a usable Chrome exists before any audit runs. If CHROME_PATH is
+      # unset on the runner, PA11Y_CHROME_PATH resolves to "" and puppeteer falls back to
+      # its bundled download — which has been observed to truncate silently, reporting
+      # success while leaving a stub with no framework binary. Without this step that
+      # surfaces as a confusing audit failure (or, if someone adds continue-on-error to
+      # quieten it, as a gate that passes while auditing nothing — risk R15's shape).
+      - name: Chrome preflight
+        env:
+          PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
+        run: npm run a11y:chrome
+
       - name: Accessibility audit (pa11y-ci, all routes)
         env:
           PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
