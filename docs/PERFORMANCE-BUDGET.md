@@ -33,15 +33,19 @@ gate-blindness that demoting `categories:performance` to `warn` was meant to pre
 - `categories:seo` ≥ 0.9 — **error**
 - `cumulative-layout-shift` = 0 — **error**
 - `unsized-images` — **error** (the mechanism that keeps CLS at 0)
-- `categories:performance` ≥ 0.98 — **warn** (runner variance, ADR-013)
+- `categories:performance` ≥ 0.90 — **warn** (re-based ADR-010, 2026-07-28: fires only on
+  real regression, not on every run; ≥ 0.98 retained as a stretch target)
 - `budget.json` script budget 250 KB / total 700 KB — **warn**, set from today's
   measurement plus headroom. This is a *regression tripwire*, not the vault's target: it
   catches a dependency that doubles the bundle, without pretending 100 KB is reachable.
 
-## Open decision (ADR-014, risk R19)
+## Decision closed (ADR-014 + ADR-010 re-base, TJ, 2026-07-28)
 
-TJ has not yet chosen the real number. Until then the tripwire above stands. The
-recommendation in the ADR is to enforce "no regression from measured baseline" rather
-than an absolute borrowed from a blog post. `05-Checklists/Checklist-Web-Vitals.md` keeps
-"initial JS < 100 KB" as an explicitly unchecked item so the gap stays visible rather
-than being quietly deleted.
+The 100 KB absolute is abandoned — it was borrowed from the source report and never
+measured against the mandated stack. The tripwire above IS the budget of record:
+"no regression from measured baseline". The same decision closed the performance-score
+side: after all in-spec work (hero LCP unwrap, `font-display: optional`, framer-motion
+removal — ADR-015), the measured floor is home 0.89–0.95 median ~0.93, case-study
+routes 0.94–0.96; the residual is the Next 16 + React 19 hydration floor (simulated
+LCP ~2.8s), not portfolio code. `05-Checklists/Checklist-Web-Vitals.md` strikes the
+"initial JS < 100 KB" item with a pointer to the ADR, so the history stays visible.
