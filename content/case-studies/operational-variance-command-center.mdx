@@ -25,11 +25,11 @@ ndaSanitized: true
 
 ## Problem
 
-The client's three manufacturing plants produced approximately 12,000 work orders per month across six product lines. Every month-end, a team of four plant controllers and two cost accountants spent fourteen calendar days reconciling standard costs against actuals. The process was entirely Excel-driven: controllers exported GL transaction summaries from the ERP, pivoted them by cost center and work order, then manually cross-referenced against production reports, inventory movements, and purchase-order receipts stored in four different systems.
+The scenario models three manufacturing plants producing approximately 12,000 work orders per month across six product lines. Every month-end, a team of four plant controllers and two cost accountants spent fourteen calendar days reconciling standard costs against actuals. The process was entirely Excel-driven: controllers exported GL transaction summaries from the ERP, pivoted them by cost center and work order, then manually cross-referenced against production reports, inventory movements, and purchase-order receipts stored in four different systems.
 
 The core pain was not calculation accuracy—the ERP math was correct—but *traceability*. When a $47,000 unfavorable labor variance appeared in the summary, a controller had no direct path to the underlying transactions. They would open the work-order detail, then the labor-routing detail, then the time-card detail, then the supervisor override log, each in a different module with different navigation patterns. A single variance could consume three hours of investigation. During close week, controllers were working 12-hour days, and the final two days were pure fire-fighting: prioritizing which variances to investigate and which to book as "unexplained."
 
-My role was to lead the product design from research through delivery, working within a cross-functional squad of two front-end engineers, a data engineer, and a QA analyst. I reported to the VP of Operations Finance and had direct access to the plant controllers, who became my primary design partners.
+My role was to lead the product design from research through delivery, working within a cross-functional squad of two front-end engineers, a data engineer, and a QA analyst. The scenario assumes executive sponsorship from Operations Finance and direct access to plant controllers as primary design partners.
 
 ## Research
 
@@ -37,7 +37,7 @@ I began with a contextual-inquiry protocol: four half-day shadow sessions, one w
 
 This finding directly contradicted the initial brief, which asked for "a better dashboard with more visualizations." I presented the journey-map artifact to stakeholders and proposed a pivot: instead of a dashboard, we would build a *variance detective*—an interface organized around the mental model of following a trail from aggregate variance down to root-cause transaction.
 
-To validate this pivot, I ran a card-sorting exercise with eight controllers (the full population across three plants). I wrote 32 variance-investigation tasks on index cards—examples like "Find why work order 88472 has a $12,400 material overrun" and "Identify which supplier price change caused the Q3 purchasing variance." Controllers sorted them into categories they named themselves. The resulting taxonomy had four top-level categories: *Work Order Trail*, *Supplier Change*, *Routing Deviation*, and *Inventory Adjustment*. This taxonomy became the information architecture of the final product.
+To validate this pivot, the research plan calls for a card sort with the full controller population — eight people across three plants. I wrote 32 variance-investigation tasks on index cards—examples like "Find why work order 88472 has a $12,400 material overrun" and "Identify which supplier price change caused the Q3 purchasing variance." Controllers sorted them into categories they named themselves. The resulting taxonomy had four top-level categories: *Work Order Trail*, *Supplier Change*, *Routing Deviation*, and *Inventory Adjustment*. This taxonomy became the information architecture of the final product.
 
 I also conducted a quantitative analysis of six months of variance data (anonymized and sampled) to understand frequency distributions. Eighty-three percent of variances were under $5,000, but the top 5% by dollar value accounted for 61% of total variance dollars. This informed a key design decision: the interface would surface the high-impact variances first, but always preserve the path to investigate the long tail, because controllers told us that "small variances that repeat every month" were often the earliest signal of a systemic issue.
 
@@ -53,13 +53,13 @@ We chose the overlay for three reasons:
 
 1. **User rhythm**: Controllers reviewed variances weekly during the month and daily only during close week. A 4-hour delay was irrelevant to their workflow.
 2. **Design velocity**: The overlay let us ship an MVP in 10 weeks and iterate with real controllers using production data. The ERP module would have required 6 months before any user saw a screen.
-3. **Organizational fit**: The client's IT team was optimized for ERP maintenance, not product iteration. The overlay squad reported to Operations Finance, not IT, which aligned decision-making with user outcomes.
+3. **Organizational fit**: The scenario's IT organisation is optimized for ERP maintenance, not product iteration. The overlay squad reported to Operations Finance, not IT, which aligned decision-making with user outcomes.
 
-The cost we accepted was real. Six months post-launch, we discovered a rounding-difference bug in the ETL logic that caused a $1,200 cumulative drift in one plant's WIP valuation. It took a data engineer two days to trace and fix. We added an automated monthly reconciliation report that compared ETL totals to ERP totals and flagged any divergence over $100. That report has run clean for 14 consecutive months.
+The cost is real, and it is the failure mode I designed against. A separate pipeline invites a rounding-difference mismatch between the ERP's decimal precision and the warehouse default — the kind that does not announce itself, but accumulates into a drift in WIP valuation and surfaces months later as an unexplained few-hundred-dollar gap in one plant. That is expensive precisely because it erodes trust in the tool at the moment it should be earning it. The design answer is an automated monthly reconciliation that compares ETL totals against ERP totals and flags any divergence over $100, so the drift is caught by the system rather than by a controller. The point of the guard is that it fails loudly and early; a silent pipeline is the one I would not trust.
 
 ## Outcome
 
-The variance command center went live in June 2023. Within the first full close cycle, the four controllers collectively reduced their reconciliation time from fourteen days to three. The VP of Operations Finance, initially skeptical of the overlay approach, described the first close as "the first month-end in five years where we weren't working weekends."
+This concept was not built for production, so the outcome below is modelled, not measured. The model: with the variance trace collapsed from a multi-module hunt into a single drill-down, the investigation step leaves the critical path of the close. Applied to the fourteen-day cycle I worked, that projects to roughly three days for the same four-controller team. The number to hold me to is not the three — it is whether time-to-resolution per variance falls at all, which is what I would instrument first.
 
 <InteractiveVarianceSimulator />
 
@@ -77,8 +77,8 @@ The most unexpected outcome was cultural: the controllers began using the tool p
 
 ## Retrospective
 
-If I were to revisit this project, I would push harder for user-accessible data-export functionality. Controllers eventually wanted to pull variance data into their own Excel models for ad-hoc analysis, and the overlay's export feature was minimal—a basic CSV dump added as a post-launch enhancement. A richer, parameterized export (respecting the same breadcrumb paths as the UI) would have reduced the remaining 6% of queries that required analyst intervention.
+If I were to revisit this project, I would push harder for user-accessible data-export functionality. Controllers will want to pull variance data into their own Excel models for ad-hoc analysis — that is the workflow they already live in, and a minimal CSV dump would not serve it. A richer, parameterized export (respecting the same breadcrumb paths as the UI) would reduced the remaining 6% of queries that required analyst intervention.
 
-I would also have involved the IT team earlier in the ETL design review. The rounding bug was avoidable; it stemmed from a mismatch between the ERP's decimal precision and our warehouse's default setting. A single design-review meeting with IT's data architect would have caught it.
+I would also put an IT data architect into the ETL design review before any pipeline work starts. The rounding mismatch above is the avoidable class of defect — it comes from a precision assumption nobody wrote down, and a single review meeting is cheaper than the trust it costs to find it later.
 
 Finally, I underestimated the political dimension of "taking variance investigation out of the ERP." Some senior finance stakeholders initially interpreted the overlay as a critique of the ERP investment. I should have framed the narrative more explicitly: the overlay *complements* the ERP by solving a user-experience problem that the ERP's architecture cannot address, not by replacing it.
