@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { listPublishedCaseStudies } from "@/lib/mdxLoader";
+import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -42,7 +43,8 @@ export default function CaseStudiesIndexPage() {
                   className="h-32 w-full rounded object-cover sm:h-full"
                 />
                 <div>
-                  <h2 className="font-serif text-2xl leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
+                  <ConceptBadge projectType={study.projectType} />
+                  <h2 className="mt-2 font-serif text-2xl leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
                     {study.title}
                   </h2>
                   <p className="mt-2 font-sans text-text-muted">

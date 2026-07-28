@@ -3,6 +3,7 @@ import Image from "next/image";
 import { listPublishedCaseStudies } from "@/lib/mdxLoader";
 import { evidenceStrip } from "@/lib/evidence";
 import { site } from "@/lib/site";
+import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
 
 const APPROACH = [
   {
@@ -68,8 +69,12 @@ export default function Home() {
               id="evidence-heading"
               className="font-mono text-[11px] tracking-widest text-text-muted uppercase"
             >
-              Selected outcomes
+              Modelled outcomes
             </h2>
+            <p className="mt-2 font-sans text-sm text-text-muted">
+              Concept projects. Figures are modelled from stated assumptions, not
+              measured in production — each links to the reasoning behind it.
+            </p>
             <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
               {evidence.map((e) => (
                 <li key={e.slug}>
@@ -132,6 +137,9 @@ export default function Home() {
                   className="h-36 w-full rounded-t-lg object-cover"
                 />
                 <span className="flex flex-1 flex-col p-5">
+                  <span className="mb-2 block">
+                    <ConceptBadge projectType={study.projectType} />
+                  </span>
                   <span className="font-serif text-lg leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
                     {study.title}
                   </span>

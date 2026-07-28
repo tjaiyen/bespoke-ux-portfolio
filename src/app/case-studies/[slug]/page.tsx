@@ -9,6 +9,7 @@ import {
 import { evidenceFor } from "@/lib/evidence";
 import CaseStudyHero from "@/components/site/CaseStudyHero";
 import CaseStudyToc from "@/components/site/CaseStudyToc";
+import ProjectTypeNotice from "@/components/site/ProjectTypeNotice";
 
 // Static params come from published, schema-valid slugs only. A study with
 // published: false is never routed; a study with invalid frontmatter fails the
@@ -90,6 +91,12 @@ export default async function CaseStudyPage({
           </ul>
         )}
       </header>
+
+      <ProjectTypeNotice
+        projectType={frontmatter.projectType}
+        basis={frontmatter.basis}
+        metricsBasis={frontmatter.metricsBasis}
+      />
 
       <CaseStudyHero evidence={evidenceFor(slug)} title={frontmatter.title} />
 

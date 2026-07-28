@@ -118,7 +118,8 @@ export default function CaseStudyHero({
         </div>
       </div>
       <figcaption className="mt-3 font-sans text-sm text-text-muted">
-        {alt} Figure drawn from this study&rsquo;s reported outcome.
+        {alt} Modelled from the assumptions stated in this study — not a measured
+        production result.
       </figcaption>
     </figure>
   );

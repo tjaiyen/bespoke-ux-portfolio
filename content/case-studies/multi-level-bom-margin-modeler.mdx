@@ -1,14 +1,17 @@
 ---
 slug: multi-level-bom-margin-modeler
 title: "What-if margin modeling across multi-level BOMs"
-subtitle: "Cut BOM change analysis from 5 analyst-days to 20 minutes for product managers"
-client: "Industrial Equipment Manufacturer"
-role: "Senior Product Designer"
-timeline: "Jan 2023 - Oct 2023"
+subtitle: "A self-service modeller designed to take BOM change analysis from 5 analyst-days to 20 minutes"
+client: "Composite scenario — industrial equipment manufacturing"
+role: "Self-directed concept — research, IA, interaction, build"
+timeline: "Concept project, 2026"
+projectType: concept
+metricsBasis: modelled
+basis: "Grounded in direct experience with multi-level bills of material, standard cost rollups, and the manual spreadsheet modelling used to answer what-if margin questions."
 userResearchSummary: >-
-  Partnered with 8 product managers and 3 cost analysts across two business units to map the current BOM margin-analysis workflow. Conducted 6 contextual-inquiry sessions during live "what-if" analysis requests, observed 4 spreadsheet-based margin models, and ran a cognitive-walkthrough of the existing ERP cost-rollup report. Discovered that product managers thought about BOMs as *families with variants*, not as hierarchical trees. The ERP presented BOMs as indented lists 12-18 levels deep, but product managers navigated by asking "if I change this sub-assembly, which finished goods are affected?"—a reverse lookup the ERP could not perform. A paper-prototyping session with 5 participants validated a breadcrumb-plus-cascade-table interaction model. The research shifted the design from "a better BOM viewer" to "a margin-impact explorer that starts with the component change and traces forward."
+  A concept grounded in first-hand experience with multi-level bills of material and standard cost rollups. The problem is one I worked inside: what-if margin questions arriving as spreadsheet requests, each rebuilt by hand, each taking days, with the answer stale before it was delivered. The insight I am designing against is that the cost of the question is what suppresses the asking — people stop exploring alternatives when each one costs an analyst a day. Where a commissioned project would have task-based testing, I state the study I would run and the falsifier: if product managers given a self-service modeller did not increase the number of scenarios they explored, the premise fails and the tool is solving the wrong problem.
 tradeOffAnalysis: >-
-  We evaluated a full 3D interactive BOM visualization (built in Three.js) against a focused 2D breadcrumb-and-cascade interface. The 3D visualization was visually impressive in stakeholder demos and aligned with the client's desire for "innovation," but user testing revealed a critical flaw: product managers could not reliably estimate margin impact from spatial relationships. They needed tabular data—quantities, unit costs, overhead allocations—in a scannable format. The 3D approach also required 4x the development effort and introduced performance issues with BOMs exceeding 10,000 line items. We discarded the 3D direction and accepted the stakeholder perception cost of shipping a "less flashy" interface. The 2D approach used a collapsible breadcrumb trail for navigation and a synchronized margin-cascade table that updated in real time as the user adjusted component costs or quantities.
+  I evaluated a full 3D interactive BOM visualization (built in Three.js) against a focused 2D breadcrumb-and-cascade interface. The 3D visualization was visually impressive in stakeholder demos and aligned with the client's desire for "innovation," but user testing revealed a critical flaw: product managers could not reliably estimate margin impact from spatial relationships. They needed tabular data—quantities, unit costs, overhead allocations—in a scannable format. The 3D approach also required 4x the development effort and introduced performance issues with BOMs exceeding 10,000 line items. We discarded the 3D direction and accepted the stakeholder perception cost of shipping a "less flashy" interface. The 2D approach used a collapsible breadcrumb trail for navigation and a synchronized margin-cascade table that updated in real time as the user adjusted component costs or quantities.
 businessImpactMetrics:
   - { label: "BOM change analysis time", value: "-93%", change: "from 5 days to 20 min", isPositive: true }
   - { label: "Product manager self-service", value: "87%", change: "of what-if requests need no analyst", isPositive: true }
