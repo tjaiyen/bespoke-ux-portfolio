@@ -11,10 +11,13 @@ import { listPublishedCaseStudies } from "@/lib/mdxLoader";
  * both. /about was silently absent for exactly this reason before that check existed.
  */
 
-/** Public routes deliberately kept OUT of the sitemap, with the reason. */
-export const EXCLUDED: Record<string, string> = {
-  "/design-system": "internal verification harness — noindex + robots-disallowed",
-};
+/**
+ * Public routes deliberately kept OUT of the sitemap, with the reason.
+ * Empty as of 2026-07-28: /design-system was made public portfolio content (TJ's call),
+ * so every public route is now indexable. Keep the map — a future omission must be
+ * documented here or scripts/check-sitemap.mjs fails the build.
+ */
+export const EXCLUDED: Record<string, string> = {};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -24,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base, changeFrequency: "monthly", priority: 1 },
     { url: `${base}/case-studies`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/about`, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${base}/design-system`, changeFrequency: "monthly", priority: 0.6 },
     ...studies.map((s) => ({
       url: `${base}/case-studies/${s.slug}`,
       changeFrequency: "yearly" as const,

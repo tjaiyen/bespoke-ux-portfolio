@@ -38,5 +38,6 @@ export function contactLinks(): ContactLink[] {
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/case-studies", label: "Work" },
+  { href: "/design-system", label: "Design system" },
   { href: "/about", label: "About" },
 ] as const;

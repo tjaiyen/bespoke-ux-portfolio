@@ -15,7 +15,7 @@ import { staticRoutes, publishedCaseStudyRoutes } from "../src/lib/routes.mjs";
 const BASE = process.argv[2] ?? "http://localhost:3000";
 
 // Kept in sync with EXCLUDED in src/app/sitemap.ts (a build-graph import is unsafe here).
-const EXCLUDED = new Set(["/design-system"]);
+const EXCLUDED = new Set([]); // mirrors EXCLUDED in src/app/sitemap.ts
 
 const res = await fetch(`${BASE}/sitemap.xml`);
 if (!res.ok) {

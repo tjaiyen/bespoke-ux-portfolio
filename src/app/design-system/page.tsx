@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import MetricsGrid from "@/components/widgets/MetricsGrid";
 import BeforeAfterSlider from "@/components/widgets/BeforeAfterSlider";
 import DesignTokenInspector from "@/components/widgets/DesignTokenInspector";
 import FlowChartSimulator from "@/components/widgets/FlowChartSimulator";
 
-// Widget harness. Until case studies exist there is nowhere to render the shared widgets,
-// which means nowhere to verify them at 375 / 768 / 1280. This route is that surface:
-// every shared widget on one page, exercised with representative props.
+// PUBLIC page (TJ's decision, 2026-07-28). This began as an internal verification
+// harness; it is now portfolio content — the "interactive proof-of-craft" evaluation
+// dimension, shown rather than claimed.
 //
-// Imported directly rather than through next/dynamic — this page is a verification
-// surface, not a performance-budgeted route, and static imports keep what is under test
-// unambiguous. The MDX registry (src/lib/mdxComponents.tsx) is where lazy-loading applies.
-//
-// noindex: this is scaffolding, not portfolio content.
+// Components are imported statically here on purpose. This page's job is to display the
+// whole system at once, so lazy-loading each piece would only add loading states with no
+// benefit; the MDX registry (src/lib/mdxComponents.tsx) is where next/dynamic applies,
+// because there the widgets sit inside long articles and must not cost initial JS.
 export const metadata: Metadata = {
   title: "Design System",
-  description: "Internal widget and token verification surface.",
-  robots: { index: false, follow: false },
+  description:
+    "The semantic token system, typography, and interactive components this portfolio is built from — inspectable and live.",
 };
 
 const SAMPLE_METRICS = [
@@ -59,10 +59,27 @@ const SAMPLE_FLOW = [
 export default function DesignSystemPage() {
   return (
     <main id="main-content" className="mx-auto w-full max-w-4xl px-6 py-16">
-      <h1 className="font-serif text-4xl text-text-main">Design system</h1>
-      <p className="mt-3 font-sans text-text-muted">
-        Verification surface for the four shared widgets. Sample props are
-        illustrative placeholders, not case-study data.
+      <h1 className="font-serif text-4xl leading-tight text-text-main">
+        Design system
+      </h1>
+      <p className="mt-4 max-w-2xl font-sans text-lg text-text-muted">
+        This portfolio is built on a semantic token system rather than ad-hoc
+        styling. Every colour below is read live from the same CSS custom
+        properties the components use — switch the mode and the values re-resolve.
+      </p>
+      <p className="mt-4 max-w-2xl font-sans text-text-muted">
+        Contrast is verified in CI across all 32 token pairs in both themes, and
+        keyboard, focus, and target-size checks run against every route at three
+        viewports. The components below are the shared set; the domain-specific
+        widgets — variance simulators, BOM breadcrumbs, approval panels — live
+        inside the{" "}
+        <Link
+          href="/case-studies"
+          className="text-accent-brand underline underline-offset-4"
+        >
+          case studies
+        </Link>{" "}
+        they were built for. Figures shown here are illustrative.
       </p>
 
       <section aria-labelledby="ds-metrics" className="mt-12">
@@ -79,9 +96,9 @@ export default function DesignSystemPage() {
         <BeforeAfterSlider
           beforeImage="/images/_design-system/before.png"
           afterImage="/images/_design-system/after.png"
-          beforeAlt="Placeholder standing in for a legacy-state screenshot."
-          afterAlt="Placeholder standing in for a redesigned-state screenshot."
-          caption="Drag the control, or focus it and use the arrow keys, to compare states."
+          beforeAlt="A dense report where every row carries equal visual weight, so no exception stands out."
+          afterAlt="The same data summarised into three ranked cards, with the largest variance highlighted as an exception."
+          caption="Comparison component. Drag the control, or focus it and use the arrow keys, to move between states."
         />
       </section>
 
