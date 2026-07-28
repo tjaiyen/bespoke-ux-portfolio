@@ -30,9 +30,9 @@ export default function SummaryKpiGrid({
   const baseId = useId();
 
   const statusMeta = {
-    good: { icon: "✓", word: "good", ring: "ring-green-500/30", bg: "bg-green-500/10" },
-    warning: { icon: "!", word: "warning", ring: "ring-amber-500/30", bg: "bg-amber-500/10" },
-    critical: { icon: "✕", word: "critical", ring: "ring-red-500/30", bg: "bg-red-500/10" },
+    good: { icon: "✓", word: "good", ring: "ring-status-positive/30", bg: "bg-status-positive/10" },
+    warning: { icon: "!", word: "warning", ring: "ring-status-warning/30", bg: "bg-status-warning/10" },
+    critical: { icon: "✕", word: "critical", ring: "ring-status-negative/30", bg: "bg-status-negative/10" },
   };
 
   return (

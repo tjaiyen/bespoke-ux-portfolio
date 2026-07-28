@@ -36,15 +36,15 @@ export default function DualViewMatrixTable({
   const [view, setView] = useState<ViewMode>("finance");
 
   const scoreColor = (n: number) => {
-    if (n >= 70) return "text-green-500";
-    if (n >= 40) return "text-amber-500";
-    return "text-red-500";
+    if (n >= 70) return "text-status-positive";
+    if (n >= 40) return "text-status-warning";
+    return "text-status-negative";
   };
 
   const scoreBg = (n: number) => {
-    if (n >= 70) return "bg-green-500/10";
-    if (n >= 40) return "bg-amber-500/10";
-    return "bg-red-500/10";
+    if (n >= 70) return "bg-status-positive/10";
+    if (n >= 40) return "bg-status-warning/10";
+    return "bg-status-negative/10";
   };
 
   return (

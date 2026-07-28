@@ -34,8 +34,8 @@ export default function CollaborativeApprovalPanel({
 
   const statusMeta = {
     pending: { icon: "○", word: "pending", color: "text-text-muted" },
-    approved: { icon: "✓", word: "approved", color: "text-green-500" },
-    rejected: { icon: "✕", word: "rejected", color: "text-red-500" },
+    approved: { icon: "✓", word: "approved", color: "text-status-positive" },
+    rejected: { icon: "✕", word: "rejected", color: "text-status-negative" },
   };
 
   return (

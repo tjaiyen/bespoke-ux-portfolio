@@ -65,7 +65,7 @@ export default function ItemizedDrawer({
           {item.variance && (
             <span
               aria-label={`Variance: ${item.variance}`}
-              className={`font-mono text-xs ${item.variance.startsWith("-") ? "text-red-500" : "text-green-500"}`}
+              className={`font-mono text-xs ${item.variance.startsWith("-") ? "text-status-negative" : "text-status-positive"}`}
             >
               {item.variance}
             </span>

@@ -65,6 +65,13 @@ const PAIRS = [
   { fg: "--border-subtle", bg: "--bg-surface", min: 3.0, why: "hairline border on card (1.4.11)" },
   { fg: "--accent-focus", bg: "--bg-app", min: 3.0, why: "focus ring on page (1.4.11)" },
   { fg: "--accent-focus", bg: "--bg-surface", min: 3.0, why: "focus ring on card (1.4.11)" },
+  // Status semantics used by the Phase-3b widgets (A21). All are text roles.
+  { fg: "--status-positive", bg: "--bg-app", min: 4.5, why: "favourable variance / KPI ok text (1.4.3)" },
+  { fg: "--status-positive", bg: "--bg-surface", min: 4.5, why: "favourable text on cards (1.4.3)" },
+  { fg: "--status-negative", bg: "--bg-app", min: 4.5, why: "unfavourable variance / critical text (1.4.3)" },
+  { fg: "--status-negative", bg: "--bg-surface", min: 4.5, why: "unfavourable text on cards (1.4.3)" },
+  { fg: "--status-warning", bg: "--bg-app", min: 4.5, why: "warning text (1.4.3)" },
+  { fg: "--status-warning", bg: "--bg-surface", min: 4.5, why: "warning text on cards (1.4.3)" },
 ];
 
 const css = fs.readFileSync(CSS, "utf8");

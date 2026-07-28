@@ -120,7 +120,7 @@ export default function InteractiveVarianceSimulator({
           <p className="sr-only">{varLabel(laborVariance)}</p>
           <p
             aria-hidden="true"
-            className={`font-sans text-xs ${laborVariance > 0 ? "text-red-500" : laborVariance < 0 ? "text-green-500" : "text-text-muted"}`}
+            className={`font-sans text-xs ${laborVariance > 0 ? "text-status-negative" : laborVariance < 0 ? "text-status-positive" : "text-text-muted"}`}
           >
             {varLabel(laborVariance)}
           </p>
@@ -133,7 +133,7 @@ export default function InteractiveVarianceSimulator({
           <p className="sr-only">{varLabel(overheadVariance)}</p>
           <p
             aria-hidden="true"
-            className={`font-sans text-xs ${overheadVariance > 0 ? "text-red-500" : overheadVariance < 0 ? "text-green-500" : "text-text-muted"}`}
+            className={`font-sans text-xs ${overheadVariance > 0 ? "text-status-negative" : overheadVariance < 0 ? "text-status-positive" : "text-text-muted"}`}
           >
             {varLabel(overheadVariance)}
           </p>
@@ -146,7 +146,7 @@ export default function InteractiveVarianceSimulator({
           <p className="sr-only">{varLabel(totalVariance)}</p>
           <p
             aria-hidden="true"
-            className={`font-sans text-xs ${totalVariance > 0 ? "text-red-500" : totalVariance < 0 ? "text-green-500" : "text-text-muted"}`}
+            className={`font-sans text-xs ${totalVariance > 0 ? "text-status-negative" : totalVariance < 0 ? "text-status-positive" : "text-text-muted"}`}
           >
             {varLabel(totalVariance)}
           </p>

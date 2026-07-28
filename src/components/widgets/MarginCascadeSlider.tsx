@@ -95,7 +95,7 @@ export default function MarginCascadeSlider({
               {delta !== 0 && (
                 <span
                   aria-hidden="true"
-                  className={`font-mono text-xs ${delta > 0 ? "text-red-500" : "text-green-500"}`}
+                  className={`font-mono text-xs ${delta > 0 ? "text-status-negative" : "text-status-positive"}`}
                 >
                   {delta > 0 ? "+" : ""}
                   {delta.toFixed(2)}

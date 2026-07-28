@@ -15,6 +15,14 @@
        for UI boundaries (1.4.11). Load-bearing here — --bg-surface (#fff) and --bg-app
        differ by ~1.02:1, so the border is the ONLY thing delineating a card. Now 3.06:1. */
     --border-subtle: hsl(214 32% 59%);
+    /* Status semantics for widgets (variance signs, KPI health, approval states).
+       Added 2026-07-28 (A21): Phase-3b widgets shipped hardcoded red/green/amber-500 —
+       a Design-Rules violation AND a 1.4.3 failure (red-500 on bg-app = 3.8:1, caught
+       by Lighthouse). Measured worst case (--bg-app): positive 4.73:1, negative 6.14:1,
+       warning 4.81:1. */
+    --status-positive: hsl(145 100% 25%);
+    --status-negative: hsl(358 100% 38%);
+    --status-warning: hsl(25 100% 37%);
   }
   .dark {
     --bg-app: hsl(224 71% 4%);
@@ -28,6 +36,11 @@
     /* 18% -> 40%: measured 1.43:1 against --bg-app, below the 3:1 for UI boundaries
        (1.4.11). Now 3.22:1. */
     --border-subtle: hsl(217 19% 40%);
+    /* Dark status tokens (A21). Measured worst case (--bg-surface #090e1a):
+       positive 10.84:1, negative 6.67:1, warning 11.19:1. */
+    --status-positive: hsl(150 96% 45%);
+    --status-negative: hsl(359 100% 70%);
+    --status-warning: hsl(44 100% 50%);
   }
 }
 
@@ -39,6 +52,9 @@
   --color-accent-brand: var(--accent-brand);
   --color-accent-focus: var(--accent-focus);
   --color-border-subtle: var(--border-subtle);
+  --color-status-positive: var(--status-positive);
+  --color-status-negative: var(--status-negative);
+  --color-status-warning: var(--status-warning);
   /* Bound to the next/font variables declared in layout.tsx. next/font self-hosts each family
      under a generated name (e.g. __Plus_Jakarta_Sans_abc123) and exposes it ONLY through these
      CSS variables — a literal "Plus Jakarta Sans" here would not match anything and would
