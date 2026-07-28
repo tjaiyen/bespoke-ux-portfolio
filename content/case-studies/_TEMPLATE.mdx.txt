@@ -1,0 +1,78 @@
+Authoring template for content/case-studies/<slug>.mdx
+======================================================
+
+Copy this file to `<slug>.mdx` (the `.txt` extension keeps the template itself out of the
+loader, which only reads `*.mdx`). Frontmatter must match the Zod schema exactly —
+src/lib/caseStudySchema.ts — or the build fails with the offending field named.
+
+Before setting `ndaSanitized: true`, complete the NDA redaction checklist in the vault
+(05-Checklists/Checklist-NDA-Redaction.md): anonymize the client, scrub or relativize
+confidential metrics, run the blocklist grep, THEN flip the flag. The flag is an assertion
+that you did the work, not a switch that does it.
+
+Field notes:
+  slug                  must equal the filename and match /^[a-z0-9-]+$/
+  client                already anonymized — the blocklist scan double-checks
+  userResearchSummary   >= 50 chars, substantive (70/30 rule, enforced by Zod)
+  tradeOffAnalysis      >= 50 chars, must name a discarded direction and its cost
+  businessImpactMetrics >= 1 entry; feeds <MetricsGrid />
+  heroImage             must start with /images/ and exist under public/images/<slug>/
+  published             false withholds the study from routes WITHOUT breaking the build
+  ndaSanitized          must be literally true; anything else fails the build
+
+--- copy from the next line down ---
+
+---
+slug: your-case-study-slug
+title: "Title naming the outcome, not the artifact"
+subtitle: "One line on what changed and for whom"
+client: "Anonymized descriptor — e.g. Mid-Market Discrete Manufacturer"
+role: "Your specific role"
+timeline: "Mon YYYY - Mon YYYY"
+userResearchSummary: >-
+  Methods, sample, and synthesis. What you actually did to learn the problem, and
+  how the findings reshaped the brief rather than confirming it.
+tradeOffAnalysis: >-
+  The direction you discarded, the criteria you decided on, and the cost you
+  knowingly accepted. A trade-off with no cost is not a trade-off.
+businessImpactMetrics:
+  - { label: "Metric name", value: "+0.0%", change: "vs baseline", isPositive: true }
+heroImage: "/images/your-case-study-slug/hero.png"
+toolsUsed: ["Figma", "SQL", "React"]
+published: false
+ndaSanitized: false
+---
+
+# Title naming the outcome, not the artifact
+
+## Problem
+
+Context, scale, cross-functional dynamics, and your specific contribution. Two to three
+paragraphs. State what was actually at stake in the business, not just the UI.
+
+## Research
+
+Expand userResearchSummary: methods, sample, synthesis artifacts, and how findings
+reshaped the brief. This section plus Trade-offs must outweigh widget content (70/30).
+
+## Trade-offs
+
+Expand tradeOffAnalysis: at least one discarded direction, the decision criteria, and the
+cost you accepted. This is the section senior reviewers read closest.
+
+## Outcome
+
+<MetricsGrid metrics={[
+  { label: "Metric name", value: "+0.0%", change: "vs baseline", isPositive: true }
+]} />
+
+## Retrospective
+
+What you would do differently. Candid reflection signals seniority; a flawless narrative
+signals a rewritten one.
+
+--- end ---
+
+Widget availability: Phase 2 registers <MetricsGrid /> only. BeforeAfterSlider,
+DesignTokenInspector, FlowChartSimulator and the seven project-specific widgets arrive in
+Phase 3 (src/lib/mdxComponents.tsx). Using an unregistered component will fail the build.
