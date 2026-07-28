@@ -9,31 +9,13 @@
  * uses keeps them in lockstep by construction.
  */
 import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
+import { allRoutes, publishedCaseStudyRoutes, staticRoutes } from "../src/lib/routes.mjs";
 
 const BASE = process.env.PA11Y_BASE_URL ?? "http://localhost:3000";
-const CONTENT_DIR = path.join(process.cwd(), "content", "case-studies");
 
-const STATIC_ROUTES = ["/", "/case-studies", "/design-system"];
 
-function publishedSlugs() {
-  if (!fs.existsSync(CONTENT_DIR)) return [];
-  return fs
-    .readdirSync(CONTENT_DIR)
-    .filter((f) => f.endsWith(".mdx"))
-    .filter((f) => {
-      const { data } = matter(fs.readFileSync(path.join(CONTENT_DIR, f), "utf8"));
-      return data.published === true;
-    })
-    .map((f) => f.replace(/\.mdx$/, ""));
-}
-
-const slugs = publishedSlugs();
-const urls = [
-  ...STATIC_ROUTES.map((r) => BASE + r),
-  ...slugs.map((s) => `${BASE}/case-studies/${s}`),
-];
+const slugs = publishedCaseStudyRoutes();
+const urls = allRoutes().map((r) => BASE + r);
 
 // Puppeteer's bundled Chrome download can truncate silently (observed 2026-07-28: the
 // installer reported success while leaving a 448 KB stub with no Framework binary, so
@@ -61,7 +43,7 @@ const config = {
 
 fs.writeFileSync(".pa11yci.json", JSON.stringify(config, null, 2) + "\n");
 console.log(
-  `.pa11yci.json written: ${urls.length} route(s) — ${STATIC_ROUTES.length} static + ${slugs.length} case study/-ies`,
+  `.pa11yci.json written: ${urls.length} route(s) — ${staticRoutes().length} static (discovered from src/app) + ${slugs.length} case study/-ies`,
 );
 for (const u of urls) console.log("  " + u);
 if (slugs.length === 0) {

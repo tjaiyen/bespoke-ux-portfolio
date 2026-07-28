@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { listPublishedCaseStudies } from "@/lib/mdxLoader";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Work",
   description:
     "Enterprise B2B, manufacturing operations, and financial systems design work.",
 };
@@ -13,31 +14,60 @@ export default function CaseStudiesIndexPage() {
 
   return (
     <main id="main-content" className="mx-auto w-full max-w-4xl px-6 py-16">
-      <h1 className="font-serif text-4xl text-text-main">Case Studies</h1>
+      <h1 className="font-serif text-4xl leading-tight text-text-main">Work</h1>
+      <p className="mt-4 max-w-2xl font-sans text-lg text-text-muted">
+        Three projects at the seam between financial data and plant-floor
+        operations. Each opens with the problem and closes with what changed.
+      </p>
 
       {studies.length === 0 ? (
-        <p className="mt-6 font-sans text-text-muted">
+        <p className="mt-10 font-sans text-text-muted">
           No published case studies yet.
         </p>
       ) : (
-        <ul className="mt-10 space-y-8">
+        <ul className="mt-12 space-y-10">
           {studies.map((study) => (
-            <li
-              key={study.slug}
-              className="border-b border-border-subtle pb-8 last:border-b-0"
-            >
-              <h2 className="font-serif text-2xl">
-                <Link
-                  href={`/case-studies/${study.slug}`}
-                  className="inline-flex min-h-11 items-center text-text-main underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-                >
-                  {study.title}
-                </Link>
-              </h2>
-              <p className="mt-2 font-sans text-text-muted">{study.subtitle}</p>
-              <p className="mt-3 font-mono text-sm text-text-muted">
-                {study.role} · {study.timeline}
-              </p>
+            <li key={study.slug}>
+              {/* Whole card is one link: a bigger target than a text-only heading
+                  link, and one tab stop per study rather than several. */}
+              <Link
+                href={`/case-studies/${study.slug}`}
+                className="group grid grid-cols-1 gap-6 rounded-lg border border-border-subtle bg-bg-surface p-5 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none sm:grid-cols-[200px_1fr]"
+              >
+                <Image
+                  src={study.heroImage}
+                  alt=""
+                  width={1600}
+                  height={900}
+                  className="h-32 w-full rounded object-cover sm:h-full"
+                />
+                <div>
+                  <h2 className="font-serif text-2xl leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
+                    {study.title}
+                  </h2>
+                  <p className="mt-2 font-sans text-text-muted">
+                    {study.subtitle}
+                  </p>
+
+                  {/* Lead metric surfaced on the card — "context and impact
+                      quantification" is the first dimension hiring teams check,
+                      and it should not require a click to see. */}
+                  {study.businessImpactMetrics[0] && (
+                    <p className="mt-4 font-mono text-sm text-text-main">
+                      <span className="text-status-positive">
+                        {study.businessImpactMetrics[0].value}
+                      </span>{" "}
+                      <span className="text-text-muted">
+                        {study.businessImpactMetrics[0].label}
+                      </span>
+                    </p>
+                  )}
+
+                  <p className="mt-3 font-mono text-xs text-text-muted">
+                    {study.role} · {study.timeline}
+                  </p>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>

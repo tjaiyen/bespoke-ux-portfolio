@@ -18,10 +18,8 @@
  * Usage: PA11Y_CHROME_PATH=<chrome> node scripts/a11y-keyboard-audit.mjs [baseUrl]
  * Exit 0 = all checks pass; 1 = at least one failure. Read the report either way.
  */
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
 import puppeteer from "puppeteer";
+import { allRoutes } from "../src/lib/routes.mjs";
 
 const BASE = process.argv[2] ?? process.env.PA11Y_BASE_URL ?? "http://localhost:3000";
 
@@ -30,21 +28,8 @@ const BASE = process.argv[2] ?? process.env.PA11Y_BASE_URL ?? "http://localhost:
 // BOM breadcrumbs), so they are the routes where keyboard operability matters most.
 // Auditing only the static three would have left the interactive surface unchecked
 // while the suite reported a clean run.
-const CONTENT_DIR = path.join(process.cwd(), "content", "case-studies");
 
-function publishedSlugs() {
-  if (!fs.existsSync(CONTENT_DIR)) return [];
-  return fs
-    .readdirSync(CONTENT_DIR)
-    .filter((f) => f.endsWith(".mdx"))
-    .filter((f) => {
-      const { data } = matter(fs.readFileSync(path.join(CONTENT_DIR, f), "utf8"));
-      return data.published === true;
-    })
-    .map((f) => `/case-studies/${f.replace(/\.mdx$/, "")}`);
-}
-
-const ROUTES = ["/", "/case-studies", "/design-system", ...publishedSlugs()];
+const ROUTES = allRoutes();
 const VIEWPORTS = [
   { name: "mobile", width: 375, height: 812 },
   { name: "tablet", width: 768, height: 1024 },
@@ -110,6 +95,15 @@ for (const route of ROUTES) {
               e.textContent.trim() ||
               (e.labels && e.labels.length ? "label" : ""),
             srOnly: getComputedStyle(e).clipPath === "inset(50%)" || e.className.includes("sr-only"),
+            // WCAG 2.5.5/2.5.8 "Inline" exception: a target inside a sentence, whose
+            // size is constrained by the line-height of the surrounding text, is exempt.
+            // Without this an ordinary prose link fails at 117x22 and the only way to
+            // "pass" is to pad inline links to 44px — which breaks the paragraph and is
+            // not what the criterion asks for.
+            inlineInProse:
+              e.tagName === "A" &&
+              getComputedStyle(e).display === "inline" &&
+              !!e.closest("p, li, blockquote, figcaption, dd"),
           };
         });
     });
@@ -120,8 +114,9 @@ for (const route of ROUTES) {
       controls.filter((c) => !c.radioGroup).length + radioGroups.size;
     for (const c of controls) {
       if (!c.name) fail(route, vp.name, "4.1.2", `<${c.tag}> has no accessible name`);
-      // sr-only controls (the skip link when unfocused) are exempt from target size
-      if (!c.srOnly && (c.w < 44 || c.h < 44))
+      // sr-only controls (the skip link when unfocused) and inline prose links are
+      // exempt from target size — the latter by the criterion's own Inline exception.
+      if (!c.srOnly && !c.inlineInProse && (c.w < 44 || c.h < 44))
         fail(route, vp.name, "2.5.5", `<${c.tag}> "${c.name.slice(0, 30)}" is ${c.w}x${c.h}, under 44x44`);
     }
 
