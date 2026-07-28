@@ -90,6 +90,9 @@ jobs:
           PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
         run: npm run a11y:pa11y
 
+      - name: Sitemap coverage check
+        run: npm run check:sitemap
+
       - name: Keyboard, focus & viewport audit (tier 2)
         env:
           PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}

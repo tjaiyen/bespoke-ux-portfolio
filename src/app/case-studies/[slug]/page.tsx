@@ -94,7 +94,12 @@ export default async function CaseStudyPage({
           CLS at 0 (a hard CI gate); `priority` because this is the LCP element. */}
       <Image
         src={frontmatter.heroImage}
-        alt={`Hero image for ${frontmatter.title}`}
+        /* Descriptive, not "Hero image for X" — Pipeline-Images requires alt that says
+           what a reader should take from the image. These are abstract generated
+           graphics standing in for real screenshots, so the alt states that plainly
+           rather than describing detail the image does not contain. Revisit when real
+           screenshots land: the alt should then describe the interface shown. */
+        alt={`Abstract cover graphic representing ${frontmatter.subtitle.toLowerCase()}`}
         width={1600}
         height={900}
         priority

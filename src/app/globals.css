@@ -24,6 +24,26 @@
     --status-negative: hsl(358 100% 38%);
     --status-warning: hsl(25 100% 37%);
   }
+  /* The dark palette was fully defined and contrast-verified (32 pairs) but NO user
+     could ever reach it: only the design-system inspector toggled `.dark`, and nothing
+     honoured the OS setting. An entire verified theme was dead code. This media query
+     makes it the default for users whose system asks for dark; `.dark` still wins when
+     explicitly set, so the inspector keeps working. */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --bg-app: hsl(224 71% 4%);
+      --bg-surface: hsl(222 47% 7%);
+      --text-main: hsl(210 40% 98%);
+      --text-muted: hsl(215 20% 65%);
+      --accent-brand: hsl(239 84% 72%);
+      --accent-focus: hsl(212 100% 60%);
+      --border-subtle: hsl(217 19% 40%);
+      --status-positive: hsl(150 96% 45%);
+      --status-negative: hsl(359 100% 70%);
+      --status-warning: hsl(44 100% 50%);
+    }
+  }
+
   .dark {
     --bg-app: hsl(224 71% 4%);
     --bg-surface: hsl(222 47% 7%);

@@ -2,12 +2,20 @@ import type { MetadataRoute } from "next";
 import { listPublishedCaseStudies } from "@/lib/mdxLoader";
 
 /**
- * Sitemap. Case-study entries are derived from published frontmatter — the same source
- * the router and the pa11y config read — so a new study appears in all three at once.
+ * Sitemap.
  *
- * `/design-system` is deliberately absent: it is an internal verification harness marked
- * noindex, and listing a noindex URL in a sitemap is a contradictory signal to crawlers.
+ * Routes are listed here rather than imported from src/lib/routes.mjs because that module
+ * walks the filesystem at module scope, which is not safe inside the Next build graph.
+ * The trade-off is a list that can drift — so `EXCLUDED` names every deliberate omission,
+ * and `scripts/check-sitemap.mjs` fails the build if any public route is missing from
+ * both. /about was silently absent for exactly this reason before that check existed.
  */
+
+/** Public routes deliberately kept OUT of the sitemap, with the reason. */
+export const EXCLUDED: Record<string, string> = {
+  "/design-system": "internal verification harness — noindex + robots-disallowed",
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const studies = listPublishedCaseStudies();
@@ -15,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base, changeFrequency: "monthly", priority: 1 },
     { url: `${base}/case-studies`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/about`, changeFrequency: "yearly", priority: 0.6 },
     ...studies.map((s) => ({
       url: `${base}/case-studies/${s.slug}`,
       changeFrequency: "yearly" as const,

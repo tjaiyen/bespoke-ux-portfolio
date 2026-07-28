@@ -30,7 +30,17 @@ export type Evidence = {
  * A rule beats taste here — it cannot drift, and when a metric gains a real source the
  * fix is to write the source, not to lobby for inclusion.
  */
-const FROM_TO = /from\s+([\d.,]+\s*\w+?)\s+to\s+([\d.,]+\s*\w+)/i;
+/**
+ * The unit on each side is OPTIONAL.
+ *
+ * An earlier form required a trailing word character (`[\d.,]+\s*\w+?`), which silently
+ * excluded a single-digit before-value: "from 9 to 5 hrs" never matched, because the
+ * lazy `\w+?` had nothing to consume after "9" and the whole alternative failed. Two-digit
+ * values only worked by accident — "14" satisfied it as "1" + "4". A rule that silently
+ * drops a legitimately-sourced metric is the same class of failure as the unsourced
+ * metrics it exists to keep out.
+ */
+const FROM_TO = /from\s+([\d.,]+(?:\s*[a-z%$]+)?)\s+to\s+([\d.,]+(?:\s*[a-z%$]+)?)/i;
 
 function firstSourcedMetric(study: CaseStudyFrontmatter): Evidence | null {
   for (const m of study.businessImpactMetrics) {

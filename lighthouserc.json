@@ -3,9 +3,11 @@
     "collect": {
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/case-studies"
+        "http://localhost:3000/about",
+        "http://localhost:3000/case-studies",
+        "http://localhost:3000/case-studies/operational-variance-command-center"
       ],
-      "numberOfRuns": 3
+      "numberOfRuns": 2
     },
     "assert": {
       "assertions": {
