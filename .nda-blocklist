@@ -1,0 +1,18 @@
+# .nda-blocklist — single source of NDA-sensitive terms (vault amendment A3)
+#
+# Read by three independent gates, all of which FAIL the build/commit on a match:
+#   1. the MDX loader          (src/lib/mdxLoader.ts, Phase 2)
+#   2. the CI scan             (.github/workflows/qa.yml)
+#   3. the optional pre-commit hook
+#
+# Format: one term per line, case-insensitive, matched as a FIXED string (grep -F) against
+# everything under content/case-studies/. Blank lines and lines starting with '#' are stripped.
+# The CI scan FAILS if no usable terms remain — an empty blocklist must never read as "clean".
+#
+# Replace the placeholders below with real employer names, client names, internal project
+# codenames, and any proprietary metric labels that must never reach a public repo.
+# Keep this file committed: the gates need it, and it contains terms to EXCLUDE, not secrets.
+
+REPLACE_ME_CLIENT_NAME
+REPLACE_ME_PROJECT_CODENAME
+REPLACE_ME_INTERNAL_METRIC

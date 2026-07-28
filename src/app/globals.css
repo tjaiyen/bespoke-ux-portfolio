@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-app: hsl(220 15% 98%);
+    --bg-surface: hsl(0 0% 100%);
+    --text-main: hsl(222 47% 11%);
+    --text-muted: hsl(215 16% 47%);
+    --accent-brand: hsl(243 75% 59%);
+    --accent-focus: hsl(212 100% 48%);
+    --border-subtle: hsl(214 32% 91%);
+  }
+  .dark {
+    --bg-app: hsl(224 71% 4%);
+    --bg-surface: hsl(222 47% 7%);
+    --text-main: hsl(210 40% 98%);
+    --text-muted: hsl(215 20% 65%);
+    --accent-brand: hsl(239 84% 67%);
+    --accent-focus: hsl(212 100% 60%);
+    --border-subtle: hsl(217 19% 18%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-bg-app: var(--bg-app);
+  --color-bg-surface: var(--bg-surface);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-accent-brand: var(--accent-brand);
+  --color-accent-focus: var(--accent-focus);
+  --color-border-subtle: var(--border-subtle);
+  /* Bound to the next/font variables declared in layout.tsx. next/font self-hosts each family
+     under a generated name (e.g. __Plus_Jakarta_Sans_abc123) and exposes it ONLY through these
+     CSS variables — a literal "Plus Jakarta Sans" here would not match anything and would
+     silently fall back to the generic. Keep the generic as the second value. */
+  --font-serif: var(--font-playfair-display), serif;
+  --font-sans: var(--font-plus-jakarta-sans), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }

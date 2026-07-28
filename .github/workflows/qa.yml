@@ -1,0 +1,25 @@
+# Phase 1 CI skeleton — deliberately a SUBSET of the canonical pipeline.
+# Grows into 04-Schemas/Schema-GitHub-Actions-YML.md (vault) by Phase 5: NDA blocklist scan,
+# opt-in claude -p review, pa11y-ci, and the Lighthouse budget get added at their phase gates.
+# CI exists from the FIRST commit on purpose (risk R12) — a pipeline bolted on in Phase 5
+# misses every violation introduced before it.
+name: Portfolio Quality & Security Assurance
+
+on: [pull_request]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
