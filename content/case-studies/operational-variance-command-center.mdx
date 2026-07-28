@@ -58,6 +58,19 @@ The cost we accepted was real. Six months post-launch, we discovered a rounding-
 
 ## Outcome
 
+The variance command center went live in June 2023. Within the first full close cycle, the four controllers collectively reduced their reconciliation time from fourteen days to three. The VP of Operations Finance, initially skeptical of the overlay approach, described the first close as "the first month-end in five years where we weren't working weekends."
+
+<InteractiveVarianceSimulator />
+
+The simulator above illustrates the core interaction model: adjust labor, material, and overhead rates to see how each driver contributes to total variance. This is the same mental model the controllers use during month-end close—identifying which cost component is driving the unfavorable variance before drilling into the work-order detail.
+
+<MetricsGrid metrics={[
+  { label: "Monthly close time", value: "-79%", change: "from 14 to 3 days", isPositive: true },
+  { label: "Variance investigation time", value: "-68%", change: "per controller per month", isPositive: true },
+  { label: "Unreconciled variances at period end", value: "-91%", change: "vs prior 12-mo average", isPositive: true },
+  { label: "Controller self-service rate", value: "94%", change: "queries resolved without analyst help", isPositive: true }
+]} />
+
 <MetricsGrid metrics={[
   { label: "Monthly close time", value: "-79%", change: "from 14 to 3 days", isPositive: true },
   { label: "Variance investigation time", value: "-68%", change: "per controller per month", isPositive: true },

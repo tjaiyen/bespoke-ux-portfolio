@@ -5,7 +5,10 @@ import { listPublishedCaseStudies } from "@/lib/mdxLoader";
 
 // The token inspector is the proof-of-craft piece the design rules call for on the home
 // page: the design system inspects itself. Lazy-loaded with a fixed-height placeholder
-// so it never costs initial JS and never shifts layout on arrival.
+// so it never costs initial JS and never shifts layout on arrival. (Deferred-until-
+// visible hydration was tried and reverted 2026-07-28: the inspector's height varies
+// continuously with width, so no placeholder height can match — any swap risks CLS,
+// and CLS = 0 is a hard gate. Its hydration cost is small once framer-motion is gone.)
 const DesignTokenInspector = dynamic(
   () => import("@/components/widgets/DesignTokenInspector"),
   {

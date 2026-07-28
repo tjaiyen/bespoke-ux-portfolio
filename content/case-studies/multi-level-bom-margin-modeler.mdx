@@ -54,6 +54,34 @@ We discarded the 3D visualization and accepted the stakeholder perception cost. 
 
 ## Outcome
 
+The BOM margin modeler launched in September 2023. Within the first quarter, product managers self-served 87% of what-if requests that previously went to the analyst queue. The three cost analysts were redeployed to strategic projects: standard-cost updates, make-vs-buy analysis, and long-range margin planning.
+
+<BomBreadcrumbFocus levels={[
+  { id: "platform", label: "Pump Platform A", level: 1 },
+  { id: "product-line", label: "Corrosive Fluid Line", level: 2 },
+  { id: "assembly", label: "Motor Assembly", level: 3 },
+  { id: "sub-assembly", label: "Seal Kit 4400", level: 4 },
+  { id: "component", label: "Ceramic Seal Ring", level: 5 }
+]} />
+
+The breadcrumb navigation above shows the interaction pattern that replaced the 3D visualization. Product managers navigate by functional group (Pump Platform → Product Line → Assembly) rather than by the ERP's 12-level indented list. Each level is a single click, and the interface preserves the "where am I" context that the 3D prototype obscured.
+
+<MarginCascadeSlider levels={[
+  { label: "Ceramic Seal Ring", quantity: 1, unitCost: 45 },
+  { label: "Seal Kit 4400", quantity: 1, unitCost: 120 },
+  { label: "Motor Assembly", quantity: 1, unitCost: 890 },
+  { label: "Corrosive Fluid Pump", quantity: 1, unitCost: 3400 }
+]} />
+
+The margin cascade shows how a component price change ripples up through the BOM. In the live tool, product managers adjust the component cost and see the finished-goods margin update in real time—replacing the 3-5 day analyst queue with instant exploration.
+
+<MetricsGrid metrics={[
+  { label: "BOM change analysis time", value: "-93%", change: "from 5 days to 20 min", isPositive: true },
+  { label: "Product manager self-service", value: "87%", change: "of what-if requests need no analyst", isPositive: true },
+  { label: "Margin forecast accuracy", value: "+18pp", change: "vs prior spreadsheet-based estimates", isPositive: true },
+  { label: "Analyst time reclaimed", value: "340h", change: "per quarter redirected to strategic costing", isPositive: true }
+]} />
+
 <MetricsGrid metrics={[
   { label: "BOM change analysis time", value: "-93%", change: "from 5 days to 20 min", isPositive: true },
   { label: "Product manager self-service", value: "87%", change: "of what-if requests need no analyst", isPositive: true },

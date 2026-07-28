@@ -14,7 +14,6 @@
     "a11y": "npm run a11y:contrast && npm run a11y:pa11y && npm run a11y:keyboard"
   },
   "dependencies": {
-    "framer-motion": "^12.42.2",
     "gray-matter": "^4.0.3",
     "next": "16.2.12",
     "next-mdx-remote-client": "^2.1.11",

@@ -60,6 +60,33 @@ The cost we accepted was real complexity: twice the UI surface to design, test, 
 
 ## Outcome
 
+The CapEx-Downtime Matrix launched in April 2024. Within the first quarter, the system identified $2.3M in duplicate or conflicting requests before they were submitted for approval—requests that would have previously passed through the siloed workflows undetected.
+
+<DualViewMatrixTable rows={[
+  { id: "r1", label: "Heat Exchanger HX-4400", financeScore: 85, opsScore: 72, budget: "$380K", downtimeRisk: "High" },
+  { id: "r2", label: "Compressor C-200 Replacement", financeScore: 45, opsScore: 91, budget: "$520K", downtimeRisk: "Critical" },
+  { id: "r3", label: "VFD Upgrade Line 3", financeScore: 62, opsScore: 38, budget: "$120K", downtimeRisk: "Low" },
+  { id: "r4", label: "Cooling Tower CT-01", financeScore: 78, opsScore: 65, budget: "$290K", downtimeRisk: "Medium" }
+]} />
+
+The matrix above demonstrates the dual-view concept: toggle between the Finance lens (NPV score, budget) and the Operations lens (downtime risk, safety impact). In the live tool, a "conflict highlight" banner appears when the two lenses produce divergent recommendations—e.g., a high-NPV project with a critical downtime risk component.
+
+<CollaborativeApprovalPanel stages={[
+  { id: "s1", label: "Plant Controller Review", financeStatus: "approved", opsStatus: "approved", notes: "Both controllers signed off within 2 days" },
+  { id: "s2", label: "Regional Director Review", financeStatus: "approved", opsStatus: "pending", notes: "Finance approved; awaiting ops reliability assessment" },
+  { id: "s3", label: "VP Joint Review", financeStatus: "pending", opsStatus: "pending" },
+  { id: "s4", label: "CFO Final Approval", financeStatus: "pending", opsStatus: "pending" }
+]} />
+
+The approval panel shows the cross-functional workflow that replaced the siloed process. Each stage displays both Finance and Operations status side by side, eliminating the opacity that previously caused requests to sit in one queue while the other team assumed they were moving.
+
+<MetricsGrid metrics={[
+  { label: "Conflicting capital plans eliminated", value: "$2.3M", change: "in duplicate/redundant requests first year", isPositive: true },
+  { label: "Approval cycle time", value: "-58%", change: "from 47 to 20 days average", isPositive: true },
+  { label: "Cross-functional alignment score", value: "+34pp", change: "on quarterly stakeholder survey", isPositive: true },
+  { label: "Unplanned downtime from delayed CapEx", value: "-41%", change: "vs prior 12 months", isPositive: true }
+]} />
+
 <MetricsGrid metrics={[
   { label: "Conflicting capital plans eliminated", value: "$2.3M", change: "in duplicate/redundant requests first year", isPositive: true },
   { label: "Approval cycle time", value: "-58%", change: "from 47 to 20 days average", isPositive: true },

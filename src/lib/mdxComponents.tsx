@@ -9,10 +9,8 @@ import dynamic from "next/dynamic";
 //
 // The four SHARED widgets are registered here. The seven PROJECT widgets
 // (SummaryKpiGrid, ItemizedDrawer, InteractiveVarianceSimulator, BomBreadcrumbFocus,
-// MarginCascadeSlider, CollaborativeApprovalPanel, DualViewMatrixTable) are deliberately
-// NOT built yet: each exists to illustrate a specific beat in a case study that has not
-// been written. Building them first is risk S4 (over-engineering ahead of narrative) and
-// inverts the 70/30 rule. They land with the case studies they serve.
+// MarginCascadeSlider, CollaborativeApprovalPanel, DualViewMatrixTable) now live with
+// the case studies they serve.
 //
 // Using an unregistered component in MDX fails the build — intended, not a bug.
 
@@ -45,9 +43,54 @@ const FlowChartSimulator = dynamic(
   { loading: skeleton("h-64") },
 );
 
+// Project-specific widgets — each illustrates a beat in its case study.
+// Lazy-loaded with fixed-height skeletons to preserve CLS = 0.
+
+const SummaryKpiGrid = dynamic(
+  () => import("@/components/widgets/SummaryKpiGrid"),
+  { loading: skeleton("h-28") },
+);
+
+const ItemizedDrawer = dynamic(
+  () => import("@/components/widgets/ItemizedDrawer"),
+  { loading: skeleton("h-64") },
+);
+
+const InteractiveVarianceSimulator = dynamic(
+  () => import("@/components/widgets/InteractiveVarianceSimulator"),
+  { loading: skeleton("h-80") },
+);
+
+const BomBreadcrumbFocus = dynamic(
+  () => import("@/components/widgets/BomBreadcrumbFocus"),
+  { loading: skeleton("h-24") },
+);
+
+const MarginCascadeSlider = dynamic(
+  () => import("@/components/widgets/MarginCascadeSlider"),
+  { loading: skeleton("h-72") },
+);
+
+const CollaborativeApprovalPanel = dynamic(
+  () => import("@/components/widgets/CollaborativeApprovalPanel"),
+  { loading: skeleton("h-56") },
+);
+
+const DualViewMatrixTable = dynamic(
+  () => import("@/components/widgets/DualViewMatrixTable"),
+  { loading: skeleton("h-72") },
+);
+
 export const mdxComponents = {
   MetricsGrid,
   BeforeAfterSlider,
   DesignTokenInspector,
   FlowChartSimulator,
+  SummaryKpiGrid,
+  ItemizedDrawer,
+  InteractiveVarianceSimulator,
+  BomBreadcrumbFocus,
+  MarginCascadeSlider,
+  CollaborativeApprovalPanel,
+  DualViewMatrixTable,
 };
