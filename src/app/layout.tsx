@@ -24,10 +24,30 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+// metadataBase makes every relative OG/Twitter URL absolute. Without it Next emits
+// relative image URLs and social unfurls silently show no image — a failure that never
+// appears in a build log. Set NEXT_PUBLIC_SITE_URL in the Vercel project.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Product Design Portfolio — Enterprise B2B, Manufacturing Ops, Financial Systems",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default:
+      "Product Design Portfolio — Enterprise B2B, Manufacturing Ops, Financial Systems",
+    template: "%s — Product Design Portfolio",
+  },
   description:
     "Case studies in translating ERP and financial data into real-time operational visibility tools.",
+  openGraph: {
+    type: "website",
+    siteName: "Product Design Portfolio",
+    url: siteUrl,
+    title:
+      "Product Design Portfolio — Enterprise B2B, Manufacturing Ops, Financial Systems",
+    description:
+      "Case studies in translating ERP and financial data into real-time operational visibility tools.",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

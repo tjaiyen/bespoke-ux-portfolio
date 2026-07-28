@@ -1,8 +1,5 @@
-# Phase 1 CI skeleton — deliberately a SUBSET of the canonical pipeline.
-# Grows into 04-Schemas/Schema-GitHub-Actions-YML.md (vault) by Phase 5: NDA blocklist scan,
-# opt-in claude -p review, pa11y-ci, and the Lighthouse budget get added at their phase gates.
-# CI exists from the FIRST commit on purpose (risk R12) — a pipeline bolted on in Phase 5
-# misses every violation introduced before it.
+# Portfolio Quality & Security Assurance — full Phase 5 pipeline.
+# Canonical source: the vault's 04-Schemas/Schema-GitHub-Actions-YML.md.
 name: Portfolio Quality & Security Assurance
 
 on: [pull_request]
@@ -10,35 +7,89 @@ on: [pull_request]
 jobs:
   quality:
     runs-on: ubuntu-latest
+    # Job-level env. A step's `if:` CANNOT read env declared in that same step's own
+    # `env:` block — `if:` is evaluated before the step's env is applied — so a
+    # step-local flag would be permanently empty, the guard permanently false, and the
+    # review step would skip on every PR while CI stayed green (risk R15, ADR-012).
+    env:
+      HAS_ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - name: Install Dependencies
+
+      - name: Install dependencies
         run: npm ci
+
+      # ---- Gates that need neither a browser nor a server -------------------------
+      - name: NDA blocklist scan
+        run: |
+          test -f .nda-blocklist || { echo "ERROR: .nda-blocklist missing"; exit 1; }
+          # Strip blanks AND '#' comments: a comment line would otherwise become a
+          # literal search term matching nearly every file. Then refuse an empty list —
+          # `grep -f` with no patterns matches nothing and reports a false "passed".
+          grep -v '^[[:space:]]*$' .nda-blocklist | grep -v '^[[:space:]]*#' > /tmp/bl.txt || true
+          if [ ! -s /tmp/bl.txt ]; then
+            echo "ERROR: .nda-blocklist has no usable terms (all blank/comment lines)"; exit 1
+          fi
+          if grep -rniF -f /tmp/bl.txt content/case-studies/; then
+            echo "NDA VIOLATION: blocklisted term found"; exit 1
+          fi
+          echo "NDA scan passed"
+
       - name: Lint
         run: npm run lint
+
       - name: Build
         run: npm run build
-      # Contrast is computed from the token values in globals.css — no browser, no
-      # server, deterministic. Runs before the server steps because it needs neither.
+
+      # Computed from the design tokens in globals.css — deterministic, no browser.
       - name: Contrast audit (WCAG 1.4.3 / 1.4.11, both themes)
         run: npm run a11y:contrast
+
+      # ---- Optional, BILLED review pass -------------------------------------------
+      # Three metered `claude -p` calls per pull request against a separate API key,
+      # charged whether or not anything is found. Opt-in by construction: with no
+      # ANTHROPIC_API_KEY secret the guard skips it and the free gates above/below
+      # remain the real barrier. Fork PRs have no secrets, so they skip cleanly.
+      - name: Automated code, NDA & security review (report-only, BILLED)
+        if: ${{ env.HAS_ANTHROPIC_KEY == 'true' }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.0
+          claude -p "Review the git diff of this PR for correctness, prop-interface mismatches, and memory leaks. Report findings only; do not edit files." --allowedTools "Read,Bash(git diff)"
+          claude -p "Scan content/case-studies/ for unredacted client names, internal metrics, or NDA violations. Report findings only." --allowedTools "Read"
+          claude -p "Perform a security review of the changed code: secrets handling, injection risks, unsafe dependencies. Report findings only." --allowedTools "Read"
+
+      # ---- Gates that need a running production server ----------------------------
       - name: Start server
         run: npm start &
+
       - name: Wait for server
         run: npx wait-on http://localhost:3000 --timeout 60000
-      # PA11Y_CHROME_PATH points at the browser the runner already provides. Puppeteer's
-      # bundled download has been observed to truncate silently, reporting success while
-      # leaving a stub that dies on launch — pinning to a known-good binary avoids that.
+
+      # PA11Y_CHROME_PATH pins to the browser the runner already provides. Puppeteer's
+      # bundled download has been observed to truncate silently — reporting success while
+      # leaving a stub with no framework binary, so every launch dies on dlopen.
       - name: Accessibility audit (pa11y-ci, all routes)
         env:
           PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
         run: npm run a11y:pa11y
+
       - name: Keyboard, focus & viewport audit (tier 2)
         env:
           PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
         run: npm run a11y:keyboard
+
+      # Asserts accessibility 1.0, SEO, CLS 0, and unsized-images as hard errors;
+      # performance is `warn` (runner variance, ADR-013). The vault's 100KB initial-JS
+      # assertion is deliberately NOT wired — it is unachievable with this stack and the
+      # real number is an open decision. See docs/PERFORMANCE-BUDGET.md, ADR-014, risk R19.
+      - name: Lighthouse CI (budget + assertions)
+        run: npx --yes @lhci/cli@latest autorun --config=lighthouserc.json
