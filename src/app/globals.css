@@ -63,3 +63,114 @@
   --font-sans: var(--font-plus-jakarta-sans), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
+
+/* ---------------------------------------------------------------------------
+   Case-study prose typography.
+
+   Tailwind's preflight resets headings, paragraphs and lists to inherit — which
+   is correct for component code, where every element is styled explicitly. But
+   MDX case-study bodies are AUTHORED CONTENT: the markdown emits bare <h2>/<p>/
+   <ul> with no class attributes to hang utilities on. Without this layer every
+   heading rendered at 16px/400, identical to body text — "Problem" and "Research"
+   read as ordinary paragraphs, and paragraphs ran together with no spacing.
+
+   Written against the semantic tokens rather than pulling in
+   @tailwindcss/typography: no new dependency, and the design system stays the
+   single source of truth (a prose plugin ships its own colour opinions).
+   --------------------------------------------------------------------------- */
+@layer components {
+  .prose-case {
+    color: var(--text-main);
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .prose-case > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .prose-case h2 {
+    font-family: var(--font-playfair-display), serif;
+    font-size: 1.875rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .prose-case h3 {
+    font-family: var(--font-playfair-display), serif;
+    font-size: 1.375rem;
+    line-height: 1.3;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-case h4 {
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Measure cap: ~70 characters is the readable line length. Without it, prose
+     stretches the full container and long paragraphs become hard to track. */
+  .prose-case p,
+  .prose-case ul,
+  .prose-case ol {
+    max-width: 70ch;
+  }
+
+  .prose-case ul,
+  .prose-case ol {
+    padding-left: 1.5rem;
+  }
+  .prose-case ul { list-style: disc; }
+  .prose-case ol { list-style: decimal; }
+  .prose-case li { margin-top: 0.5rem; }
+  .prose-case li::marker { color: var(--text-muted); }
+
+  .prose-case strong { font-weight: 600; }
+  .prose-case em { font-style: italic; }
+
+  .prose-case a {
+    color: var(--accent-brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-case code {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.875em;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.25rem;
+    padding: 0.1em 0.35em;
+  }
+
+  .prose-case blockquote {
+    border-left: 3px solid var(--accent-brand);
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 70ch;
+  }
+
+  .prose-case hr {
+    border: 0;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Widgets are self-spacing (my-8) and must not inherit the measure cap. */
+  .prose-case > figure,
+  .prose-case > section,
+  .prose-case > dl {
+    max-width: none;
+  }
+}

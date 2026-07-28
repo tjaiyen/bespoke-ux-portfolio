@@ -57,7 +57,7 @@ export default async function CaseStudyPage({
         </dl>
       </header>
 
-      <article className="mt-10 font-sans text-text-main">{mdx}</article>
+      <article className="prose-case mt-10">{mdx}</article>
     </main>
   );
 }

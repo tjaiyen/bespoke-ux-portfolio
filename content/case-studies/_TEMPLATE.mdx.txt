@@ -43,7 +43,8 @@ published: false
 ndaSanitized: false
 ---
 
-# Title naming the outcome, not the artifact
+<!-- No H1 here: the page header renders frontmatter.title. A body H1 duplicates it
+     on screen and creates two h1s on one page (a heading-outline defect). Start at ## -->
 
 ## Problem
 
