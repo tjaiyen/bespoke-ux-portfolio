@@ -23,14 +23,7 @@ export default function Home() {
 
   return (
     <>
-      {/* WCAG 2.4.1 Bypass Blocks — first focusable element on the page. */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-bg-surface focus:px-4 focus:py-3 focus:text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-      >
-        Skip to main content
-      </a>
-
+      {/* Skip link lives in the root layout so every route gets it. */}
       <main id="main-content" className="mx-auto w-full max-w-4xl px-6 py-20">
         <Reveal>
           <h1 className="font-serif text-5xl leading-tight text-text-main">

@@ -23,3 +23,22 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      # Contrast is computed from the token values in globals.css — no browser, no
+      # server, deterministic. Runs before the server steps because it needs neither.
+      - name: Contrast audit (WCAG 1.4.3 / 1.4.11, both themes)
+        run: npm run a11y:contrast
+      - name: Start server
+        run: npm start &
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 --timeout 60000
+      # PA11Y_CHROME_PATH points at the browser the runner already provides. Puppeteer's
+      # bundled download has been observed to truncate silently, reporting success while
+      # leaving a stub that dies on launch — pinning to a known-good binary avoids that.
+      - name: Accessibility audit (pa11y-ci, all routes)
+        env:
+          PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
+        run: npm run a11y:pa11y
+      - name: Keyboard, focus & viewport audit (tier 2)
+        env:
+          PA11Y_CHROME_PATH: ${{ env.CHROME_PATH }}
+        run: npm run a11y:keyboard

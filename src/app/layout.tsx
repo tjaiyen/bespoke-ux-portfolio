@@ -41,6 +41,16 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-app font-sans text-text-main">
+        {/* WCAG 2.4.1 Bypass Blocks. Lives in the layout, not per-page: every template
+            has a #main-content target, so a per-page skip link means any route whose
+            author forgets it silently loses the bypass mechanism. Placed first in the
+            body so it is first in tab order on every route. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-bg-surface focus:px-4 focus:py-3 focus:text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+        >
+          Skip to main content
+        </a>
         {children}
       </body>
     </html>

@@ -7,19 +7,27 @@
     --bg-app: hsl(220 15% 98%);
     --bg-surface: hsl(0 0% 100%);
     --text-main: hsl(222 47% 11%);
-    --text-muted: hsl(215 16% 47%);
+    /* 47% -> 46%: measured 4.49:1 on --bg-app, failing 1.4.3 by 0.01. */
+    --text-muted: hsl(215 16% 46%);
     --accent-brand: hsl(243 75% 59%);
     --accent-focus: hsl(212 100% 48%);
-    --border-subtle: hsl(214 32% 91%);
+    /* 91% -> 59%: measured 1.19:1, far below the 3:1 the accessibility rules require
+       for UI boundaries (1.4.11). Load-bearing here — --bg-surface (#fff) and --bg-app
+       differ by ~1.02:1, so the border is the ONLY thing delineating a card. Now 3.06:1. */
+    --border-subtle: hsl(214 32% 59%);
   }
   .dark {
     --bg-app: hsl(224 71% 4%);
     --bg-surface: hsl(222 47% 7%);
     --text-main: hsl(210 40% 98%);
     --text-muted: hsl(215 20% 65%);
-    --accent-brand: hsl(239 84% 67%);
+    /* 67% -> 72%: at 67% the --bg-surface label on a brand-filled button measured
+       4.37:1, failing 1.4.3. Now 5.64:1. */
+    --accent-brand: hsl(239 84% 72%);
     --accent-focus: hsl(212 100% 60%);
-    --border-subtle: hsl(217 19% 18%);
+    /* 18% -> 40%: measured 1.43:1 against --bg-app, below the 3:1 for UI boundaries
+       (1.4.11). Now 3.22:1. */
+    --border-subtle: hsl(217 19% 40%);
   }
 }
 
