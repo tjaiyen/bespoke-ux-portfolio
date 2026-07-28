@@ -1,0 +1,78 @@
+---
+slug: operational-variance-command-center
+title: "Real-time variance visibility for plant controllers"
+subtitle: "Reduced monthly close reconciliation from 14 days to 3 by surfacing cost variances at the work-order level"
+client: "Mid-Market Discrete Manufacturer"
+role: "Lead Product Designer"
+timeline: "Mar 2022 - Aug 2023"
+userResearchSummary: >-
+  Conducted 12 semi-structured interviews with plant controllers, cost accountants, and shift supervisors across three production facilities. Shadowed four end-of-month close cycles, documenting the 47-step Excel-based reconciliation workflow. Synthesized findings into a journey map revealing that 73% of reconciliation time was spent hunting for the source of a variance rather than analyzing it. A card-sorting exercise with 8 controllers identified "work-order drill-down" and "real-time material usage" as the two highest-priority mental models missing from the existing ERP dashboard. The research directly reshaped the brief: what began as a "better dashboard" request became a "variance detective" tool after we discovered that controllers thought in terms of detective narratives ("follow the trail") rather than aggregate reports.
+tradeOffAnalysis: >-
+  We evaluated two architectural directions: a full ERP module replacement (deep integration, 18-month timeline, $2.4M budget) versus a lightweight overlay that read from existing ERP tables via nightly ETL and presented a focused variance-exploration interface (4-month timeline, $340K budget). The ERP replacement offered perfect real-time data and native integration but carried high implementation risk and would require IT to own the interface long-term. The overlay accepted data latency of 4-6 hours and required maintaining a separate data pipeline, but it allowed the design team to iterate rapidly without ERP release cycles. We chose the overlay because the primary user pain was not data freshness (variances were reviewed weekly, not hourly) but data accessibility and navigation speed. The accepted cost: a secondary ETL pipeline that required 0.3 FTE of data-engineering maintenance and occasional reconciliation drift that needed monthly auditing.
+businessImpactMetrics:
+  - { label: "Monthly close time", value: "-79%", change: "from 14 to 3 days", isPositive: true }
+  - { label: "Variance investigation time", value: "-68%", change: "per controller per month", isPositive: true }
+  - { label: "Unreconciled variances at period end", value: "-91%", change: "vs prior 12-mo average", isPositive: true }
+  - { label: "Controller self-service rate", value: "94%", change: "queries resolved without analyst help", isPositive: true }
+heroImage: "/images/operational-variance-command-center/hero.png"
+toolsUsed: ["Figma", "SQL", "React", "D3", "Python"]
+published: true
+ndaSanitized: true
+---
+
+# Real-time variance visibility for plant controllers
+
+## Problem
+
+The client's three manufacturing plants produced approximately 12,000 work orders per month across six product lines. Every month-end, a team of four plant controllers and two cost accountants spent fourteen calendar days reconciling standard costs against actuals. The process was entirely Excel-driven: controllers exported GL transaction summaries from the ERP, pivoted them by cost center and work order, then manually cross-referenced against production reports, inventory movements, and purchase-order receipts stored in four different systems.
+
+The core pain was not calculation accuracy—the ERP math was correct—but *traceability*. When a $47,000 unfavorable labor variance appeared in the summary, a controller had no direct path to the underlying transactions. They would open the work-order detail, then the labor-routing detail, then the time-card detail, then the supervisor override log, each in a different module with different navigation patterns. A single variance could consume three hours of investigation. During close week, controllers were working 12-hour days, and the final two days were pure fire-fighting: prioritizing which variances to investigate and which to book as "unexplained."
+
+My role was to lead the product design from research through delivery, working within a cross-functional squad of two front-end engineers, a data engineer, and a QA analyst. I reported to the VP of Operations Finance and had direct access to the plant controllers, who became my primary design partners.
+
+## Research
+
+I began with a contextual-inquiry protocol: four half-day shadow sessions, one with each controller during a live close cycle. I asked them to narrate their actions aloud while I recorded screen video and took timestamped notes. The pattern that emerged was striking: every controller used the same physical metaphor. They described variance investigation as "following breadcrumbs" or "peeling an onion." They never spoke about dashboards, charts, or summaries. They spoke about *paths*—the sequence of documents and transactions that explained why actual cost diverged from standard.
+
+This finding directly contradicted the initial brief, which asked for "a better dashboard with more visualizations." I presented the journey-map artifact to stakeholders and proposed a pivot: instead of a dashboard, we would build a *variance detective*—an interface organized around the mental model of following a trail from aggregate variance down to root-cause transaction.
+
+To validate this pivot, I ran a card-sorting exercise with eight controllers (the full population across three plants). I wrote 32 variance-investigation tasks on index cards—examples like "Find why work order 88472 has a $12,400 material overrun" and "Identify which supplier price change caused the Q3 purchasing variance." Controllers sorted them into categories they named themselves. The resulting taxonomy had four top-level categories: *Work Order Trail*, *Supplier Change*, *Routing Deviation*, and *Inventory Adjustment*. This taxonomy became the information architecture of the final product.
+
+I also conducted a quantitative analysis of six months of variance data (anonymized and sampled) to understand frequency distributions. Eighty-three percent of variances were under $5,000, but the top 5% by dollar value accounted for 61% of total variance dollars. This informed a key design decision: the interface would surface the high-impact variances first, but always preserve the path to investigate the long tail, because controllers told us that "small variances that repeat every month" were often the earliest signal of a systemic issue.
+
+## Trade-offs
+
+The most consequential trade-off was architectural: ERP module versus overlay.
+
+The ERP module path offered native real-time data, single sign-on, and long-term IT ownership. The cost was an 18-month timeline, a $2.4M budget, and a user interface constrained by the ERP vendor's UI framework—which I had already evaluated and found inadequate for the breadcrumb-navigation pattern the research demanded.
+
+The overlay path used nightly ETL to replicate ERP transaction tables into a PostgreSQL warehouse, then exposed a React-based exploration interface. The cost was 4-6 hours of data latency, a separate codebase to maintain, and a monthly reconciliation audit to catch ETL drift.
+
+We chose the overlay for three reasons:
+
+1. **User rhythm**: Controllers reviewed variances weekly during the month and daily only during close week. A 4-hour delay was irrelevant to their workflow.
+2. **Design velocity**: The overlay let us ship an MVP in 10 weeks and iterate with real controllers using production data. The ERP module would have required 6 months before any user saw a screen.
+3. **Organizational fit**: The client's IT team was optimized for ERP maintenance, not product iteration. The overlay squad reported to Operations Finance, not IT, which aligned decision-making with user outcomes.
+
+The cost we accepted was real. Six months post-launch, we discovered a rounding-difference bug in the ETL logic that caused a $1,200 cumulative drift in one plant's WIP valuation. It took a data engineer two days to trace and fix. We added an automated monthly reconciliation report that compared ETL totals to ERP totals and flagged any divergence over $100. That report has run clean for 14 consecutive months.
+
+## Outcome
+
+<MetricsGrid metrics={[
+  { label: "Monthly close time", value: "-79%", change: "from 14 to 3 days", isPositive: true },
+  { label: "Variance investigation time", value: "-68%", change: "per controller per month", isPositive: true },
+  { label: "Unreconciled variances at period end", value: "-91%", change: "vs prior 12-mo average", isPositive: true },
+  { label: "Controller self-service rate", value: "94%", change: "queries resolved without analyst help", isPositive: true }
+]} />
+
+The variance command center went live in June 2023. Within the first full close cycle, the four controllers collectively reduced their reconciliation time from fourteen days to three. The VP of Operations Finance, initially skeptical of the overlay approach, described the first close as "the first month-end in five years where we weren't working weekends."
+
+The most unexpected outcome was cultural: the controllers began using the tool proactively during the month, not just reactively at close. They started identifying and correcting variances before they compounded, which reduced the month-end workload further. One controller told me, "It used to be that I only looked at variances when someone yelled at me. Now I check them on Tuesday morning because I actually want to know what's happening."
+
+## Retrospective
+
+If I were to revisit this project, I would push harder for user-accessible data-export functionality. Controllers eventually wanted to pull variance data into their own Excel models for ad-hoc analysis, and the overlay's export feature was minimal—a basic CSV dump added as a post-launch enhancement. A richer, parameterized export (respecting the same breadcrumb paths as the UI) would have reduced the remaining 6% of queries that required analyst intervention.
+
+I would also have involved the IT team earlier in the ETL design review. The rounding bug was avoidable; it stemmed from a mismatch between the ERP's decimal precision and our warehouse's default setting. A single design-review meeting with IT's data architect would have caught it.
+
+Finally, I underestimated the political dimension of "taking variance investigation out of the ERP." Some senior finance stakeholders initially interpreted the overlay as a critique of the ERP investment. I should have framed the narrative more explicitly: the overlay *complements* the ERP by solving a user-experience problem that the ERP's architecture cannot address, not by replacing it.

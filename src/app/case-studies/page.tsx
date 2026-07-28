@@ -29,7 +29,7 @@ export default function CaseStudiesIndexPage() {
               <h2 className="font-serif text-2xl">
                 <Link
                   href={`/case-studies/${study.slug}`}
-                  className="text-text-main underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+                  className="inline-flex min-h-11 items-center text-text-main underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
                 >
                   {study.title}
                 </Link>
