@@ -81,7 +81,19 @@ const DualViewMatrixTable = dynamic(
   { loading: skeleton("h-72") },
 );
 
+/** Anchor ids on section headings so the TOC can link into the article. Kept in sync
+ *  with slugify() in CaseStudyToc — same transform, so a link always resolves. */
+function slugify(s: string): string {
+  return String(s).toLowerCase().replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
+}
+
+function H2({ children }: { children?: React.ReactNode }) {
+  const text = typeof children === "string" ? children : String(children ?? "");
+  return <h2 id={slugify(text)}>{children}</h2>;
+}
+
 export const mdxComponents = {
+  h2: H2,
   MetricsGrid,
   BeforeAfterSlider,
   DesignTokenInspector,

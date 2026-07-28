@@ -194,3 +194,31 @@
     max-width: none;
   }
 }
+
+/* Tabular numerals wherever figures appear. A finance portfolio rendering its numbers in
+   proportional type makes columns of metrics visibly ragged. Scoped to the mono face,
+   which is where all data lives per the typography rules. */
+@layer base {
+  .font-mono,
+  code,
+  kbd,
+  samp {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Depth: a single soft radial accent behind the page, per Design-Rules ("backgrounds
+   avoid solid white/black; incorporate subtle radial light accents for depth").
+   DELIBERATELY on the body backdrop only, never behind a text container — the 32
+   verified contrast pairs are computed against FLAT token values, and a gradient under
+   text would silently invalidate every one of them. Surfaces that hold text keep
+   `bg-bg-surface` flat on top of this. */
+@layer base {
+  body {
+    background-image:
+      radial-gradient(60rem 32rem at 15% -10%, color-mix(in srgb, var(--accent-brand) 7%, transparent), transparent 70%),
+      radial-gradient(48rem 28rem at 95% 5%, color-mix(in srgb, var(--accent-focus) 5%, transparent), transparent 70%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}

@@ -93,8 +93,14 @@ function readAndValidate(slug: string): {
   return { frontmatter: parsed.data, content };
 }
 
+/** Top-level section headings, in document order — powers the case-study TOC. */
+export function sectionHeadings(content: string): string[] {
+  return [...content.matchAll(/^##\s+(.+)$/gm)].map((m) => m[1].trim());
+}
+
 export async function loadCaseStudy(slug: string) {
   const { frontmatter, content } = readAndValidate(slug);
+  const headings = sectionHeadings(content);
 
   // gray-matter has already stripped the frontmatter, so parseFrontmatter stays false.
   const { content: mdx, error } = await evaluate({
@@ -116,7 +122,7 @@ export async function loadCaseStudy(slug: string) {
     );
   }
 
-  return { frontmatter, mdx };
+  return { frontmatter, mdx, headings };
 }
 
 /** Frontmatter for every published study, validated. Throws on any invalid file. */

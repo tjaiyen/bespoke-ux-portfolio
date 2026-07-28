@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import {
   listPublishedCaseStudies,
   listPublishedSlugs,
   loadCaseStudy,
 } from "@/lib/mdxLoader";
+import { evidenceFor } from "@/lib/evidence";
+import CaseStudyHero from "@/components/site/CaseStudyHero";
+import CaseStudyToc from "@/components/site/CaseStudyToc";
 
 // Static params come from published, schema-valid slugs only. A study with
 // published: false is never routed; a study with invalid frontmatter fails the
@@ -36,7 +38,7 @@ export default async function CaseStudyPage({
   const { slug } = await params;
   if (!listPublishedSlugs().includes(slug)) notFound();
 
-  const { frontmatter, mdx } = await loadCaseStudy(slug);
+  const { frontmatter, mdx, headings } = await loadCaseStudy(slug);
 
   // Prev/next within the published set, so a case study is never a dead end.
   const all = listPublishedCaseStudies();
@@ -45,7 +47,7 @@ export default async function CaseStudyPage({
   const next = i >= 0 && i < all.length - 1 ? all[i + 1] : null;
 
   return (
-    <main id="main-content" className="mx-auto w-full max-w-3xl px-6 py-12">
+    <main id="main-content" className="mx-auto w-full max-w-3xl px-6 py-12 xl:max-w-6xl">
       <Link
         href="/case-studies"
         className="inline-flex min-h-11 items-center font-mono text-sm text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
@@ -89,24 +91,14 @@ export default async function CaseStudyPage({
         )}
       </header>
 
-      {/* The schema requires heroImage and Zod validates it — but nothing rendered it
-          until now, so every case study shipped imageless. Explicit width/height keeps
-          CLS at 0 (a hard CI gate); `priority` because this is the LCP element. */}
-      <Image
-        src={frontmatter.heroImage}
-        /* Descriptive, not "Hero image for X" — Pipeline-Images requires alt that says
-           what a reader should take from the image. These are abstract generated
-           graphics standing in for real screenshots, so the alt states that plainly
-           rather than describing detail the image does not contain. Revisit when real
-           screenshots land: the alt should then describe the interface shown. */
-        alt={`Abstract cover graphic representing ${frontmatter.subtitle.toLowerCase()}`}
-        width={1600}
-        height={900}
-        priority
-        className="mt-10 w-full rounded-lg border border-border-subtle"
-      />
+      <CaseStudyHero evidence={evidenceFor(slug)} title={frontmatter.title} />
 
-      <article className="prose-case mt-12">{mdx}</article>
+      <div className="mt-12 xl:grid xl:grid-cols-[1fr_15rem] xl:gap-12">
+        <article className="prose-case xl:max-w-3xl">{mdx}</article>
+        <aside>
+          <CaseStudyToc headings={headings} />
+        </aside>
+      </div>
 
       <nav
         aria-label="More case studies"

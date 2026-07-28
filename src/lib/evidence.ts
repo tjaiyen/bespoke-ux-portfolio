@@ -63,3 +63,8 @@ export function evidenceStrip(): Evidence[] {
     .map(firstSourcedMetric)
     .filter((e): e is Evidence => e !== null);
 }
+
+/** The evidence for one study, or null when none of its metrics is self-evidencing. */
+export function evidenceFor(slug: string): Evidence | null {
+  return evidenceStrip().find((e) => e.slug === slug) ?? null;
+}
