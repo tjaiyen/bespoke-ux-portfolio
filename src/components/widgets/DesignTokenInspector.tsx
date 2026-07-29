@@ -47,7 +47,13 @@ export default function DesignTokenInspector() {
   // effect: the read must observe the DOM *after* the class flips, and doing it here
   // keeps the state update tied to the user action that caused it (no set-state-in-effect).
   const applyTheme = useCallback((next: Theme) => {
+    // Writes BOTH classes. Toggling only `.dark` was a real bug: on a machine set to dark
+    // mode, choosing "light" removed `.dark`, the `@media (prefers-color-scheme: dark)`
+    // rule immediately re-applied the dark tokens, and the control reported a state it
+    // had never reached. `:root:not(.light)` in that media query is the escape hatch, and
+    // nothing was setting `.light`.
     document.documentElement.classList.toggle("dark", next === "dark");
+    document.documentElement.classList.toggle("light", next === "light");
     setTheme(next);
     setResolved(readTokens());
   }, []);

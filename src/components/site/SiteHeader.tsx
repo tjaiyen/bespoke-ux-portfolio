@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV, site } from "@/lib/site";
+import ThemeToggle from "./ThemeToggle";
 
 /**
  * Site navigation. Present on every route.
@@ -38,25 +39,29 @@ export default function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Main">
-          <ul className="flex flex-wrap items-center gap-x-1">
-            {NAV.filter((item) => item.href !== "/").map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={`flex min-h-11 items-center rounded px-2 font-sans text-sm sm:px-3 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
-                    isActive(item.href)
-                      ? "text-text-main underline decoration-accent-brand decoration-2 underline-offset-8"
-                      : "text-text-muted hover:text-text-main"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-x-1">
+          <nav aria-label="Main">
+            <ul className="flex flex-wrap items-center gap-x-1">
+              {NAV.filter((item) => item.href !== "/").map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={`flex min-h-11 items-center rounded px-2 font-sans text-sm sm:px-3 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
+                      isActive(item.href)
+                        ? "text-text-main underline decoration-accent-brand decoration-2 underline-offset-8"
+                        : "text-text-muted hover:text-text-main"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          {/* Outside <nav>: it is a control, not a destination. */}
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

@@ -71,6 +71,17 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-app font-sans text-text-main">
+        {/* Applies a stored theme choice BEFORE the first paint. Without this, a visitor
+            who chose light on a dark-mode machine gets a dark flash on every navigation
+            while React hydrates. It must be inline and first in the body — a module in
+            the bundle runs too late to prevent the flash. Wrapped in try/catch because
+            blocked localStorage must not take the page down. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.classList.add(t)}catch(e){}",
+          }}
+        />
         {/* WCAG 2.4.1 Bypass Blocks. Lives in the layout, not per-page: every template
             has a #main-content target, so a per-page skip link means any route whose
             author forgets it silently loses the bypass mechanism. Placed first in the

@@ -261,6 +261,15 @@ export default function VarianceStage() {
         pushTokens();
         if (reduce.matches) drawStatic();
       };
+      // The theme can now change without the OS preference changing — the header toggle
+      // writes `.light`/`.dark` on <html>. Watching only the media query would leave the
+      // backdrop painted in the previous palette after a toggle, which is most obvious
+      // under reduced motion, where nothing redraws to correct it.
+      const classObserver = new MutationObserver(onSchemeChange);
+      classObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
       const onContextLost = (e: Event) => {
         e.preventDefault();
         stop();
@@ -293,6 +302,7 @@ export default function VarianceStage() {
         canvas.removeEventListener("webglcontextlost", onContextLost);
         reduce.removeEventListener("change", onMotionChange);
         scheme.removeEventListener("change", onSchemeChange);
+        classObserver.disconnect();
         probe.remove();
         gl.deleteBuffer(buffer);
         gl.deleteProgram(program);

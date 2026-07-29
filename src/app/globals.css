@@ -335,3 +335,29 @@
     }
   }
 }
+
+/* ---- Theme toggle icon ------------------------------------------------------------
+   The button shows the theme you would GET by clicking: a moon while light, a sun while
+   dark. Which glyph shows is decided by CSS, not JS, so it is already correct on first
+   paint instead of flipping once hydration lands.
+
+   The selector list mirrors the token cascade exactly — including `:root:not(.light)`
+   inside the media query, the rule that lets an explicit light choice beat a dark OS
+   preference. Keep the two in step: if one changes and the other does not, the icon
+   starts lying about the theme. */
+@layer components {
+  /* Default ground is the light theme, so offer dark. */
+  .theme-icon-moon { display: block; }
+  .theme-icon-sun  { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .theme-icon-moon { display: none; }
+    :root:not(.light) .theme-icon-sun  { display: block; }
+  }
+
+  /* Explicit choices win in both directions. */
+  :root.dark  .theme-icon-moon { display: none; }
+  :root.dark  .theme-icon-sun  { display: block; }
+  :root.light .theme-icon-moon { display: block; }
+  :root.light .theme-icon-sun  { display: none; }
+}
