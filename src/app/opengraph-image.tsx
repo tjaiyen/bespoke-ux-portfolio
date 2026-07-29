@@ -3,6 +3,8 @@ import { ImageResponse } from "next/og";
 // Generated at build time by next/og — no external image service, nothing to hotlink,
 // and no third-party request when a link is unfurled (Pipeline-Images: everything
 // self-hosted, for performance and NDA safety alike).
+export const dynamic = "force-static";
+
 export const alt =
   "Product design for enterprise operations — Enterprise B2B, manufacturing operations, and financial systems.";
 export const size = { width: 1200, height: 630 };

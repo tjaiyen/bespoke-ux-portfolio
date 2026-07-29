@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Evidence } from "@/lib/evidence";
+import { assetPath } from "@/lib/assetPath";
 
 /**
  * Case-study hero rendered from the study's OWN data.
@@ -59,7 +60,7 @@ export default function CaseStudyHero({
   if (!evidence && heroImage) {
     return (
       <Image
-        src={heroImage}
+        src={assetPath(heroImage)}
         alt={`Cover image for ${title}`}
         width={1600}
         height={900}

@@ -6,6 +6,7 @@ import { site } from "@/lib/site";
 import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
 import { Act, Interlude } from "@/components/site/Act";
 import VarianceStage from "@/components/stage/VarianceStage";
+import { assetPath } from "@/lib/assetPath";
 
 const APPROACH = [
   {
@@ -174,7 +175,7 @@ export default function Home() {
                   className="group flex h-full flex-col rounded-lg border border-border-subtle bg-bg-app focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
                 >
                   <Image
-                    src={study.heroImage}
+                    src={assetPath(study.heroImage)}
                     alt=""
                     width={1600}
                     height={900}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { listGallery, noteFor, receiptSummary } from "@/lib/gallery";
+import { assetPath } from "@/lib/assetPath";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -54,7 +55,7 @@ export default function GalleryPage() {
               className="flex flex-col overflow-hidden rounded-lg border border-border-subtle bg-bg-surface"
             >
               <Image
-                src={`/gallery/_shots/${site.slug}.png`}
+                src={assetPath(`/gallery/_shots/${site.slug}.png`)}
                 alt={`Screenshot of the ${site.slug} concept: ${noteFor(site.slug) ?? "generated site"}.`}
                 width={1280}
                 height={800}
@@ -103,13 +104,13 @@ export default function GalleryPage() {
 
                 <div className="mt-auto flex flex-wrap gap-3 pt-5">
                   <a
-                    href={`/gallery/${site.slug}/index.html`}
+                    href={assetPath(`/gallery/${site.slug}/index.html`)}
                     className="inline-flex min-h-11 items-center rounded-md bg-accent-brand px-4 font-sans text-sm text-bg-surface focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
                   >
                     Open site
                   </a>
                   <a
-                    href={`/gallery/_receipts/${site.slug}.md`}
+                    href={assetPath(`/gallery/_receipts/${site.slug}.md`)}
                     className="inline-flex min-h-11 items-center rounded-md border border-border-subtle px-4 font-sans text-sm text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
                   >
                     Read the receipt

@@ -7,6 +7,7 @@ import {
   type CaseStudyFrontmatterList,
 } from "@/lib/mdxLoader";
 import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
+import { assetPath } from "@/lib/assetPath";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -71,7 +72,7 @@ function renderCards(items: CaseStudyFrontmatterList) {
                 className="group grid grid-cols-1 gap-6 rounded-lg border border-border-subtle bg-bg-surface p-5 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none sm:grid-cols-[200px_1fr]"
               >
                 <Image
-                  src={study.heroImage}
+                  src={assetPath(study.heroImage)}
                   alt=""
                   width={1600}
                   height={900}

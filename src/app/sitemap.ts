@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { listPublishedCaseStudies } from "@/lib/mdxLoader";
 
+export const dynamic = "force-static";
+
 /**
  * Sitemap.
  *

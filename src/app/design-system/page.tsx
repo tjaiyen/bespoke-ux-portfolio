@@ -4,6 +4,7 @@ import MetricsGrid from "@/components/widgets/MetricsGrid";
 import BeforeAfterSlider from "@/components/widgets/BeforeAfterSlider";
 import DesignTokenInspector from "@/components/widgets/DesignTokenInspector";
 import FlowChartSimulator from "@/components/widgets/FlowChartSimulator";
+import { assetPath } from "@/lib/assetPath";
 
 // PUBLIC page (TJ's decision, 2026-07-28). This began as an internal verification
 // harness; it is now portfolio content — the "interactive proof-of-craft" evaluation
@@ -94,8 +95,8 @@ export default function DesignSystemPage() {
           BeforeAfterSlider
         </h2>
         <BeforeAfterSlider
-          beforeImage="/images/_design-system/before.png"
-          afterImage="/images/_design-system/after.png"
+          beforeImage={assetPath("/images/_design-system/before.png")}
+          afterImage={assetPath("/images/_design-system/after.png")}
           beforeAlt="A dense report where every row carries equal visual weight, so no exception stands out."
           afterAlt="The same data summarised into three ranked cards, with the largest variance highlighted as an exception."
           caption="Comparison component. Drag the control, or focus it and use the arrow keys, to move between states."

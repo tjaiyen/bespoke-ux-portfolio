@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+# Publishing is a deliberate act, not a side effect of merging. This workflow is
+# manual-only (workflow_dispatch) so nothing reaches the public because a PR landed.
+# Flip to `push: branches: [main]` once the site is live and you want that.
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: "Public URL the site will serve from (no trailing slash)"
+        required: true
+        default: "https://tjaiyen.github.io/bespoke-ux-portfolio"
+      base_path:
+        description: "Path component for a Pages PROJECT site. Empty for a user site, custom domain, or Vercel."
+        required: false
+        default: "/bespoke-ux-portfolio"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # NEXT_PUBLIC_* is inlined at BUILD time. Setting it after the build does nothing —
+      # which is precisely how a site ships with http://localhost:3000 in every og: tag,
+      # its sitemap and its llms.txt while the build stays green.
+      - name: Build static export
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ inputs.site_url }}
+          NEXT_PUBLIC_BASE_PATH: ${{ inputs.base_path }}
+        run: npm run build:static
+
+      # The gate that makes the env vars above non-optional. It reads the exported bytes,
+      # not the source, and fails the deploy on localhost leakage, asset URLs that will
+      # 404 under the deploy path, an unfilled NDA blocklist, or a missing contact route.
+      - name: Pre-publish gate
+        run: npm run check:publish -- --base "${{ inputs.site_url }}"
+
+      # Pages runs the output through Jekyll by default, which drops any path starting
+      # with an underscore — i.e. the whole of _next/. Every asset would 404.
+      - name: Disable Jekyll processing
+        run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
