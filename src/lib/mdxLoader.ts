@@ -136,6 +136,18 @@ export function listPublishedCaseStudies(): CaseStudyFrontmatter[] {
     .sort((a, b) => a.title.localeCompare(b.title));
 }
 
+export type CaseStudyFrontmatterList = CaseStudyFrontmatter[];
+
+/** Real, built work — leads the portfolio. */
+export function listRealCaseStudies(): CaseStudyFrontmatter[] {
+  return listPublishedCaseStudies().filter((s) => s.projectType !== "concept");
+}
+
+/** Concept explorations — shown below the real work, never mixed into it. */
+export function listConceptCaseStudies(): CaseStudyFrontmatter[] {
+  return listPublishedCaseStudies().filter((s) => s.projectType === "concept");
+}
+
 export function listPublishedSlugs(): string[] {
   return listPublishedCaseStudies().map((fm) => fm.slug);
 }

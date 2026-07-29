@@ -172,6 +172,31 @@
     padding: 0.1em 0.35em;
   }
 
+  /* Code blocks scroll inside their own box. A long unbreakable line (a git clone URL)
+     otherwise pushes the whole page sideways — 164px of horizontal overflow at 375px,
+     caught by the viewport audit. The page must never scroll horizontally; wide content
+     gets its own overflow container. */
+  .prose-case pre {
+    max-width: 100%;
+    overflow-x: auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  /* Inside a pre, code is already monospaced by the block — drop the inline chrome. */
+  .prose-case pre code {
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+    white-space: pre;
+  }
+
   .prose-case blockquote {
     border-left: 3px solid var(--accent-brand);
     padding-left: 1.25rem;

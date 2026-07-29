@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { listPublishedCaseStudies } from "@/lib/mdxLoader";
+import { listRealCaseStudies, listConceptCaseStudies } from "@/lib/mdxLoader";
 import { evidenceStrip } from "@/lib/evidence";
 import { site } from "@/lib/site";
 import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
@@ -21,7 +21,8 @@ const APPROACH = [
 ];
 
 export default function Home() {
-  const studies = listPublishedCaseStudies();
+  const real = listRealCaseStudies();
+  const concepts = listConceptCaseStudies();
   const evidence = evidenceStrip();
 
   return (
@@ -54,6 +55,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---- Built work band: the verifiable half, above the modelled figures ---- */}
+      {real.length > 0 && (
+        <section
+          aria-labelledby="built-heading"
+          className="border-y border-border-subtle bg-bg-surface"
+        >
+          <div className="mx-auto w-full max-w-4xl px-6 py-8">
+            <h2
+              id="built-heading"
+              className="font-mono text-[11px] tracking-widest text-status-positive uppercase"
+            >
+              Built and shipped
+            </h2>
+            <ul className="mt-5 space-y-4">
+              {real.map((study) => (
+                <li key={study.slug}>
+                  <Link
+                    href={`/case-studies/${study.slug}`}
+                    className="group block rounded focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+                  >
+                    <span className="block font-serif text-xl text-text-main group-hover:underline group-hover:underline-offset-4">
+                      {study.title}
+                    </span>
+                    <span className="mt-1 block font-sans text-sm text-text-muted">
+                      {study.subtitle}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 font-sans text-sm text-text-muted">
+              Twelve of the generated sites are published here with their conformance
+              reports —{" "}
+              <Link
+                href="/gallery"
+                className="text-accent-brand underline underline-offset-4"
+              >
+                open the gallery
+              </Link>{" "}
+              and check the receipts yourself.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* ---- Evidence strip --------------------------------------------------
           Answers the core problem: the entry page previously made a claim and
           showed no evidence for it. Every figure here states its own before and
@@ -69,11 +115,12 @@ export default function Home() {
               id="evidence-heading"
               className="font-mono text-[11px] tracking-widest text-text-muted uppercase"
             >
-              Modelled outcomes
+              From the concept explorations
             </h2>
             <p className="mt-2 font-sans text-sm text-text-muted">
-              Concept projects. Figures are modelled from stated assumptions, not
-              measured in production — each links to the reasoning behind it.
+              These three are <strong>modelled</strong> from stated assumptions, not
+              measured. The built work above carries measured figures — the distinction is
+              deliberate and is marked on every card.
             </p>
             <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
               {evidence.map((e) => (
@@ -123,7 +170,7 @@ export default function Home() {
         </div>
 
         <ul className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {studies.map((study) => (
+          {[...real, ...concepts].map((study) => (
             <li key={study.slug}>
               <Link
                 href={`/case-studies/${study.slug}`}

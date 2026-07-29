@@ -15,11 +15,44 @@ export default function ProjectTypeNotice({
   basis,
   metricsBasis,
 }: {
-  projectType: "concept" | "client";
+  projectType: "concept" | "client" | "self-directed";
   basis: string;
   metricsBasis: "measured" | "modelled";
 }) {
   if (projectType === "client") return null;
+
+  // Real, built work gets a BUILT notice rather than a concept disclaimer. Same slot,
+  // opposite message: this one exists and its numbers were measured.
+  if (projectType === "self-directed") {
+    return (
+      <aside
+        aria-labelledby="built-notice-heading"
+        className="mt-8 rounded-lg border border-status-positive/40 bg-bg-surface p-6"
+      >
+        <h2
+          id="built-notice-heading"
+          className="font-mono text-[11px] tracking-widest text-status-positive uppercase"
+        >
+          Built and shipped
+        </h2>
+        <p className="mt-3 font-sans text-sm leading-relaxed text-text-main">
+          Self-directed work — no client commissioned it, and I built it. The artefact
+          exists and runs;{" "}
+          {metricsBasis === "measured" ? (
+            <strong>the figures below were measured, not modelled.</strong>
+          ) : (
+            <>the figures below are modelled.</>
+          )}
+        </p>
+        <p className="mt-3 font-sans text-sm leading-relaxed text-text-muted">
+          <span className="font-mono text-[11px] tracking-wide uppercase">
+            Verify it:{" "}
+          </span>
+          {basis}
+        </p>
+      </aside>
+    );
+  }
 
   return (
     <aside
@@ -58,9 +91,16 @@ export default function ProjectTypeNotice({
 export function ConceptBadge({
   projectType,
 }: {
-  projectType: "concept" | "client";
+  projectType: "concept" | "client" | "self-directed";
 }) {
   if (projectType === "client") return null;
+  if (projectType === "self-directed") {
+    return (
+      <span className="inline-flex items-center rounded-full border border-status-positive/40 px-2.5 py-0.5 font-mono text-[10px] tracking-widest text-status-positive uppercase">
+        Built
+      </span>
+    );
+  }
   return (
     <span className="inline-flex items-center rounded-full border border-accent-brand/40 px-2.5 py-0.5 font-mono text-[10px] tracking-widest text-accent-brand uppercase">
       Concept

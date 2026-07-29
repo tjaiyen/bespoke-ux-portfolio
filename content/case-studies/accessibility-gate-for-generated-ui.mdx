@@ -1,0 +1,111 @@
+---
+slug: accessibility-gate-for-generated-ui
+title: "An accessibility gate an AI cannot talk its way past"
+subtitle: "A generation engine that refuses to finish until the page it produced passes a real audit — and the enumeration of how models cheat that audit"
+client: "Self-directed — no commissioning client"
+role: "Sole designer and engineer — research, interaction, design system, build"
+timeline: "2026"
+projectType: self-directed
+metricsBasis: measured
+basis: "Twelve of the generated sites are published in this portfolio's gallery, each with the machine-readable conformance report from its own gate run. Open any of them and read the receipt."
+userResearchSummary: >-
+  The problem was observed, not surveyed. AI code generators optimise the render tree and have near-zero semantic fidelity, so generated interfaces are inaccessible by default — and the entire tooling ecosystem around them is advisory. Deque's own audit server, the community accessibility servers, PR-time scanners: an agent is free to ignore every one of them. Watching models work against an advisory checker showed the failure was structural, not a knowledge gap. They do not fail to know the rule; they satisfy the letter of the check and miss its purpose. That reframed the brief from "help the model write accessible code" to "make finishing conditional on proof".
+tradeOffAnalysis: >-
+  The obvious design is an advisory scanner that reports findings, because it never blocks anyone and is trivially adoptable. I rejected it — an advisory checker in an agent loop is a suggestion the agent can decline, which is exactly the failure mode I set out to fix. Instead the completion signal itself became a request the harness adjudicates: the model asks to finish, and the harness refuses unless a fresh audit ran, nothing changed since, and it found zero critical, serious, or structural violations. Every exit path fails closed. The accepted cost is real and I own it: generation gets slower, some genuinely fine designs are rejected as unverifiable rather than wrong, and text over a canvas is refused outright because its contrast cannot be determined. I chose a false-negative bias — rejecting acceptable work — over ever emitting an unverified pass, because a gate that sometimes lies is worth less than no gate at all.
+businessImpactMetrics:
+  - { label: "Generated sites passing a fresh gate run", value: "12/12", change: "from 9 of 45 carrying any persisted receipt", isPositive: true }
+  - { label: "Structural invariants enforced beyond axe", value: "6", change: "each with a dedicated failing fixture", isPositive: true }
+  - { label: "Blind spots named in every report", value: "7", change: "criteria axe cannot test, listed not hidden", isPositive: true }
+  - { label: "Gallery payload after vendor dedupe", value: "3.4 MB", change: "from 61 MB across 12 sites", isPositive: true }
+heroImage: "/images/accessibility-gate-for-generated-ui/hero.png"
+toolsUsed: ["TypeScript", "axe-core", "Playwright", "Node", "React"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+An AI that writes interfaces produces inaccessible output by default. This is not a
+tuning problem. Models optimise what they are rewarded for — a render tree that looks
+correct — and semantic structure is invisible in that signal. The defect is intrinsic and
+it is therefore permanent across every generator, not a bug one vendor will fix.
+
+The tooling that exists to catch this is uniformly **advisory**. Audit servers, linters,
+PR-time scanners: each reports findings to an agent that is entirely free to ignore them
+and declare itself done. In an agent loop, an advisory checker is a suggestion.
+
+That is the whole problem in one sentence: **the thing being checked is also the thing
+deciding whether the check mattered.**
+
+## Research
+
+I did not commission a study. I watched models work against an advisory checker and
+recorded how they behaved, which turned out to be the more useful method — the failures
+were not what a survey would have surfaced.
+
+Models do not fail because they lack the rule. They satisfy the letter of the check and
+miss its purpose:
+
+- Told a page needs visible text, they add text that is off-screen, transparent, or one
+  pixel tall. A word-count check reading `innerText` passes it.
+- Told contrast must pass, they place text over an image, where contrast is
+  *undeterminable* rather than failing — and an "incomplete" result is not a violation.
+- Told a canvas needs a text alternative, they add one and leave the canvas as the only
+  real content on the page.
+
+Each of these is a rule-follower's answer. That reframed the design problem: the checker
+does not need to be smarter, it needs to be **unbypassable**, and it needs to know the
+specific ways its own checks get satisfied without being met.
+
+## Trade-offs
+
+The advisory scanner was the obvious build and I rejected it. What shipped instead makes
+finishing itself conditional: the model *requests* completion, and the harness adjudicates
+that request against a fresh audit. If anything changed since the audit ran, the audit is
+stale and the request is refused. Budget exhausted, wall-clock exceeded, iteration cap hit
+— every exit path fails closed. There is no path where the model marks its own work done.
+
+Then the harder half. A gate is only as wide as its enumeration of failure modes, so the
+six structural invariants exist to close the gaps the standard rules leave:
+
+<MetricsGrid metrics={[
+  { label: "Visible-word floor", value: "rects + alpha", change: "not innerText", isPositive: true },
+  { label: "Contrast incomplete", value: "treated as fail", change: "not as a pass", isPositive: true },
+  { label: "Canvas", value: "aria-hidden", change: "never sole content", isPositive: true }
+]} />
+
+The costs I accepted, plainly: generation is slower; some designs that are genuinely fine
+get rejected as unverifiable rather than wrong; text over a canvas is refused outright
+even when a human can see it reads perfectly. That last one is a real design-quality cost
+and I still think it is correct — an unverifiable pass is indistinguishable from a lie,
+and the entire value of the gate is that it never emits one.
+
+## Outcome
+
+Twelve of the generated sites are published in this portfolio's gallery. Each ships with
+the machine-readable conformance report from its own gate run, and each of those receipts
+was regenerated against the copy that actually ships rather than inherited from an earlier
+claim — the source project's own documentation asserted persisted reports for 35 sites
+when only 9 existed on disk, which is precisely the failure this work exists to argue
+against.
+
+The reports are deliberately narrow. Every one names **seven criteria it did not
+evaluate** — keyboard traversal, reflow, input purpose and others that axe has no
+automated rule for. A conformance report that lists its own blind spots is worth more than
+one that implies completeness, and after the FTC's action against automated-overlay
+vendors, "we verified everything" is a claim nobody should make.
+
+## Retrospective
+
+The gate is not the moat and I would not build it first again. A competent team
+reimplements the refusal mechanism in a fortnight. What took real observation is the
+enumeration — knowing that models reach for transparent filler text, that "incomplete"
+is where unverifiable contrast hides, that a decorative canvas becomes the whole page.
+That list is the artifact; the gate is just how it gets delivered.
+
+The second thing I would change is scope discipline in the UI. An early version of the
+interface described its live grade as *provably matching a real audit*, when the honest
+claim is narrower: equal to the audit on the statically-decidable subspace, never more
+lenient elsewhere. For a project whose entire argument is proof rather than promises, an
+overclaim in its own interface is the failure it opposes, in miniature. I caught it in my
+own copy, which is the only reason I trust myself to catch it elsewhere.

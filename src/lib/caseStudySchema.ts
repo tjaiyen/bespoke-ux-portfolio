@@ -18,7 +18,15 @@ export const CaseStudyMetric = z.object({
  * Making the field required with no default means a future study cannot quietly inherit
  * the wrong framing: the build fails until someone states which kind of work it is.
  */
-export const projectTypeSchema = z.enum(["concept", "client"]);
+export const projectTypeSchema = z.enum(["concept", "client", "self-directed"]);
+
+/**
+ * "self-directed" = real, built, shipped work with no commissioning client. It is NOT a
+ * concept: the artefact exists, it ran, and its numbers were measured. Keeping it distinct
+ * from both "concept" (nothing was built) and "client" (someone commissioned it) means the
+ * UI can tell a reader exactly which of the three they are looking at, rather than blurring
+ * real unpaid work into either category.
+ */
 
 /** Whether the reported figures were measured in production or modelled from assumptions. */
 export const metricsBasisSchema = z.enum(["measured", "modelled"]);

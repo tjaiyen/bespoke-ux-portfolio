@@ -1,0 +1,92 @@
+---
+slug: finance-data-pipeline-and-agent
+title: "Making month-end variance explain itself"
+subtitle: "Six runnable projects that answer which accounts moved, whether the moves are material, and why — with the LLM kept out of the arithmetic"
+client: "Self-directed — no commissioning client"
+role: "Sole designer and engineer — data modelling, orchestration, agent guardrails, interface"
+timeline: "2026"
+projectType: self-directed
+metricsBasis: measured
+basis: "The repository is public and the site is live at tjaiyen.github.io/tj-finance-portfolio. Clone it, run `dbt build`, and watch the fourteen tests pass on your own machine."
+userResearchSummary: >-
+  No study was commissioned. The problem definition is my own working experience: every month-end close asks the same three questions — which accounts moved, are the moves material, and why — and the third question is the one that consumes the days. The first two are arithmetic and belong in tested models. The third is judgment, and it is where people reach for a language model. Watching that pattern is what set the constraint the whole design rests on: an LLM that touches the numbers produces answers nobody can audit, and an unauditable variance explanation is worse than none, because it will be believed.
+tradeOffAnalysis: >-
+  The tempting architecture is to hand the whole question to a language model — give it the ledger and ask what happened. It demos extremely well. I rejected it because a variance narrative that cannot be traced to a tested number is not usable in a close: someone signs off on those figures. Instead the boundary is hard. dbt models produce the numbers and carry the tests; Airflow owns the schedule and recovery; the model is allowed to write the narrative and flag exceptions, and nothing else. The accepted cost is that the system cannot answer questions the models were not built to answer — a genuinely open-ended "why" needs a new tested model first, not a cleverer prompt. That is slower, and I would make the same call again, because the alternative fails silently and only at audit.
+businessImpactMetrics:
+  - { label: "Tests passing on a clean clone", value: "14", change: "verifiable in one command", isPositive: true }
+  - { label: "Runnable projects", value: "6", change: "data, orchestration, agent, interface", isPositive: true }
+  - { label: "LLM involvement in the arithmetic", value: "none", change: "narrative and flags only", isPositive: true }
+heroImage: "/images/finance-data-pipeline-and-agent/hero.png"
+toolsUsed: ["dbt", "DuckDB", "Airflow", "Python", "Claude API"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+Month-end close asks the same three questions every cycle: which accounts moved, are the
+moves material, and why. The first two are arithmetic. The third is judgment — and it is
+where the days go, because answering it means tracing a number back through systems that
+were not built to be traced through.
+
+That third question is also where a language model looks irresistible. It reads like a
+writing task. The trap is that it is not: the narrative is only worth anything if the
+numbers underneath it are correct and someone can check them.
+
+## Research
+
+The problem definition is first-hand rather than researched — I worked these closes. What
+I brought to the design from that experience is one specific constraint, and it is the
+constraint the entire architecture rests on:
+
+**A variance explanation that cannot be traced back to a tested number is worse than no
+explanation at all, because it will be believed.** Somebody signs off on those figures.
+
+That single line decides the boundary. It is not a preference about LLM quality; it holds
+even if the model's arithmetic is perfect, because the problem is auditability, not
+accuracy.
+
+## Trade-offs
+
+The architecture that demos best is the one where you hand the model the ledger and ask
+what happened. I rejected it.
+
+What shipped puts a hard line through the middle: tested dbt models produce every number
+and carry the assertions; Airflow owns scheduling and recovery per model, so a failure is
+recoverable rather than a rerun-everything event; the language model writes the narrative
+and flags exceptions and touches none of the maths.
+
+<MetricsGrid metrics={[
+  { label: "Numbers", value: "tested dbt models", change: "14 assertions", isPositive: true },
+  { label: "Schedule + recovery", value: "Airflow per-model", change: "not one monolith", isPositive: true },
+  { label: "Language model", value: "narrative only", change: "never the arithmetic", isPositive: true }
+]} />
+
+The cost I accepted: the system cannot answer a question its models were not built for. A
+genuinely novel "why" requires writing a new tested model, not a better prompt. That is
+slower, and it is the right trade — the alternative degrades silently and surfaces at
+audit, which is the most expensive place to find it.
+
+## Outcome
+
+Six runnable projects, and the thing that matters most about them is that you do not have
+to take my word for any of it. The repository is public, the site is live, and the whole
+system runs on a clean clone in about a minute:
+
+```bash
+git clone https://github.com/tjaiyen/tj-finance-portfolio
+cd tj-finance-portfolio/dbt_finance_variance
+pip install dbt-duckdb && dbt build     # 14 tests pass
+```
+
+That is the entire argument. Not a screenshot of a dashboard, not a claimed metric — a
+command a reviewer can run.
+
+## Retrospective
+
+The interface is the weakest part and I would invest there next. The reasoning and the
+guardrails are sound; the sandbox that exposes them is functional rather than considered,
+and someone arriving at the live site has to already understand variance analysis to see
+why the boundary between tested numbers and generated narrative is the interesting
+decision. That is a design failure, not a documentation one — the architecture's best
+idea is currently legible only from the code.
