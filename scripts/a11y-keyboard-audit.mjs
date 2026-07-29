@@ -36,7 +36,14 @@ const BASE = process.argv[2] ?? process.env.PA11Y_BASE_URL ?? "http://localhost:
 // while the suite reported a clean run.
 
 const ROUTES = allRoutes();
+// 344 is the narrowest device in real use — a Pixel Fold while folded — and it also
+// covers the 360px Android baseline that most non-Apple phones report. It was added
+// because the suite stopped at 375 (iPhone SE) and therefore guarded nothing below it,
+// while a large share of real traffic is narrower. Since Tailwind's `sm` breakpoint is
+// 640px, 344 and 360 resolve to identical layout rules, so the narrower one is the
+// strictly tighter test and subsumes the rest of the Android range.
 const VIEWPORTS = [
+  { name: "narrow", width: 344, height: 882 },
   { name: "mobile", width: 375, height: 812 },
   { name: "tablet", width: 768, height: 1024 },
   { name: "desktop", width: 1280, height: 800 },
