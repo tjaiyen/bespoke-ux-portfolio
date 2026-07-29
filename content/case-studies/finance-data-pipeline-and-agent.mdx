@@ -1,21 +1,22 @@
 ---
 slug: finance-data-pipeline-and-agent
 title: "Making month-end variance explain itself"
-subtitle: "Six runnable projects that answer which accounts moved, whether the moves are material, and why — with the LLM kept out of the arithmetic"
+subtitle: "Seven runnable projects that answer which accounts moved, whether the moves are material, and why — with the language model kept out of the arithmetic"
 client: "Self-directed — no commissioning client"
 role: "Sole designer and engineer — data modelling, orchestration, agent guardrails, interface"
 timeline: "2026"
 projectType: self-directed
 metricsBasis: measured
-basis: "The repository is public, the site is live at tjaiyen.github.io/tj-finance-portfolio, and dbt CI runs `dbt build` on every push — the latest run logs PASS=14, ERROR=0. Clone it and reproduce that locally in about a minute."
+basis: "The repository is public, the site is live at tjaiyen.github.io/tj-finance-portfolio, and dbt CI runs `dbt build` on every push — the latest run logs PASS=33 and PASS=14 across the two dbt projects, ERROR=0. Clone it and reproduce that locally in about a minute."
 userResearchSummary: >-
   No study was commissioned. The problem definition is my own working experience: every month-end close asks the same three questions — which accounts moved, are the moves material, and why — and the third question is the one that consumes the days. The first two are arithmetic and belong in tested models. The third is judgment, and it is where people reach for a language model. Watching that pattern is what set the constraint the whole design rests on: an LLM that touches the numbers produces answers nobody can audit, and an unauditable variance explanation is worse than none, because it will be believed.
 tradeOffAnalysis: >-
   The tempting architecture is to hand the whole question to a language model — give it the ledger and ask what happened. It demos extremely well. I rejected it because a variance narrative that cannot be traced to a tested number is not usable in a close: someone signs off on those figures. Instead the boundary is hard. dbt models produce the numbers and carry the tests; Airflow owns the schedule and recovery; the model is allowed to write the narrative and flag exceptions, and nothing else. The accepted cost is that the system cannot answer questions the models were not built to answer — a genuinely open-ended "why" needs a new tested model first, not a cleverer prompt. That is slower, and I would make the same call again, because the alternative fails silently and only at audit.
 businessImpactMetrics:
-  - { label: "Tests passing in CI on every push", value: "14", change: "PASS=14 ERROR=0 in the dbt-ci run log", isPositive: true }
-  - { label: "Runnable projects", value: "6", change: "data, orchestration, agent, interface", isPositive: true }
-  - { label: "LLM involvement in the arithmetic", value: "none", change: "narrative and flags only", isPositive: true }
+  - { label: "dbt tests green in CI on every push", value: "47", change: "PASS=33 and PASS=14, ERROR=0, across two projects", isPositive: true }
+  - { label: "Runnable projects", value: "7", change: "data, orchestration, agent, interface", isPositive: true }
+  - { label: "LLM involvement in the arithmetic", value: "none", change: "narrative and exception flags only", isPositive: true }
+  - { label: "Ways the agent can fail closed", value: "4", change: "hallucinated account, missed material variance, bad enum, malformed schema", isPositive: true }
 heroImage: "/images/finance-data-pipeline-and-agent/hero.png"
 toolsUsed: ["dbt", "DuckDB", "Airflow", "Python", "Claude API"]
 published: true
@@ -33,23 +34,43 @@ That third question is also where a language model looks irresistible. It reads 
 writing task. The trap is that it is not: the narrative is only worth anything if the
 numbers underneath it are correct and someone can check them.
 
-## Research
+## The constraint
 
-The problem definition is first-hand rather than researched — I worked these closes. What
-I brought to the design from that experience is one specific constraint, and it is the
-constraint the entire architecture rests on:
+The problem definition is first-hand rather than researched — I worked these closes. What I
+brought to the design from that experience is one constraint, and it is the constraint the
+entire architecture rests on:
 
 **A variance explanation that cannot be traced back to a tested number is worse than no
 explanation at all, because it will be believed.** Somebody signs off on those figures.
 
-That single line decides the boundary. It is not a preference about LLM quality; it holds
-even if the model's arithmetic is perfect, because the problem is auditability, not
-accuracy.
+That single line decides the boundary. It is not a preference about model quality; it holds
+even if the arithmetic is perfect, because the problem is auditability, not accuracy.
 
 ## Trade-offs
 
 The architecture that demos best is the one where you hand the model the ledger and ask
 what happened. I rejected it.
+
+<DirectionComparison
+  label="Architecture"
+  takenTitle="Hard boundary: tested models, then narrative"
+  takenBlocks={[
+    { h: 3, label: "dbt models — every number, tested" },
+    { h: 2, cols: 3, key: true },
+    { h: 2, label: "guardrails validate the output" },
+    { h: 3, label: "LLM narrative + exception flags" }
+  ]}
+  takenNote="Numbers come from tested models and never from the model. The LLM writes prose over figures it cannot alter, and its output is validated before anyone sees it."
+  discardedTitle="Give the model the ledger"
+  discardedBlocks={[
+    { h: 2, label: "raw GL" },
+    { h: 6, cols: 2, label: "LLM does everything" },
+    { h: 3, label: "answer" }
+  ]}
+  discardedNote="Answers any question instantly and demos beautifully. Nothing it produces can be traced, and it is confidently wrong in exactly the same tone as when it is right."
+  criterion="Can a controller sign their name under this number and show their working?"
+  cost="The system cannot answer a question its models were not built for. A genuinely novel 'why' needs a new tested model, not a better prompt."
+/>
 
 What shipped puts a hard line through the middle: tested dbt models produce every number
 and carry the assertions; Airflow owns scheduling and recovery per model, so a failure is
@@ -57,19 +78,44 @@ recoverable rather than a rerun-everything event; the language model writes the 
 and flags exceptions and touches none of the maths.
 
 <MetricsGrid metrics={[
-  { label: "Numbers", value: "tested dbt models", change: "14 assertions", isPositive: true },
+  { label: "Numbers", value: "tested dbt models", change: "47 assertions green in CI", isPositive: true },
   { label: "Schedule + recovery", value: "Airflow per-model", change: "not one monolith", isPositive: true },
   { label: "Language model", value: "narrative only", change: "never the arithmetic", isPositive: true }
 ]} />
 
-The cost I accepted: the system cannot answer a question its models were not built for. A
-genuinely novel "why" requires writing a new tested model, not a better prompt. That is
-slower, and it is the right trade — the alternative degrades silently and surfaces at
-audit, which is the most expensive place to find it.
+## The interesting part: what happens when the model is wrong
+
+Drawing a boundary is easy to claim and easy to leak. The part of this I would actually
+defend in a review is the layer that enforces it — `run_guardrails`, which sits between the
+model's output and anything a human reads, and whose job is to fail loudly rather than ship
+a wrong report.
+
+It rejects four distinct failure modes, and the first two are the ones that matter:
+
+1. **Hallucinated account.** Every account the model references must exist in the computed
+   variance set. A narrative about an account that is not in the data is not a minor error —
+   it is the exact failure that destroys trust in the whole tool, and it is the one an LLM
+   makes most fluently.
+2. **Missed material variance.** Every variance flagged material by the tested models must
+   be addressed in the output. This one catches the *quiet* failure: a report that is
+   entirely accurate about the things it mentions, and silently omits the item that mattered.
+   Hallucination is loud; omission is not, which is why it needs a machine to catch it.
+3. **Invalid direction** — must be `favorable`, `unfavorable` or `neutral`.
+4. **Malformed schema** — a missing narrative or a non-list of exceptions.
+
+The design decision underneath is a product decision, not an engineering one: **when the
+model produces something unverifiable, the system refuses rather than degrades.** No
+partial report, no "best effort" narrative with a caveat. A finance tool that sometimes
+emits an unchecked number has no usable failure mode — you cannot ask a controller to
+guess which reports to trust.
+
+Coverage checking is the piece I would keep if I could keep only one. It is the difference
+between "the model did not lie" and "the model did not leave anything out", and only the
+second is what a close actually requires.
 
 ## Outcome
 
-Six runnable projects, and the thing that matters most about them is that you do not have
+Seven runnable projects, and the thing that matters most about them is that you do not have
 to take my word for any of it. The repository is public, the site is live, and the whole
 system runs on a clean clone in about a minute:
 
@@ -81,13 +127,27 @@ pip install dbt-duckdb && dbt build     # PASS=14  ERROR=0
 
 That is the entire argument. Not a screenshot of a dashboard, not a claimed metric — a
 command a reviewer can run. The same command runs in CI on every push, so the number is not
-a memory of one good day; the most recent run logs `PASS=14 WARN=0 ERROR=0`.
+a memory of one good day; the most recent run logs `PASS=33` and `PASS=14` with `ERROR=0`
+across the two dbt projects.
 
 ## Retrospective
 
-The interface is the weakest part and I would invest there next. The reasoning and the
-guardrails are sound; the sandbox that exposes them is functional rather than considered,
-and someone arriving at the live site has to already understand variance analysis to see
-why the boundary between tested numbers and generated narrative is the interesting
-decision. That is a design failure, not a documentation one — the architecture's best
-idea is currently legible only from the code.
+**The interface is the weakest part and I would invest there next.** The reasoning and the
+guardrails are sound; the sandbox that exposes them is functional rather than considered.
+Someone arriving at the live site has to already understand variance analysis to see why
+the boundary between tested numbers and generated narrative is the interesting decision.
+That is a design failure, not a documentation one — the architecture's best idea is
+currently legible only from the code, which is precisely the criticism I would level at
+someone else's project.
+
+**The guardrails are asserted, not adversarially tested.** They reject the four failure
+modes above because I wrote them to. What I have not done is run a deliberately misbehaving
+model against them at volume to find the fifth mode I did not think of — a narrative that
+references only valid accounts, covers every material variance, and is still misleading in
+its framing. Coverage and existence are checkable; emphasis is not, and I do not currently
+have an answer for it.
+
+**The materiality threshold is a parameter, and parameters are where judgment hides.**
+Whoever sets it decides what the report is allowed to omit. Right now it is passed in
+rather than reasoned about, and a serious version of this would make that number a
+first-class, visible, auditable part of the output rather than a configuration detail.

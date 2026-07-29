@@ -64,6 +64,20 @@ export default function AboutPage() {
               specialists, and the measure of a good design is whether it changed how
               a real operation runs.
             </p>
+            <p>
+              <strong>To be direct about where I am:</strong> this is a deliberate
+              move from finance into designing and building the tools finance runs
+              on, and I am early in it. I have not held a product-design title. What
+              I have is the domain most design candidates spend their first year
+              trying to learn, and the two projects on this site that are actually
+              built, shipped and independently verifiable — you can clone them and
+              reproduce the results in about a minute. The three concept studies are
+              labelled as concepts on every card, and each one states what it assumes
+              and what would prove it wrong.
+            </p>
+            <p>
+              I would rather be judged on that than on a job title I do not have yet.
+            </p>
           </div>
 
           <h2 className="mt-14 font-serif text-2xl text-text-main">Where I focus</h2>
@@ -99,6 +113,49 @@ export default function AboutPage() {
               rather than asserted in prose. The{" "}
               <Link href="/design-system">design system</Link> is inspectable — the
               backdrop on this page included.
+            </p>
+          </div>
+
+          <h2 className="mt-14 font-serif text-2xl text-text-main">
+            Working with other people, and with machines
+          </h2>
+          <div className="prose-case mt-4">
+            <p>
+              Cost accounting is not a solitary job, whatever its reputation. A close
+              is a negotiation: with plant managers about why a work order overran,
+              with operations about whether a variance is real or a timing artefact,
+              with IT about what the ERP will and will not give you. Most of the
+              useful work is getting people who measure different things to agree on
+              one number they will both sign.
+            </p>
+            <p>
+              The newer version of that is working alongside AI, and I have taken a
+              specific position on it that runs through everything here.{" "}
+              <strong>
+                My subject is not using AI to produce work — it is designing the
+                constraints that make AI output trustworthy.
+              </strong>{" "}
+              The{" "}
+              <Link href="/case-studies/accessibility-gate-for-generated-ui">
+                accessibility gate
+              </Link>{" "}
+              exists because a generator will satisfy the letter of a check and miss
+              its purpose, so finishing had to become conditional on proof. The{" "}
+              <Link href="/case-studies/finance-data-pipeline-and-agent">
+                variance agent
+              </Link>{" "}
+              exists because a language model near a ledger produces answers nobody
+              can audit, so it writes prose over numbers it cannot alter and its
+              output is rejected if it references an account that does not exist or
+              omits a variance that mattered.
+            </p>
+            <p>
+              This site is held to the same standard. The build refuses to complete
+              if a concept study claims research that did not happen, if a
+              conformance receipt does not match the bytes being served, or if the
+              published pages carry a link that resolves to nothing. Those gates
+              exist because each of them caught me — they are not decoration, they
+              are scar tissue.
             </p>
           </div>
 

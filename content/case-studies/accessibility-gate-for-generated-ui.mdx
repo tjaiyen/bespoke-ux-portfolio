@@ -65,6 +65,28 @@ that request against a fresh audit. If anything changed since the audit ran, the
 stale and the request is refused. Budget exhausted, wall-clock exceeded, iteration cap hit
 — every exit path fails closed. There is no path where the model marks its own work done.
 
+<DirectionComparison
+  label="Enforcement"
+  takenTitle="Blocking gate — finishing is conditional"
+  takenBlocks={[
+    { h: 2, label: "model requests completion" },
+    { h: 3, label: "harness runs a FRESH audit" },
+    { h: 2, cols: 2, key: true },
+    { h: 3, label: "refuse, repair, re-audit" }
+  ]}
+  takenNote="The model asks to finish; the harness adjudicates against an audit it ran itself. Anything changed since that audit makes it stale, and the request is refused. Every exit path — budget, wall-clock, iteration cap — fails closed."
+  discardedTitle="Advisory scanner"
+  discardedBlocks={[
+    { h: 3, label: "model writes the page" },
+    { h: 2, label: "scanner reports issues" },
+    { h: 2, label: "model marks it done" },
+    { h: 3, cols: 3 }
+  ]}
+  discardedNote="Every accessibility MCP and PR-time linter available works this way. It is far simpler, and an agent is free to read the findings and finish anyway — which is exactly what they do."
+  criterion="Can the thing being checked decide it has passed?"
+  cost="Generation is slower, and some designs that are genuinely fine get refused as unverifiable rather than wrong."
+/>
+
 Then the harder half. A gate is only as wide as its enumeration of failure modes, so the
 six structural invariants exist to close the gaps the standard rules leave:
 
