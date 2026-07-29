@@ -7,7 +7,7 @@ operational visibility tools. This repository is the portfolio itself: hand-buil
 Next.js and TypeScript against a semantic design-token system, with the accessibility
 checks running in CI rather than asserted in prose.
 
-**Live:** _not deployed yet — see [Deploying](#deploying)._
+**Live:** <https://tjaiyen.github.io/bespoke-ux-portfolio>
 
 ---
 
