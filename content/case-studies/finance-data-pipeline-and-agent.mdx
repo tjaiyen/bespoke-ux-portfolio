@@ -46,7 +46,7 @@ explanation at all, because it will be believed.** Somebody signs off on those f
 That single line decides the boundary. It is not a preference about model quality; it holds
 even if the arithmetic is perfect, because the problem is auditability, not accuracy.
 
-## Trade-offs
+## Where the boundary goes
 
 The architecture that demos best is the one where you hand the model the ledger and ask
 what happened. I rejected it.
@@ -83,7 +83,7 @@ and flags exceptions and touches none of the maths.
   { label: "Language model", value: "narrative only", change: "never the arithmetic", isPositive: true }
 ]} />
 
-## The interesting part: what happens when the model is wrong
+## When the model is wrong
 
 Drawing a boundary is easy to claim and easy to leak. The part of this I would actually
 defend in a review is the layer that enforces it — `run_guardrails`, which sits between the
@@ -130,7 +130,7 @@ command a reviewer can run. The same command runs in CI on every push, so the nu
 a memory of one good day; the most recent run logs `PASS=33` and `PASS=14` with `ERROR=0`
 across the two dbt projects.
 
-## Retrospective
+## What I have not solved
 
 **The interface is the weakest part and I would invest there next.** The reasoning and the
 guardrails are sound; the sandbox that exposes them is functional rather than considered.

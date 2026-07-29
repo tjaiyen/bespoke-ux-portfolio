@@ -37,7 +37,7 @@ and declare itself done. In an agent loop, an advisory checker is a suggestion.
 That is the whole problem in one sentence: **the thing being checked is also the thing
 deciding whether the check mattered.**
 
-## Research
+## How models cheat an accessibility check
 
 I did not commission a study. I watched models work against an advisory checker and
 recorded how they behaved, which turned out to be the more useful method — the failures
@@ -57,7 +57,7 @@ Each of these is a rule-follower's answer. That reframed the design problem: the
 does not need to be smarter, it needs to be **unbypassable**, and it needs to know the
 specific ways its own checks get satisfied without being met.
 
-## Trade-offs
+## Making finishing conditional
 
 The advisory scanner was the obvious build and I rejected it. What shipped instead makes
 finishing itself conditional: the model *requests* completion, and the harness adjudicates
@@ -134,7 +134,7 @@ automated rule for. A conformance report that lists its own blind spots is worth
 one that implies completeness, and after the FTC's action against automated-overlay
 vendors, "we verified everything" is a claim nobody should make.
 
-## Retrospective
+## What the gate still cannot see
 
 The gate is not the moat and I would not build it first again. A competent team
 reimplements the refusal mechanism in a fortnight. What took real observation is the
