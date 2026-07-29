@@ -1,11 +1,10 @@
 /**
  * Single source of identity for the site.
  *
- * Contact fields are intentionally null. Publishing an email address or profile URL is
- * an outward decision — filling these in is what puts them on the public internet, so
- * that is TJ's call, not a default. Every consumer renders only the links that are set,
- * so the footer degrades cleanly while they are empty rather than shipping placeholders
- * that read as real.
+ * Publishing an email address or profile URL is an outward decision, so these were held
+ * at null until TJ chose (2026-07-29: email + LinkedIn). Every consumer renders only the
+ * links that are set, so the set stays honest as fields are added — nothing here is a
+ * placeholder pretending to be real.
  */
 export const site = {
   name: "Theerayut Jaiyen",
@@ -15,9 +14,12 @@ export const site = {
   tagline:
     "A former manufacturing cost accountant who turns ERP and financial data into real-time operational visibility tools.",
 
-  // ---- TJ: fill these in before launch -------------------------------------
-  email: null as string | null, // e.g. "you@example.com"
-  linkedin: null as string | null, // e.g. "https://www.linkedin.com/in/…"
+  email: "tjaiyen.sterling@gmail.com" as string | null,
+  // ---- TJ: paste the URL and this appears everywhere contact does ----------
+  // Chosen alongside email on 2026-07-29; the URL itself is the one thing I could not
+  // supply. Set it to "https://www.linkedin.com/in/<handle>" and the footer, About page
+  // and every case-study CTA pick it up — nothing else to wire.
+  linkedin: null as string | null,
   github: null as string | null,
   // Drop the PDF at public/resume.pdf and set this to "/resume.pdf". The link then
   // appears in the footer and on About automatically — nothing else to wire.

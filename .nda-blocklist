@@ -13,6 +13,14 @@
 # codenames, and any proprietary metric labels that must never reach a public repo.
 # Keep this file committed: the gates need it, and it contains terms to EXCLUDE, not secrets.
 
-REPLACE_ME_CLIENT_NAME
-REPLACE_ME_PROJECT_CODENAME
-REPLACE_ME_INTERNAL_METRIC
+# Seeded 2026-07-29 (TJ's call). The case studies are composite and name no employer
+# today, so these match nothing right now — that is the point. They are here to fail the
+# build if a future edit slips a real employer name into published content.
+#
+# Matched case-insensitively as fixed strings against content/case-studies/. Note this
+# governs the PORTFOLIO only; TJ's resumes deliberately use the real employer name, which
+# is a separate decision and not in scope here.
+B.E. Meyers
+BE Meyers
+B.E. Meyers & Co
+Meyers & Co

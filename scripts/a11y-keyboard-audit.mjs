@@ -54,6 +54,42 @@ const browser = await puppeteer.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 
+// ---- preflight: refuse to audit an unstyled page -------------------------------------
+// Every size and overflow check here is meaningless without CSS, and an unstyled page
+// does not error — it produces a torrent of confident, wrong failures. Seen three times:
+// a stale server from an earlier session, and twice a server started after a build that
+// baked in a basePath, so every asset 404s at "/". One run reported 242 failures, all of
+// them artefacts of `min-h-11` never being applied.
+//
+// `document.styleSheets.length === 0` is the decisive tell, and it costs one page load.
+{
+  const page = await browser.newPage();
+  await page.goto(BASE + "/", { waitUntil: "networkidle0" });
+  const state = await page.evaluate(() => ({
+    sheets: document.styleSheets.length,
+    rules: [...document.styleSheets].reduce((n, s) => {
+      try {
+        return n + s.cssRules.length;
+      } catch {
+        return n;
+      }
+    }, 0),
+    href: document.querySelector('link[rel="stylesheet"]')?.getAttribute("href") ?? null,
+  }));
+  await page.close();
+  if (state.sheets === 0 || state.rules === 0) {
+    console.error(
+      `\nPREFLIGHT FAILED: ${BASE}/ loaded with no CSS ` +
+        `(stylesheets=${state.sheets}, rules=${state.rules}, first href=${state.href}).\n` +
+        `Everything below would be a false failure. Usual cause: the running server was\n` +
+        `built with NEXT_PUBLIC_BASE_PATH set, so assets 404 at "/". Rebuild with a plain\n` +
+        `\`npm run build\`, restart \`npm start\`, and re-run.`,
+    );
+    await browser.close();
+    process.exit(1);
+  }
+}
+
 for (const route of ROUTES) {
   console.log(`\n${route}`);
   for (const vp of VIEWPORTS) {
