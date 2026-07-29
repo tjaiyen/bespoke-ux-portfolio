@@ -63,6 +63,66 @@ function assertNoNdaViolations(
   }
 }
 
+/**
+ * Concept studies may not narrate research, outcomes or history that did not happen.
+ *
+ * This exists because they did. Three concept studies — each badged "No organisation
+ * commissioned it and it was not shipped to production" — simultaneously claimed four
+ * half-day shadow sessions with named roles, a quoted CFO, a quoted controller, launch
+ * dates ("launched in April 2024", "launched in September 2023"), first-quarter adoption
+ * figures, redeployed analysts and a two-release feature history. The badge sat directly
+ * beside the contradiction, which is worse than either alone: it invites the reader to
+ * ask who the four controllers were.
+ *
+ * A portfolio whose argument is that claims should be checkable cannot rely on remembering
+ * to keep its own prose honest. So the build enforces it, exactly like the NDA gate above.
+ *
+ * Scoped to `projectType: "concept"` on purpose. The same sentence is legitimate in a
+ * self-directed study that really shipped — `finance-data-pipeline-and-agent` says "I
+ * built it" because he did.
+ */
+const CONCEPT_CLAIM_PATTERNS: { re: RegExp; why: string }[] = [
+  {
+    re: /\bI (?:ran|conducted|interviewed|shadowed|observed|recorded|facilitated|moderated|surveyed)\b/i,
+    why: "first-person conducted research",
+  },
+  {
+    re: /\b(?:shadow session|contextual inquiry|card sort with|usability test(?:ing)? with|cognitive walkthrough)/i,
+    why: "a named research method presented as performed",
+  },
+  {
+    re: /\b(?:told me|told us|explicitly told)\b/i,
+    why: "a quoted or reported participant",
+  },
+  {
+    re: /\blaunched in (?:January|February|March|April|May|June|July|August|September|October|November|December|\d{4})/i,
+    why: "a launch date for something never built",
+  },
+  {
+    re: /\bwithin the first quarter\b|\bin the first release\b|\bin the second release\b/i,
+    why: "post-launch history",
+  },
+];
+
+function assertNoFabricatedClaims(
+  slug: string,
+  projectType: string,
+  body: string,
+) {
+  if (projectType !== "concept") return;
+  for (const { re, why } of CONCEPT_CLAIM_PATTERNS) {
+    const hit = body.match(re);
+    if (hit) {
+      throw new Error(
+        `FABRICATED CLAIM in ${slug} (projectType: concept): found "${hit[0]}" — ${why}. ` +
+          `A concept study must not narrate research, outcomes or history that did not ` +
+          `happen. Rewrite it as what grounds the design, or what you would run and what ` +
+          `would falsify it. Build aborted.`,
+      );
+    }
+  }
+}
+
 function readAndValidate(slug: string): {
   frontmatter: CaseStudyFrontmatter;
   content: string;
@@ -90,6 +150,7 @@ function readAndValidate(slug: string): {
   }
 
   assertNoNdaViolations(slug, parsed.data.title, parsed.data.client, content);
+  assertNoFabricatedClaims(slug, parsed.data.projectType, content);
   return { frontmatter: parsed.data, content };
 }
 

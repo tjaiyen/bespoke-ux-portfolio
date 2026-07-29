@@ -3,7 +3,7 @@ slug: capex-asset-downtime-matrix
 title: "Unified CapEx and downtime planning for finance and operations"
 subtitle: "A shared ranking surface designed to cut CapEx approval cycles from 47 days to 20 and remove duplicate capital requests"
 client: "Composite scenario — multi-site process manufacturing"
-role: "Self-directed concept — research, IA, interaction, build"
+role: "Self-directed concept — domain analysis, IA, interaction, build"
 timeline: "Concept project, 2026"
 projectType: concept
 metricsBasis: modelled
@@ -35,15 +35,43 @@ The design goal: a shared planning interface both teams can use without forcing 
 
 ## Research
 
-I structured the research as two parallel discovery streams that converged in a joint workshop.
+No study was commissioned and none was conducted. What grounds this concept is the side of
+the process I actually sat on: as a cost accountant I prepared and reviewed capital
+requests, ran the NPV and payback maths, and watched the annual envelope get allocated.
 
-**Finance stream**: the plan interviews the CFO, VP Finance, and all four plant controllers. I also shadowed two quarterly capital-review meetings, documenting the decision criteria that were actually used (as opposed to the criteria in the formal policy document). The real criteria were: (1) Does this fit the annual budget envelope? (2) What is the NPV and payback period? (3) Has the plant controller already committed this money in their forecast? (4) What did we approve last year for this asset category? The controllers explicitly told me they did not consider operational risk in their evaluation: "That's Operations' job. I look at the numbers."
+From that seat, one thing was visible repeatedly. **Finance and Operations were evaluating
+the same asset against two disjoint criteria sets, and neither could see the other's.**
 
-**Operations stream**: the plan interviews the VP Operations, three maintenance managers, and six reliability engineers. It also includes shadowing two reliability-review meetings and one root-cause analysis of an unplanned failure. The operations criteria were entirely different: (1) What is the failure mode and probability? (2) What is the safety consequence? (3) What is the throughput impact if this asset goes down? (4) Do we have spare parts in inventory? (5) Can we defer until the next planned shutdown? The reliability engineers explicitly told me they did not consider financial return: "That's Finance's job. I look at the asset health."
+- What Finance actually used — not what the policy document said: does it fit the budget
+  envelope, what is the NPV and payback, has the plant controller already committed this in
+  forecast, and what did we approve last year for this asset category.
+- What Operations used: failure mode and probability, safety consequence, throughput impact
+  if the asset goes down, spare-part availability, and whether it can defer to the next
+  planned shutdown.
 
-The joint workshop was the breakthrough. The plan convenes 12 participants (4 Finance, 6 Operations, 2 IT) for a full-day facilitated session. I presented the collision cases—real examples of duplicate requests, anonymized—and asked the group to design a decision framework that would have prevented them. The group struggled for the first two hours, with each side defending their own criteria. The turning point came when the VP Operations asked a simple question: "If Finance had known that the reliability engineer had already requested a replacement, would they have still approved the expansion request?" The VP Finance answered: "Probably not. We would have asked Operations to sequence them."
+Operational risk did not appear in the finance evaluation, and financial return did not
+appear in the operations one. Not through negligence — each group was doing its own job
+correctly with the information it had.
 
-That question—*sequencing*—became the shared concept. Both sides agreed that the problem was not disagreement about priorities, but *ignorance of each other's priorities*. They designed a two-axis scoring framework together: every capital request would be scored on Financial Return (NPV, payback, strategic fit) and Operational Risk (downtime probability, safety impact, throughput loss). A request could be high-return/low-risk (easy approve), low-return/high-risk (easy reject), or high-return/high-risk and low-return/low-risk (the interesting zone, where sequencing and trade-offs mattered).
+The consequence is the failure this concept is designed against: the same asset requested
+twice, from two directions, with neither request aware of the other. Capital gets committed
+to an expansion while a reliability engineer is separately asking to replace the same
+machine.
+
+**The reframe is that this is not a prioritisation problem, it is a visibility one.** Both
+sides can rank correctly and still collide, because they are ranking on axes the other
+cannot see. That is why the design is a two-axis matrix — Financial Return against
+Operational Risk — rather than a better ranked list. A single list forces one axis to win;
+a matrix makes the disagreement itself the thing you look at, and turns the interesting
+quadrants into a *sequencing* conversation rather than an approve/reject one.
+
+**This is where a real engagement would start, not end.** The framework above is my
+hypothesis from one side of the table. The obvious way to test it is a joint session with
+both groups, and the specific thing I would watch for is whether Operations accepts a
+financial axis at all — if reliability engineers reject the premise that risk and return
+are commensurable, the matrix is the wrong instrument and the answer is closer to a veto
+gate than a scoring surface. I have not run that session, so the framework should be read
+as a proposal, not a validated result.
 
 ## Trade-offs
 
@@ -82,7 +110,11 @@ The cost we accepted was real complexity: twice the UI surface to design, test, 
 
 ## Outcome
 
-The CapEx-Downtime Matrix launched in April 2024. Within the first quarter, the system identified $2.3M in duplicate or conflicting requests before they were submitted for approval—requests that would have previously passed through the siloed workflows undetected.
+This concept was not built and never shipped, so everything below is a projection from the
+model, not a result. The model is simple enough to argue with: if both request streams are
+scored on the same surface, a duplicate becomes visible at submission rather than after
+approval. The dollar figure attached to that is an illustration of scale, not a measurement
+— it assumes a duplication rate I saw informally and a capital base to match.
 
 <DualViewMatrixTable rows={[
   { id: "r1", label: "Heat Exchanger HX-4400", financeScore: 85, opsScore: 72, budget: "$380K", downtimeRisk: "High" },
@@ -91,7 +123,9 @@ The CapEx-Downtime Matrix launched in April 2024. Within the first quarter, the 
   { id: "r4", label: "Cooling Tower CT-01", financeScore: 78, opsScore: 65, budget: "$290K", downtimeRisk: "Medium" }
 ]} />
 
-The matrix above demonstrates the dual-view concept: toggle between the Finance lens (NPV score, budget) and the Operations lens (downtime risk, safety impact). In the live tool, a "conflict highlight" banner appears when the two lenses produce divergent recommendations—e.g., a high-NPV project with a critical downtime risk component.
+The matrix above demonstrates the dual-view concept: toggle between the Finance lens (NPV score, budget) and the Operations lens (downtime risk, safety impact). In the concept, a conflict banner appears when the two lenses disagree — a high-NPV project
+carrying a critical downtime risk, for instance. Divergence is the signal worth surfacing;
+agreement needs no interface.
 
 <CollaborativeApprovalPanel stages={[
   { id: "s1", label: "Plant Controller Review", financeStatus: "approved", opsStatus: "approved", notes: "Both controllers signed off within 2 days" },
@@ -100,7 +134,10 @@ The matrix above demonstrates the dual-view concept: toggle between the Finance 
   { id: "s4", label: "CFO Final Approval", financeStatus: "pending", opsStatus: "pending" }
 ]} />
 
-The approval panel shows the cross-functional workflow that replaced the siloed process. Each stage displays both Finance and Operations status side by side, eliminating the opacity that previously caused requests to sit in one queue while the other team assumed they were moving.
+The approval panel shows the cross-functional workflow the concept proposes in place of the
+siloed one. Each stage carries both Finance and Operations status side by side, which is
+aimed squarely at the failure I watched repeatedly: a request sitting in one queue while
+the other team assumed it was moving.
 
 <MetricsGrid metrics={[
   { label: "Conflicting capital plans eliminated", value: "$2.3M", change: "in duplicate/redundant requests first year", isPositive: true },
@@ -110,14 +147,34 @@ The approval panel shows the cross-functional workflow that replaced the siloed 
 ]} />
 
 
-The approval cycle time dropped from 47 days to 20 days. The primary driver was transparency: requestors could now see where their request was in the queue, and approvers could see the full context (both financial and operational) in a single click. The CFO told me, "For the first time, I can approve a capital request and actually understand what Operations thinks about it."
+The cycle-time projection rests on one mechanism: most of the 47 days is not evaluation, it
+is waiting for context to arrive. If both lenses are present at submission, the waiting
+collapses and the evaluation does not.
 
-The most unexpected outcome was behavioral: the two teams began holding joint review meetings voluntarily. The interface had not mandated collaboration; it had simply made collaboration possible by giving both sides a shared vocabulary. The quarterly stakeholder survey showed a 34-percentage-point increase in cross-functional alignment scores.
+**The number to hold me to is not the 20 days.** It is whether requests stop being
+submitted twice — a count anyone can take from the request log in a single quarter, with no
+survey and no instrumentation. If duplicates do not fall, the shared surface has not
+changed behaviour and the rest of the projection does not follow.
 
 ## Retrospective
 
-If I were to do this again, I would start the joint workshop even earlier—ideally in week 2 of discovery rather than week 6. The two parallel streams generated rich data, but they also reinforced the silo mentality. By the time we brought everyone together, each side had already formed strong opinions about "what the other side doesn't understand." An earlier convergence might have produced a more collaborative dynamic.
+The weakest part of this concept is the thing it is named after. **A two-axis matrix
+assumes risk and return are commensurable enough to plot together**, and I am not certain
+they are. Finance can defend a number; Operations is often defending a judgement about a
+failure mode. Putting them on perpendicular axes implies a parity that may not survive
+contact with the people who would have to use it — and if it does not, the honest redesign
+is not a better matrix but a sequencing queue with an explicit Operations veto.
 
-I also underestimated the data-integration challenge. The financial data lived in the ERP's fixed-asset module, while the operational data lived in a separate reliability-engineering database and a CMMS (computerized maintenance management system). The IT team spent four months building the data bridge, which delayed the interface work. A technical feasibility assessment in week 1 would have surfaced this risk and allowed us to sequence the project differently.
+Second, the conflict highlight is the feature most likely to fail in practice, and it fails
+in a predictable direction. Flag every divergence and it becomes wallpaper within a
+fortnight; alert fatigue is the default outcome for any always-on warning. The design needs
+a severity threshold from the first version rather than as a correction — something like
+flagging only where the two lenses land more than a quadrant apart — and even that is a
+guess I would want to tune against real request volume rather than assert here.
 
-Finally, I would have designed the "conflict highlight" feature differently. In the first release, it flagged every divergence aggressively, which created alert fatigue. Users began ignoring the highlights. In the second release, we added a severity threshold: only flag divergences where the financial and operational scores differed by more than one quadrant on the matrix. Highlight volume dropped by 78%, and user engagement with the remaining highlights increased significantly.
+Third, and least visible in the screens: **the data integration is probably the real
+project.** Financial data sits in the ERP fixed-asset module; operational data sits in a
+reliability database and a CMMS. Any honest plan puts a feasibility assessment before the
+interface work, because a shared surface fed by two systems that disagree about what an
+asset *is* will produce confident nonsense. I have designed the interface here; I have not
+solved that, and I would not pretend the interface is the hard part.

@@ -84,11 +84,13 @@ export default function AboutPage() {
           <h2 className="mt-14 font-serif text-2xl text-text-main">How I work</h2>
           <div className="prose-case mt-4">
             <p>
-              Research first, and specific: shadowing people during the actual task,
-              not interviewing them about it afterwards. Then the trade-off gets
-              written down — what I discarded, on what criteria, and what it cost —
-              because a design decision with no stated cost usually means the
-              alternative was never seriously considered.
+              Domain first. I am not translating a field I learned about — I am
+              designing for the one I worked in, which means the problem definition
+              starts from having done the job rather than from a discovery phase. Then
+              the trade-off gets written down: what I discarded, on what criteria, and
+              what it cost, because a design decision with no stated cost usually means
+              the alternative was never seriously considered. Where a concept rests on an
+              assumption rather than evidence, it says so and names what would falsify it.
             </p>
             <p>
               This site is built the same way it argues for: hand-built in Next.js

@@ -3,7 +3,7 @@ slug: operational-variance-command-center
 title: "Real-time variance visibility for plant controllers"
 subtitle: "A variance tool designed to cut month-end reconciliation from 14 days to 3 by surfacing cost variances at the work-order level"
 client: "Composite scenario — mid-market discrete manufacturing"
-role: "Self-directed concept — research, IA, interaction, build"
+role: "Self-directed concept — domain analysis, IA, interaction, build"
 timeline: "Concept project, 2026"
 projectType: concept
 metricsBasis: modelled
@@ -33,13 +33,40 @@ The design scope I set for myself: research through delivery, assuming a cross-f
 
 ## Research
 
-I began with a contextual-inquiry protocol: four half-day shadow sessions, one with each controller during a live close cycle. I asked them to narrate their actions aloud while I recorded screen video and took timestamped notes. The pattern that emerged was striking: every controller used the same physical metaphor. They described variance investigation as "following breadcrumbs" or "peeling an onion." They never spoke about dashboards, charts, or summaries. They spoke about *paths*—the sequence of documents and transactions that explained why actual cost diverged from standard.
+No study was commissioned and none was conducted. This design rests on something I can
+defend more directly: I spent years inside month-end close as a cost accountant in
+manufacturing, and the person opening the work-order detail, then the labour-routing
+detail, then the time-card detail, then the supervisor override log, was me.
 
-This finding directly contradicted the initial brief, which asked for "a better dashboard with more visualizations." I presented the journey-map artifact to stakeholders and proposed a pivot: instead of a dashboard, we would build a *variance detective*—an interface organized around the mental model of following a trail from aggregate variance down to root-cause transaction.
+That is where the central observation comes from. **Controllers do not reason in
+dashboards. They reason in trails.** The vocabulary is detective vocabulary — following
+the breadcrumbs, peeling the onion — and it is not decoration. At 7pm on day nine of close,
+what you need is not a better summary of the $47,000 you already know about; it is the next
+link in the chain that explains it. The ERP hands you the aggregate and makes you rebuild
+the path by hand, every time, through modules that each navigate differently.
 
-To validate this pivot, the research plan calls for a card sort with the full controller population — eight people across three plants. I wrote 32 variance-investigation tasks on index cards—examples like "Find why work order 88472 has a $12,400 material overrun" and "Identify which supplier price change caused the Q3 purchasing variance." Controllers sorted them into categories they named themselves. The resulting taxonomy had four top-level categories: *Work Order Trail*, *Supplier Change*, *Routing Deviation*, and *Inventory Adjustment*. This taxonomy became the information architecture of the final product.
+That reframes the obvious brief. "A better dashboard with more visualisations" is the wrong
+shape for this problem — it improves the view you already have instead of the traversal you
+actually perform. So the concept is organised as a *variance detective*: a path from
+aggregate variance down to root-cause transaction, rather than a reporting surface.
 
-I also conducted a quantitative analysis of six months of variance data (anonymized and sampled) to understand frequency distributions. Eighty-three percent of variances were under $5,000, but the top 5% by dollar value accounted for 61% of total variance dollars. This informed a key design decision: the interface would surface the high-impact variances first, but always preserve the path to investigate the long tail, because controllers told us that "small variances that repeat every month" were often the earliest signal of a systemic issue.
+**The information architecture is a hypothesis, not a finding.** The four categories the
+interface is built on — *Work Order Trail*, *Supplier Change*, *Routing Deviation*,
+*Inventory Adjustment* — are how I sorted variances in practice. They are not a taxonomy
+validated against a population. A commissioned version of this project would establish that
+with a card sort across the full controller group, and it is the first thing I would run.
+
+**What would falsify the premise:** controllers given a working drill-down path who still
+prefer the aggregate summary. If the trail is not the unit of work, the information
+architecture is wrong, and the right answer is the dashboard the brief originally asked for.
+
+One assumption does real work in the design, so it should be named as an assumption rather
+than presented as data: variance value is heavily skewed — most variances small, a small
+minority carrying most of the dollars. That is the shape I consistently saw, and it is why
+the interface surfaces high-impact variances first while always preserving the path into
+the long tail, since small variances that repeat every month are often the earliest signal
+of a systemic problem. That distribution is modelled from experience, not measured from a
+dataset I hold.
 
 ## Trade-offs
 
@@ -49,10 +76,10 @@ The ERP module path offered native real-time data, single sign-on, and long-term
 
 The overlay path used nightly ETL to replicate ERP transaction tables into a PostgreSQL warehouse, then exposed a React-based exploration interface. The cost was 4-6 hours of data latency, a separate codebase to maintain, and a monthly reconciliation audit to catch ETL drift.
 
-We chose the overlay for three reasons:
+I chose the overlay for three reasons:
 
 1. **User rhythm**: Controllers reviewed variances weekly during the month and daily only during close week. A 4-hour delay was irrelevant to their workflow.
-2. **Design velocity**: The overlay let us ship an MVP in 10 weeks and iterate with real controllers using production data. The ERP module would have required 6 months before any user saw a screen.
+2. **Design velocity**: The overlay would let a squad ship an MVP in 10 weeks and iterate with real controllers using production data. The ERP module would have required 6 months before any user saw a screen.
 3. **Organizational fit**: The scenario's IT organisation is optimized for ERP maintenance, not product iteration. The overlay squad reported to Operations Finance, not IT, which aligned decision-making with user outcomes.
 
 The cost is real, and it is the failure mode I designed against. A separate pipeline invites a rounding-difference mismatch between the ERP's decimal precision and the warehouse default — the kind that does not announce itself, but accumulates into a drift in WIP valuation and surfaces months later as an unexplained few-hundred-dollar gap in one plant. That is expensive precisely because it erodes trust in the tool at the moment it should be earning it. The design answer is an automated monthly reconciliation that compares ETL totals against ERP totals and flags any divergence over $100, so the drift is caught by the system rather than by a controller. The point of the guard is that it fails loudly and early; a silent pipeline is the one I would not trust.
@@ -96,12 +123,37 @@ The simulator above illustrates the core interaction model: adjust labor, materi
 ]} />
 
 
-The most unexpected outcome was cultural: the controllers began using the tool proactively during the month, not just reactively at close. They started identifying and correcting variances before they compounded, which reduced the month-end workload further. One controller told me, "It used to be that I only looked at variances when someone yelled at me. Now I check them on Tuesday morning because I actually want to know what's happening."
+The outcome I would most want to be true is a change in *when* the tool is used, not how
+fast it runs. If variance investigation stops being a close-week fire drill and becomes
+something a controller does on a Tuesday because the cost of looking has dropped to near
+zero, the design has changed the work rather than accelerated it. That is a behavioural
+claim about an unbuilt tool, so it is a hypothesis — but it is the one I would measure,
+and it is measurable: the ratio of mid-month to close-week sessions.
 
 ## Retrospective
 
-If I were to revisit this project, I would push harder for user-accessible data-export functionality. Controllers will want to pull variance data into their own Excel models for ad-hoc analysis — that is the workflow they already live in, and a minimal CSV dump would not serve it. A richer, parameterized export (respecting the same breadcrumb paths as the UI) would reduced the remaining 6% of queries that required analyst intervention.
+The thing I am least sure about is whether the trail metaphor survives contact with a
+controller who does not share it. It is the organising idea of the whole interface, it
+comes from one person's experience of the job — mine — and a mental model that is
+idiosyncratic rather than general would produce an information architecture that feels
+wrong to everyone else. That is the first thing a real engagement should attack, not
+confirm.
 
-I would also put an IT data architect into the ETL design review before any pipeline work starts. The rounding mismatch above is the avoidable class of defect — it comes from a precision assumption nobody wrote down, and a single review meeting is cheaper than the trust it costs to find it later.
+Second: **export is not a feature here, it is the exit.** Controllers live in Excel and
+will want variance data in their own models for ad-hoc work. A minimal CSV dump does not
+serve that; the export needs to carry the same breadcrumb paths the interface uses, or the
+context that made the number meaningful is stripped on the way out. Designing it last is
+how tools end up with an export nobody uses.
 
-Finally, I underestimated the political dimension of "taking variance investigation out of the ERP." Some senior finance stakeholders initially interpreted the overlay as a critique of the ERP investment. I should have framed the narrative more explicitly: the overlay *complements* the ERP by solving a user-experience problem that the ERP's architecture cannot address, not by replacing it.
+Third, and easy to underrate from the screens: **the pipeline is where the trust is won or
+lost.** A separate ETL invites a rounding-difference drift between the ERP's precision and
+the warehouse default — the kind that accumulates quietly in WIP valuation and surfaces
+months later as an unexplained gap in one plant. An automated monthly reconciliation that
+fails loudly on any divergence is not a nice-to-have; without it, the first silent
+mismatch costs more credibility than the tool ever earned.
+
+Finally, a political dimension I would plan for rather than discover: taking variance
+investigation *out* of the ERP reads to some finance stakeholders as a critique of the ERP
+investment. The framing that defuses it is that the overlay makes the ERP's data more
+usable rather than replacing it — and that argument lands far better before the build than
+after.
