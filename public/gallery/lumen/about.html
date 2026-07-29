@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>About — Lumen Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="stage">
+      <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+      <header class="site-header">
+        <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Lumen</a>
+        <nav class="primary" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html" aria-current="page">About</a>
+          <a href="work.html">Work</a>
+        </nav>
+      </header>
+
+      <div class="wrap">
+        <section class="panel hero">
+          <p class="eyebrow">Our story</p>
+          <h1>A studio built on restraint</h1>
+          <p class="sub">We started Lumen because the best products we admired had one thing in common: nothing extra. That absence is what we practice.</p>
+        </section>
+      </div>
+    </div>
+
+    <main id="main">
+      <div class="wrap">
+        <section class="panel story" aria-labelledby="story-heading">
+          <h2 id="story-heading">How we got here</h2>
+          <p>Lumen began in 2015 as a two-person practice above a bookshop, taking on the projects larger agencies passed over — the intricate, unglamorous interfaces that real people use every day. We found we preferred them.</p>
+          <p>Over eleven years we stayed deliberately small. Six designers, no account managers, no handoff theatre. When you work with Lumen you work with the people who draw the pixels and write the specs. That closeness is the whole point.</p>
+          <p>We believe good design is mostly subtraction: removing steps, removing doubt, removing the noise between a person and what they came to do. Everything we ship is measured against that idea.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="values-heading">
+          <p class="eyebrow">What we hold to</p>
+          <h2 id="values-heading">Principles that guide the work</h2>
+          <ul class="values">
+            <li><strong>Clarity first</strong><span>If a screen needs a manual, it is not finished. We design for the moment of use.</span></li>
+            <li><strong>Small on purpose</strong><span>We take fewer clients so each one gets our full attention, start to finish.</span></li>
+            <li><strong>Systems, not screens</strong><span>We leave teams with durable foundations, not one-off deliverables.</span></li>
+            <li><strong>Accessible by default</strong><span>Inclusive design is not a phase at the end — it shapes every decision.</span></li>
+          </ul>
+        </section>
+
+        <section class="panel" aria-labelledby="cta-heading">
+          <h2 id="cta-heading">Curious what we could make together?</h2>
+          <p class="lead">Take a look at a few projects we are proud of, then tell us about yours.</p>
+          <div class="actions" style="justify-content:flex-start;margin-top:24px;">
+            <a class="btn btn-primary" href="work.html">Browse selected work</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Lumen Studio — a boutique product-design practice.</p>
+      <p><a href="index.html">Home</a> · <a href="work.html">Work</a></p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -105,7 +105,7 @@ export default function Home() {
               ))}
             </ul>
             <p className="measure mt-6 font-sans text-sm text-text-muted">
-              All 47 sites are published here with their conformance
+              All 52 sites are published here with their conformance
               reports —{" "}
               <Link
                 href="/gallery"

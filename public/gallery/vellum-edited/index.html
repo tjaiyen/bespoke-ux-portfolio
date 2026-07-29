@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Vellum — an indie polysynth</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">VELLUM</a>
+      <nav aria-label="Primary">
+        <a href="#engine">Engine</a>
+        <a href="#sound">Sound</a>
+        <a href="#specs">Specs</a>
+        <a href="#preorder">Preorder</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">Indie polysynth · 8 voices</p>
+        <h1>Vellum</h1>
+        <p class="sub">A hands-on wavetable synthesizer with a warm analog heart. Sculpt evolving pads, biting leads, and cinematic drones — all from one deceptively simple panel.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#preorder">Preorder — $699</a>
+          <a class="cta cta-ghost" href="#sound">Hear it</a>
+        </div>
+      </section>
+
+      <section id="engine" class="panel">
+        <h2>Sound engine</h2>
+        <p class="lead">Signal flows from a pair of wavetable oscillators, through a self-oscillating ladder filter, and out via a rack of studio-grade effects — a complete voice from note-on to master bus.</p>
+        <ul class="feature-grid">
+          <li>
+            <h3>Dual wavetable oscillators</h3>
+            <p>Two independent tables you can scan, morph, and sync — layered for thick unisons or detuned into shimmering movement.</p>
+          </li>
+          <li>
+            <h3>Resonant ladder filter</h3>
+            <p>A zero-delay-feedback ladder with silky resonance that self-oscillates into a clean sine and drives into warm saturation.</p>
+          </li>
+          <li>
+            <h3>Built-in studio effects</h3>
+            <p>Hall reverb, tape delay, chorus, and drive on board — mix a finished, mastered patch without ever leaving the panel.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="sound" class="panel">
+        <h2>Built for the sound in your head</h2>
+        <p class="lead">Three morphable wavetable oscillators feed a resonant analog-modeled filter, wrapped in a modulation matrix deep enough to lose an afternoon in — and immediate enough to play live.</p>
+        <ul class="feature-grid">
+          <li>
+            <h3>Living wavetables</h3>
+            <p>Scan through 128 hand-designed frames per table, or drop in your own single-cycle waveforms.</p>
+          </li>
+          <li>
+            <h3>Warm analog filter</h3>
+            <p>A zero-delay-feedback ladder that self-oscillates cleanly and drives into gentle saturation.</p>
+          </li>
+          <li>
+            <h3>Deep modulation</h3>
+            <p>Six LFOs, four envelopes, and a drag-to-assign matrix with per-route curves and lag.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="specs" class="panel">
+        <h2>Specifications</h2>
+        <ul class="spec-list">
+          <li><span class="spec-key">Voices</span><span class="spec-val">8-voice polyphony, mono &amp; unison modes</span></li>
+          <li><span class="spec-key">Oscillators</span><span class="spec-val">3 wavetable + 1 sub, per-voice detune</span></li>
+          <li><span class="spec-key">Filter</span><span class="spec-val">Analog-modeled ladder, 12/24 dB slopes</span></li>
+          <li><span class="spec-key">Effects</span><span class="spec-val">Reverb, tape delay, chorus, drive</span></li>
+          <li><span class="spec-key">Connectivity</span><span class="spec-val">USB-C, MIDI DIN in/out/thru, CV pair</span></li>
+          <li><span class="spec-key">Keys</span><span class="spec-val">37 semi-weighted with aftertouch</span></li>
+        </ul>
+      </section>
+
+      <section id="preorder" class="panel panel-cta">
+        <h2>Reserve your Vellum</h2>
+        <p class="lead">First run ships spring 2026. Join the list and we'll email you when your build slot opens — no charge until it ships.</p>
+        <form class="signup" action="#preorder" method="post" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@studio.com" required />
+          </div>
+          <button type="submit" class="cta">Notify me</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Vellum Instruments. Made by three people and a soldering iron.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

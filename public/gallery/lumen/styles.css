@@ -1,0 +1,156 @@
+:root {
+  --bg: #0a0b11;
+  --bg-2: #0e1019;
+  --surface: #14161f;
+  --surface-2: #1a1d29;
+  --fg: #f5f6fa;
+  --muted: #a2a9bd;
+  --border: #262a38;
+  --accent: #d8a24a;
+  --accent-2: #e7c07a;
+  --accentfg: #0a0b11;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Decorative 3D backdrop. It lives ONLY in a bounded band at the top of the
+   page (behind the header + hero), NOT as a full-viewport fixed layer. This
+   guarantees no body text is ever painted over the canvas, so every contrast
+   ratio is verifiable. It is aria-hidden and never the sole content. */
+.stage { position: relative; z-index: 0; }
+#bg {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  z-index: 0; display: block; pointer-events: none;
+}
+.stage > .site-header { position: relative; z-index: 1; }
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 5;
+  background: var(--accent); color: var(--accentfg);
+  padding: 10px 16px; border-radius: 8px; font-weight: 700; text-decoration: none;
+  transition: top 0.18s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* Focus visibility */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Header: transparent band so the 3D shows behind it; text on opaque chips. */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding: 16px clamp(20px, 5vw, 64px);
+}
+.brand {
+  color: var(--fg); font-weight: 800; text-decoration: none; font-size: 20px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--surface); padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border);
+}
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
+nav.primary { display: flex; gap: 6px; background: var(--surface); padding: 5px; border-radius: 12px; border: 1px solid var(--border); }
+nav.primary a {
+  color: var(--muted); text-decoration: none; padding: 8px 14px; border-radius: 8px;
+  font-weight: 600; font-size: 15px;
+}
+nav.primary a:hover { color: var(--fg); background: var(--surface-2); }
+nav.primary a[aria-current="page"] { color: var(--accent-2); background: var(--surface-2); }
+
+/* Opaque content region below the stage — fully solid, never over the canvas. */
+main {
+  position: relative; z-index: 1;
+  padding: clamp(28px, 5vh, 56px) clamp(16px, 4vw, 40px) clamp(40px, 8vh, 96px);
+  background: var(--bg);
+}
+.wrap { max-width: 1000px; margin: 0 auto; }
+
+/* Opaque panels */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: clamp(32px, 5vw, 64px);
+}
+.panel + .panel, .panel + .grid, .grid + .panel { margin-top: 24px; }
+
+/* Hero panel sits inside the stage, floating over the 3D — it is fully opaque. */
+.stage .wrap { max-width: 1000px; margin: 0 auto; padding: clamp(24px, 5vh, 60px) clamp(16px, 4vw, 40px) clamp(40px, 7vh, 80px); }
+.stage .hero { position: relative; z-index: 1; }
+
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.24em; font-size: 12.5px;
+  color: var(--accent-2); margin: 0 0 18px; font-weight: 700;
+}
+h1 { font-size: clamp(36px, 6.5vw, 62px); line-height: 1.04; margin: 0 0 22px; letter-spacing: -0.02em; }
+h2 { font-size: clamp(24px, 3.5vw, 32px); margin: 0 0 18px; letter-spacing: -0.01em; }
+h3 { font-size: 20px; margin: 0 0 10px; }
+p { color: var(--muted); }
+.lead { font-size: clamp(18px, 2.4vw, 21px); color: var(--fg); max-width: 60ch; }
+
+/* Hero */
+.hero { text-align: center; max-width: 820px; margin: 0 auto; }
+.hero .sub { font-size: 19px; color: var(--muted); max-width: 54ch; margin: 0 auto 32px; }
+.actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 14px 28px; border-radius: 12px;
+  text-decoration: none; font-weight: 700; font-size: 16px; border: 1px solid transparent; cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--accentfg); }
+.btn-primary:hover { background: var(--accent-2); }
+.btn-ghost { background: var(--surface-2); color: var(--fg); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-2); }
+
+/* Stat / feature grid */
+.grid { display: grid; gap: 20px; }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 26px;
+}
+.card p { margin: 0; }
+.card strong { color: var(--fg); }
+.stat .num { font-size: 34px; font-weight: 800; color: var(--accent-2); display: block; margin-bottom: 4px; }
+
+/* About story */
+.story p { max-width: 68ch; }
+.story p + p { margin-top: 18px; }
+.values { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.values li { display: flex; gap: 14px; align-items: baseline; color: var(--muted); }
+.values li strong { color: var(--fg); min-width: 130px; display: inline-block; }
+
+/* Work list */
+.projects { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.project {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px;
+  padding: 30px; display: grid; gap: 8px;
+}
+.project .meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin: 0; }
+.project .tag {
+  background: var(--surface); border: 1px solid var(--border); color: var(--accent-2);
+  padding: 3px 10px; border-radius: 999px; font-weight: 600; letter-spacing: 0.03em;
+}
+.project h3 { margin: 4px 0 0; }
+.project p { margin: 0; }
+.project .year { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.section-intro { margin-bottom: 8px; }
+
+/* Footer: solid opaque band. */
+.site-footer {
+  text-align: center; padding: 40px 24px; color: var(--muted);
+  background: var(--bg-2); border-top: 1px solid var(--border);
+}
+.site-footer a { color: var(--accent-2); }
+.site-footer p { margin: 6px 0; }

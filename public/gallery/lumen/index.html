@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Lumen — Boutique Product-Design Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="stage">
+      <!-- Decorative 3D backdrop, bounded to this top band. aria-hidden and never the sole content. -->
+      <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+      <header class="site-header">
+        <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Lumen</a>
+        <nav class="primary" aria-label="Primary">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="about.html">About</a>
+          <a href="work.html">Work</a>
+        </nav>
+      </header>
+
+      <div class="wrap">
+        <section class="panel hero">
+          <p class="eyebrow">Boutique product-design studio</p>
+          <h1>We shape products that feel inevitable</h1>
+          <p class="sub">Lumen is a small studio designing calm, considered digital products — from first sketch to shipped interface — for teams who care about the details.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="work.html">See our work</a>
+            <a class="btn btn-ghost" href="about.html">Meet the studio</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <main id="main">
+      <div class="wrap">
+        <section class="panel" aria-labelledby="offer-heading">
+          <p class="eyebrow">What we do</p>
+          <h2 id="offer-heading">Design across the whole product</h2>
+          <div class="grid grid-3">
+            <article class="card">
+              <h3>Product strategy</h3>
+              <p>We turn fuzzy ambitions into a clear, buildable product direction grounded in real user needs.</p>
+            </article>
+            <article class="card">
+              <h3>Interface design</h3>
+              <p>Interfaces with rhythm and restraint — systems that scale and stay legible under pressure.</p>
+            </article>
+            <article class="card">
+              <h3>Design systems</h3>
+              <p>Durable component libraries and tokens your engineers can trust and extend for years.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="stats-heading">
+          <p class="eyebrow">In numbers</p>
+          <h2 id="stats-heading">A decade of quiet, careful work</h2>
+          <div class="grid grid-3">
+            <article class="card stat"><span class="num">40+</span><p>Products shipped with founding teams and scale-ups.</p></article>
+            <article class="card stat"><span class="num">6</span><p>Designers, no layers — you work directly with makers.</p></article>
+            <article class="card stat"><span class="num">11</span><p>Years refining one craft: usable, beautiful software.</p></article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Lumen Studio — a boutique product-design practice.</p>
+      <p><a href="about.html">About</a> · <a href="work.html">Work</a></p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

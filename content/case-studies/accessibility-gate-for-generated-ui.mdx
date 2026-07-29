@@ -7,16 +7,16 @@ role: "Sole designer and engineer — research, interaction, design system, buil
 timeline: "2026"
 projectType: self-directed
 metricsBasis: measured
-basis: "All 47 sites are published in this portfolio's gallery — 12 produced by the engine under the gate, 35 hand-authored and independently re-audited — each with the machine-readable conformance report from a run against the exact copy published. Open any of them and read the receipt."
+basis: "All 52 sites are published in this portfolio's gallery — 17 produced by the engine under the gate, 35 hand-authored and independently re-audited — each with the machine-readable conformance report from a run against the exact copy published. Open any of them and read the receipt."
 userResearchSummary: >-
   The problem was observed, not surveyed. AI code generators optimise the render tree and have near-zero semantic fidelity, so generated interfaces are inaccessible by default — and the entire tooling ecosystem around them is advisory. Deque's own audit server, the community accessibility servers, PR-time scanners: an agent is free to ignore every one of them. Watching models work against an advisory checker showed the failure was structural, not a knowledge gap. They do not fail to know the rule; they satisfy the letter of the check and miss its purpose. That reframed the brief from "help the model write accessible code" to "make finishing conditional on proof".
 tradeOffAnalysis: >-
   The obvious design is an advisory scanner that reports findings, because it never blocks anyone and is trivially adoptable. I rejected it — an advisory checker in an agent loop is a suggestion the agent can decline, which is exactly the failure mode I set out to fix. Instead the completion signal itself became a request the harness adjudicates: the model asks to finish, and the harness refuses unless a fresh audit ran, nothing changed since, and it found zero critical, serious, or structural violations. Every exit path fails closed. The accepted cost is real and I own it: generation gets slower, some genuinely fine designs are rejected as unverifiable rather than wrong, and text over a canvas is refused outright because its contrast cannot be determined. I chose a false-negative bias — rejecting acceptable work — over ever emitting an unverified pass, because a gate that sometimes lies is worth less than no gate at all.
 businessImpactMetrics:
-  - { label: "Generated sites passing a fresh gate run", value: "47/47", change: "from 6 carrying any persisted receipt", isPositive: true }
+  - { label: "Sites passing a fresh gate run", value: "52/52", change: "from 9 carrying any persisted receipt", isPositive: true }
   - { label: "Structural invariants enforced beyond axe", value: "6", change: "each with a dedicated failing fixture", isPositive: true }
   - { label: "Blind spots named in every report", value: "7", change: "criteria axe cannot test, listed not hidden", isPositive: true }
-  - { label: "three.js copies shipped for 47 sites", value: "1", change: "from 47 — one shared 1.3 MB build, not 61 MB of duplicates", isPositive: true }
+  - { label: "three.js copies shipped for 52 sites", value: "1", change: "from 52 — one shared 1.3 MB build, not 61 MB of duplicates", isPositive: true }
 heroImage: "/images/accessibility-gate-for-generated-ui/hero.png"
 toolsUsed: ["TypeScript", "axe-core", "Playwright", "Node", "React"]
 published: true
@@ -82,8 +82,8 @@ and the entire value of the gate is that it never emits one.
 
 ## Outcome
 
-All 47 sites are published in this portfolio's gallery, and the distinction between them
-is stated on every card rather than blurred: **12 came out of the engine**, where the audit
+All 52 sites are published in this portfolio's gallery, and the distinction between them
+is stated on every card rather than blurred: **17 came out of the engine**, where the audit
 *was* the gate and it could not finish until the page passed; **35 are hand-authored** on a
 shared scroll-story runtime, and their receipt is an independent re-audit of the shipping
 code rather than a gate the generator had to clear.

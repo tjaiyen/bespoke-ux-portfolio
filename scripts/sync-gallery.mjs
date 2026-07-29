@@ -50,9 +50,34 @@ if (!fs.existsSync(SHOWCASE) || !fs.existsSync(AUDIT_BIN)) {
   process.exit(2);
 }
 
+/**
+ * Directories under `examples/` that are NOT candidate sites.
+ *
+ * `artifacts/` holds single-file re-bundles of stage4d templates already published from
+ * `showcase/` — same sites, packaged for Claude Artifacts — plus 25 `verify-*` harnesses
+ * that each contain an index.html. Scanning it would add 50 entries, every one either a
+ * duplicate of an existing card or a test fixture.
+ */
+const NOT_SITES = new Set(["artifacts", "showcase", "node_modules"]);
+
 /** Every directory holding an index.html, including the nested variant sets. */
 function candidates() {
   const out = [];
+
+  // Sites that live directly under examples/ rather than in showcase/ — gen-lumen, the
+  // only multi-page site in the set, was missed entirely by scanning showcase alone.
+  const EXAMPLES = path.join(SOURCE, "examples");
+  for (const name of fs.readdirSync(EXAMPLES).sort()) {
+    if (NOT_SITES.has(name)) continue;
+    const dir = path.join(EXAMPLES, name);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    if (!fs.existsSync(path.join(dir, "index.html"))) continue;
+    // The `gen-` prefix is a source-directory convention, not part of the work's name —
+    // a card reading "Gen-lumen" is just the folder leaking onto the page. Stripped, and
+    // asserted collision-free against the showcase slugs below.
+    out.push({ slug: name.replace(/^gen-/, ""), dir });
+  }
+
   for (const name of fs.readdirSync(SHOWCASE).sort()) {
     const dir = path.join(SHOWCASE, name);
     if (!fs.statSync(dir).isDirectory()) continue;
@@ -73,6 +98,17 @@ function candidates() {
         });
       }
     }
+  }
+  // Stripping the `gen-` prefix could in principle collide with a showcase slug. Assert
+  // rather than assume: a silent collision would overwrite one site's directory with
+  // another's and publish a card whose screenshot and receipt disagree.
+  const seen = new Set();
+  for (const c of out) {
+    if (seen.has(c.slug)) {
+      console.error(`slug collision: "${c.slug}" produced by more than one source dir`);
+      process.exit(1);
+    }
+    seen.add(c.slug);
   }
   return out;
 }
@@ -260,6 +296,11 @@ for (const p of passed) {
   // Variants of one brief share a <meta description>, so two cards would carry byte-
   // identical text and read as a duplication bug rather than as three takes on one
   // brief. Number them from the set actually published.
+  // An `-edited` sibling is the same site after a change that had to clear the gate
+  // again. Without a label the two cards are near-identical and read as a duplicate.
+  if (n && p.slug.endsWith("-edited")) {
+    n = `${n} (edited copy — re-gated after the change)`;
+  }
   if (n && p.variantOf) {
     const siblings = passed.filter((q) => q.variantOf === p.variantOf);
     const i = siblings.findIndex((q) => q.slug === p.slug) + 1;

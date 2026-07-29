@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Cobalt — clarity from your data</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Cobalt</a>
+      <nav aria-label="Primary">
+        <a href="#product">Product</a>
+        <a href="#metrics">Metrics</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <p class="eyebrow">Data analytics, decided</p>
+        <h1>Turn raw signals into confident decisions</h1>
+        <p class="sub">Cobalt unifies your product, revenue, and behavioral data into one calm, fast workspace — so your team stops arguing about numbers and starts acting on them.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#contact">Book a demo</a>
+          <a class="cta cta-ghost" href="#product">See how it works</a>
+        </div>
+      </section>
+
+      <section id="product" class="panel">
+        <h2>One platform, end to end</h2>
+        <p class="lede">Pipe in events, warehouse tables, and SaaS exports. Cobalt models them once and keeps every dashboard, alert, and report in sync.</p>
+        <ul class="cards">
+          <li class="card">
+            <h3>Live pipelines</h3>
+            <p>Stream from your warehouse or event sources with sub-minute freshness and automatic schema tracking.</p>
+          </li>
+          <li class="card">
+            <h3>Governed metrics</h3>
+            <p>Define each KPI once in a shared semantic layer, so revenue means the same thing in every chart.</p>
+          </li>
+          <li class="card">
+            <h3>Answers, not queries</h3>
+            <p>Ask in plain language and get an auditable breakdown — every figure traces back to its source.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="metrics" class="panel">
+        <h2>Built for teams that ship</h2>
+        <p class="lede">Cobalt scales from a first dashboard to a company-wide source of truth without slowing down.</p>
+        <dl class="stats">
+          <div class="stat">
+            <dt>Median query time</dt>
+            <dd>0.4s</dd>
+          </div>
+          <div class="stat">
+            <dt>Data sources supported</dt>
+            <dd>120+</dd>
+          </div>
+          <div class="stat">
+            <dt>Uptime last 12 months</dt>
+            <dd>99.98%</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="pricing" class="panel">
+        <h2>Simple, honest pricing</h2>
+        <ul class="cards pricing">
+          <li class="card">
+            <h3>Starter</h3>
+            <p class="price">$0<span>/month</span></p>
+            <p>For a single team exploring their first live dashboards.</p>
+            <ul class="plan-list">
+              <li>Up to 3 data sources</li>
+              <li>5 seats included</li>
+              <li>Community support</li>
+            </ul>
+          </li>
+          <li class="card card-featured">
+            <h3>Growth</h3>
+            <p class="price">$490<span>/month</span></p>
+            <p>For scaling teams that need governance and speed.</p>
+            <ul class="plan-list">
+              <li>Unlimited data sources</li>
+              <li>Shared metric layer</li>
+              <li>Priority support &amp; SSO</li>
+            </ul>
+          </li>
+          <li class="card">
+            <h3>Enterprise</h3>
+            <p class="price">Custom</p>
+            <p>For organizations with security and scale requirements.</p>
+            <ul class="plan-list">
+              <li>Dedicated infrastructure</li>
+              <li>Audit logs &amp; roles</li>
+              <li>Solution engineering</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section id="contact" class="panel">
+        <h2>Talk to us</h2>
+        <p class="lede">Tell us a little about your data and we'll set up a tailored walkthrough.</p>
+        <form class="contact-form" action="#" method="post">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="goal">What are you trying to measure?</label>
+            <input id="goal" name="goal" type="text" />
+          </div>
+          <button class="cta" type="submit">Request a demo</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Cobalt Analytics. Self-contained and accessible by design.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

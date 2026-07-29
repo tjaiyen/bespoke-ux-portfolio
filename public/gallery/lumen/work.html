@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Work — Lumen Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="stage">
+      <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+      <header class="site-header">
+        <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Lumen</a>
+        <nav class="primary" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="work.html" aria-current="page">Work</a>
+        </nav>
+      </header>
+
+      <div class="wrap">
+        <section class="panel hero">
+          <p class="eyebrow">Selected work</p>
+          <h1>Products we helped make simple</h1>
+          <p class="sub">A small sample from the last few years — each one a long, close collaboration rather than a quick engagement.</p>
+        </section>
+      </div>
+    </div>
+
+    <main id="main">
+      <div class="wrap">
+        <section class="panel" aria-labelledby="projects-heading">
+          <h2 id="projects-heading" class="section-intro">Case studies</h2>
+          <ul class="projects">
+            <li class="project">
+              <p class="meta"><span class="tag">Fintech</span><span class="year">2025</span></p>
+              <h3>Meridian — a savings app that stays out of the way</h3>
+              <p>We redesigned Meridian's onboarding and core dashboard, cutting time-to-first-deposit by 46% while making the whole experience feel calmer and more trustworthy.</p>
+            </li>
+            <li class="project">
+              <p class="meta"><span class="tag">Healthcare</span><span class="year">2024</span></p>
+              <h3>Verda — clinical notes without the clutter</h3>
+              <p>A ground-up design system for a clinician tool, letting nurses capture notes in half the taps and giving the engineering team a component library they still ship on today.</p>
+            </li>
+            <li class="project">
+              <p class="meta"><span class="tag">Developer tools</span><span class="year">2024</span></p>
+              <h3>Forge — a CI dashboard people actually read</h3>
+              <p>We turned a wall of logs into a legible, scannable status surface, so teams spot failing builds in seconds instead of scrolling for minutes.</p>
+            </li>
+            <li class="project">
+              <p class="meta"><span class="tag">Education</span><span class="year">2023</span></p>
+              <h3>Atlas — mapping a learner's whole journey</h3>
+              <p>A wayfinding redesign for an online school, replacing a maze of menus with a single clear path from enrolment to graduation.</p>
+            </li>
+            <li class="project">
+              <p class="meta"><span class="tag">Marketplace</span><span class="year">2022</span></p>
+              <h3>Reel &amp; Root — commerce with a sense of place</h3>
+              <p>Brand and interface work for an artisan marketplace, balancing warmth and speed so small makers could sell without losing their voice.</p>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Lumen Studio — a boutique product-design practice.</p>
+      <p><a href="index.html">Home</a> · <a href="about.html">About</a></p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

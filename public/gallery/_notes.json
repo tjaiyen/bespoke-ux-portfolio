@@ -1,6 +1,11 @@
 {
   "_comment": "Descriptors taken from each site's own <title>/description. Editorial notes in src/lib/gallery.ts take precedence; this is the honest fallback for the rest, not invented copy. `provenance` is DERIVED from the presence of src/stage.js — see provenance() in scripts/sync-gallery.mjs — and decides which sites the engine gate-loop claim may be made about.",
   "notes": {
+    "aurora": "Aurora Labs — Spatial computing tools",
+    "cobalt": "Cobalt — clarity from your data",
+    "lumen": "Lumen — Boutique Product-Design Studio",
+    "vellum": "Vellum — an indie polysynth",
+    "vellum-edited": "Vellum — an indie polysynth (edited copy — re-gated after the change)",
     "ascend": "Ascend — turn daily streaks into a game",
     "aurea": "Auréa — Fine Jewellery Atelier",
     "baseline": "Baseline — earned-value program control",
@@ -50,6 +55,11 @@
     "yieldloss": "Yield — where the mass went, and what it cost"
   },
   "provenance": {
+    "aurora": "engine-generated",
+    "cobalt": "engine-generated",
+    "lumen": "engine-generated",
+    "vellum": "engine-generated",
+    "vellum-edited": "engine-generated",
     "ascend": "engine-generated",
     "aurea": "engine-generated",
     "baseline": "hand-authored",

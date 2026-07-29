@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Aurora Labs — Spatial computing tools</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D crystal. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Aurora&nbsp;Labs
+      </a>
+      <nav aria-label="Primary">
+        <a href="#platform">Platform</a>
+        <a href="#craft">Craft</a>
+        <a href="#access">Early access</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <p class="eyebrow">Spatial computing, refined</p>
+        <h1>Build for the space around the screen</h1>
+        <p class="sub">Aurora Labs makes the tools that let teams design, simulate, and ship spatial experiences — depth-aware interfaces that feel native to three dimensions.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#access">Request early access</a>
+          <a class="cta cta-ghost" href="#platform">Explore the platform</a>
+        </div>
+      </section>
+
+      <section id="platform" class="panel">
+        <h2>A workbench for spatial software</h2>
+        <p class="lede">One toolkit spanning the whole pipeline — from first sketch in volumetric space to a build that runs on any spatial device.</p>
+        <ul class="grid">
+          <li>
+            <h3>Volumetric editor</h3>
+            <p>Compose scenes in true 3D with snapping, depth guides, and real-world scale — no guesswork about how far a panel floats.</p>
+          </li>
+          <li>
+            <h3>Physics-true preview</h3>
+            <p>Simulate light, occlusion, and hand interaction locally, so what you see on the desk matches what ships to the headset.</p>
+          </li>
+          <li>
+            <h3>Portable runtime</h3>
+            <p>Export a single spatial bundle that targets multiple platforms without rewriting your interaction logic.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="craft" class="panel">
+        <h2>Made for the way spatial teams work</h2>
+        <div class="split">
+          <div>
+            <h3>Calm, considered tooling</h3>
+            <p>Interfaces should recede so the work can stand out. Aurora keeps the chrome quiet and the canvas vast — the crystal drifting behind this page reacts to nothing on purpose.</p>
+          </div>
+          <div>
+            <h3>Accessible by construction</h3>
+            <p>Every Aurora surface ships with semantic structure, keyboard paths, and reduced-motion behavior baked in — including this very landing page.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="access" class="panel access">
+        <h2>Request early access</h2>
+        <p class="lede">We onboard a small cohort each cycle. Tell us where to reach you and we'll send an invite when a slot opens.</p>
+        <form action="#access" method="post" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="team">What are you building?</label>
+            <input id="team" name="team" type="text" />
+          </div>
+          <button class="cta" type="submit">Join the waitlist</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Aurora Labs. Tools for the spatial era.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
