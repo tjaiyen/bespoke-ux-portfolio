@@ -50,3 +50,10 @@ next-env.d.ts
 # Any Lighthouse output dir. Reports embed a DOM snapshot of every audited page (R20),
 # so they are never committed — not to a private repo that may later go public.
 .lighthouseci*/
+
+# Agent-facing operating instructions and the governance rules mirrored from the vault.
+# Kept on disk (they are how this repo is worked on) but never published: the same call
+# TJ made on tj-finance-portfolio. They also carry local filesystem paths.
+AGENTS.md
+CLAUDE.md
+docs/vault/

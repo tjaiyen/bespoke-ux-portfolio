@@ -3,9 +3,9 @@
 Bespoke UX portfolio — Next.js 16 (App Router), Tailwind CSS 4, MDX case-study engine with
 NDA build gates, WCAG 2.1 AA tooling, GitHub Actions QA pipeline.
 
-Built from the instruction vault at
-`~/Obsidian/TJ_Vault/UX_Design_Porforlio/ux-portfolio-vault/`. This repo is the artifact;
-the vault is the instructions. **The repo never lives inside the Obsidian vault** (ADR-011).
+Built from a separate instruction vault held outside this repository. This repo is the
+artifact; the vault is the instructions, and **the repo never lives inside the vault**
+(ADR-011) — a git working tree on file-synced storage corrupts.
 
 ## Status — honest
 
