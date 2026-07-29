@@ -14,7 +14,7 @@
     "a11y": "npm run a11y:contrast && npm run a11y:chrome && npm run a11y:pa11y && npm run a11y:keyboard && npm run check:sitemap",
     "a11y:chrome": "node scripts/check-chrome.mjs",
     "check:sitemap": "node scripts/check-sitemap.mjs",
-    "build:static": "NEXT_OUTPUT=export next build",
+    "build:static": "NEXT_OUTPUT=export next build && node scripts/finalize-export.mjs",
     "check:publish": "node scripts/check-publish.mjs"
   },
   "dependencies": {

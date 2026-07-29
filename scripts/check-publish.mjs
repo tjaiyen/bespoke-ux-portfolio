@@ -116,6 +116,17 @@ for (const rel of ["sitemap.xml", "robots.txt", "llms.txt", "api/projects.json"]
     if (basePath && p.startsWith(basePath)) p = p.slice(basePath.length);
     if (!fs.existsSync(path.join(dir, p)))
       fail("PUB1c", `og:image "${og}" has no corresponding file at ${dir}${p}`);
+    // The extension check is the point, not a formality. Next's generated
+    // `opengraph-image` route emits a real PNG with NO extension; static hosts pick
+    // Content-Type by extension and serve it as application/octet-stream, and LinkedIn,
+    // Slack and Twitter render only image/*. The first version of this check stripped
+    // the query, found the extensionless file present, and reported clean — it verified
+    // the wrong file while the defect stood.
+    else if (!/\.(png|jpg|jpeg|webp|gif)$/i.test(p))
+      fail(
+        "PUB1c",
+        `og:image "${og}" has no image file extension — static hosts will serve it as application/octet-stream and no share card will render`,
+      );
   }
 }
 

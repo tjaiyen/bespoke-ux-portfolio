@@ -49,6 +49,13 @@ export const metadata: Metadata = {
       "Product Design Portfolio — Enterprise B2B, Manufacturing Ops, Financial Systems",
     description:
       "Case studies in translating ERP and financial data into real-time operational visibility tools.",
+    // No `images` key here on purpose. Next's FILE-BASED metadata convention overrides
+    // anything set in this object — proven by setting it and watching the emitted tag
+    // ignore it — so the card is a static `src/app/opengraph-image.png` with alt text in
+    // `opengraph-image.alt.txt`. The previous generated route emitted the file with no
+    // extension, which static hosts serve as application/octet-stream; LinkedIn, Slack
+    // and Twitter render only image/*, so the share card silently did not appear.
+    // Regeneration instructions live in tools/opengraph-image.gen.tsx.
   },
   twitter: { card: "summary_large_image" },
 };

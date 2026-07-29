@@ -1,3 +1,21 @@
+/**
+ * GENERATOR — parked outside src/app on purpose. Do not move it back without reading this.
+ *
+ * As a live route this emitted `out/opengraph-image` with NO file extension, and static
+ * hosts pick Content-Type by extension: it shipped as application/octet-stream, which
+ * LinkedIn, Slack and Twitter refuse to render. Next's file-based metadata convention
+ * also OVERRIDES `metadata.openGraph.images`, so pointing the tag elsewhere did nothing.
+ *
+ * The card is therefore a committed static asset: `src/app/opengraph-image.png`, with
+ * alt text in `opengraph-image.alt.txt` — the idiomatic static convention, and correct
+ * on every host.
+ *
+ * TO REGENERATE after changing the title or palette:
+ *   cp tools/opengraph-image.gen.tsx src/app/opengraph-image.tsx
+ *   mv src/app/opengraph-image.png /tmp/  &&  npm run build:static
+ *   cp out/opengraph-image src/app/opengraph-image.png
+ *   rm src/app/opengraph-image.tsx
+ */
 import { ImageResponse } from "next/og";
 
 // Generated at build time by next/og — no external image service, nothing to hotlink,
