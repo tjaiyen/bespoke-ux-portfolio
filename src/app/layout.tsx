@@ -32,8 +32,18 @@ const jetbrainsMono = JetBrains_Mono({
 // appears in a build log. Set NEXT_PUBLIC_SITE_URL in the Vercel project.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+// metadataBase must be the ORIGIN ONLY, never origin+path. Next applies `basePath` to
+// file-based metadata URLs on top of metadataBase, so a base that already carried
+// `/bespoke-ux-portfolio` produced
+//   https://tjaiyen.github.io/bespoke-ux-portfolio/bespoke-ux-portfolio/opengraph-image.png
+// — a doubled path pointing at nothing, and therefore no share card. Introduced by moving
+// the OG image from a generated route to the static-file convention, which is exactly what
+// `basePath` gets applied to. Caught by check-publish PUB1c resolving the URL to a file on
+// disk rather than trusting that it looked well-formed.
+const metadataBase = new URL(new URL(siteUrl).origin);
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase,
   title: {
     default:
       "Product Design Portfolio — Enterprise B2B, Manufacturing Ops, Financial Systems",

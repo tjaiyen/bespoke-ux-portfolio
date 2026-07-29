@@ -132,6 +132,26 @@ function copySite(srcDir, destDir) {
   return files.length;
 }
 
+/**
+ * Decode the HTML entities a descriptor arrives with.
+ *
+ * These strings are pulled out of markup, so `&` is encoded — and React escapes on the
+ * way back out, so an undecoded value renders as a literal "&amp;" on the card. Four of
+ * the 47 hit this.
+ */
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;|&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
+}
+
 /** A short descriptor taken from the site's OWN <title>, never invented. */
 function derivedNote(dir) {
   try {
@@ -140,7 +160,8 @@ function derivedNote(dir) {
     const desc = html
       .match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1]
       ?.trim();
-    return desc || title || undefined;
+    const raw = desc || title;
+    return raw ? decodeEntities(raw) : undefined;
   } catch {
     return undefined;
   }
@@ -210,7 +231,15 @@ for (const p of passed) {
   );
   fs.writeFileSync(path.join(receiptsDir, `${p.slug}.md`), p.acr.markdown);
 
-  const n = derivedNote(p.dir);
+  let n = derivedNote(p.dir);
+  // Variants of one brief share a <meta description>, so two cards would carry byte-
+  // identical text and read as a duplication bug rather than as three takes on one
+  // brief. Number them from the set actually published.
+  if (n && p.variantOf) {
+    const siblings = passed.filter((q) => q.variantOf === p.variantOf);
+    const i = siblings.findIndex((q) => q.slug === p.slug) + 1;
+    n = `${n} (variant ${i} of ${siblings.length})`;
+  }
   if (n) notes[p.slug] = n;
 }
 
