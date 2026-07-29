@@ -7,13 +7,13 @@ role: "Sole designer and engineer — data modelling, orchestration, agent guard
 timeline: "2026"
 projectType: self-directed
 metricsBasis: measured
-basis: "The repository is public and the site is live at tjaiyen.github.io/tj-finance-portfolio. Clone it, run `dbt build`, and watch the fourteen tests pass on your own machine."
+basis: "The repository is public, the site is live at tjaiyen.github.io/tj-finance-portfolio, and dbt CI runs `dbt build` on every push — the latest run logs PASS=14, ERROR=0. Clone it and reproduce that locally in about a minute."
 userResearchSummary: >-
   No study was commissioned. The problem definition is my own working experience: every month-end close asks the same three questions — which accounts moved, are the moves material, and why — and the third question is the one that consumes the days. The first two are arithmetic and belong in tested models. The third is judgment, and it is where people reach for a language model. Watching that pattern is what set the constraint the whole design rests on: an LLM that touches the numbers produces answers nobody can audit, and an unauditable variance explanation is worse than none, because it will be believed.
 tradeOffAnalysis: >-
   The tempting architecture is to hand the whole question to a language model — give it the ledger and ask what happened. It demos extremely well. I rejected it because a variance narrative that cannot be traced to a tested number is not usable in a close: someone signs off on those figures. Instead the boundary is hard. dbt models produce the numbers and carry the tests; Airflow owns the schedule and recovery; the model is allowed to write the narrative and flag exceptions, and nothing else. The accepted cost is that the system cannot answer questions the models were not built to answer — a genuinely open-ended "why" needs a new tested model first, not a cleverer prompt. That is slower, and I would make the same call again, because the alternative fails silently and only at audit.
 businessImpactMetrics:
-  - { label: "Tests passing on a clean clone", value: "14", change: "verifiable in one command", isPositive: true }
+  - { label: "Tests passing in CI on every push", value: "14", change: "PASS=14 ERROR=0 in the dbt-ci run log", isPositive: true }
   - { label: "Runnable projects", value: "6", change: "data, orchestration, agent, interface", isPositive: true }
   - { label: "LLM involvement in the arithmetic", value: "none", change: "narrative and flags only", isPositive: true }
 heroImage: "/images/finance-data-pipeline-and-agent/hero.png"
@@ -76,11 +76,12 @@ system runs on a clean clone in about a minute:
 ```bash
 git clone https://github.com/tjaiyen/tj-finance-portfolio
 cd tj-finance-portfolio/dbt_finance_variance
-pip install dbt-duckdb && dbt build     # 14 tests pass
+pip install dbt-duckdb && dbt build     # PASS=14  ERROR=0
 ```
 
 That is the entire argument. Not a screenshot of a dashboard, not a claimed metric — a
-command a reviewer can run.
+command a reviewer can run. The same command runs in CI on every push, so the number is not
+a memory of one good day; the most recent run logs `PASS=14 WARN=0 ERROR=0`.
 
 ## Retrospective
 

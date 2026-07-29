@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Evidence } from "@/lib/evidence";
 
 /**
@@ -45,11 +46,30 @@ function toComparable(raw: string, fallbackUnit: string): number | null {
 export default function CaseStudyHero({
   evidence,
   title,
+  heroImage,
 }: {
   evidence: Evidence | null;
   title: string;
+  heroImage?: string;
 }) {
-  // Typographic fallback when no metric qualifies — never invent one.
+  // No chartable metric — use the study's own hero image if it has one. This path is
+  // what the two BUILT studies take: their evidence is the live gallery and the public
+  // repo, not a before/after bar. `heroImage` was schema-required and Zod-validated while
+  // nothing rendered it, so the strongest studies were showing a blank typographic block.
+  if (!evidence && heroImage) {
+    return (
+      <Image
+        src={heroImage}
+        alt={`Cover image for ${title}`}
+        width={1600}
+        height={900}
+        priority
+        className="mt-10 w-full rounded-lg border border-border-subtle"
+      />
+    );
+  }
+
+  // Last resort: neither a metric nor an image. Never invent one.
   if (!evidence) {
     return (
       <div

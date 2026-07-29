@@ -98,7 +98,11 @@ export default async function CaseStudyPage({
         metricsBasis={frontmatter.metricsBasis}
       />
 
-      <CaseStudyHero evidence={evidenceFor(slug)} title={frontmatter.title} />
+      <CaseStudyHero
+        evidence={evidenceFor(slug)}
+        title={frontmatter.title}
+        heroImage={frontmatter.heroImage}
+      />
 
       <div className="mt-12 xl:grid xl:grid-cols-[1fr_15rem] xl:gap-12">
         <article className="prose-case xl:max-w-3xl">{mdx}</article>

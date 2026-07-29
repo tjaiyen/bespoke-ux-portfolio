@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 
 /**
  * Side-by-side wireframes of the direction taken and the direction discarded.
@@ -141,10 +141,14 @@ export default function DirectionComparison({
   /** What accepting the chosen direction cost. */
   cost: string;
 }) {
+  // Unique per instance. A hardcoded id is fine while exactly one comparison exists per
+  // page and becomes a duplicate-id violation the moment a second is added — a latent
+  // a11y bug in a portfolio that argues for verified accessibility.
+  const headingId = useId();
   return (
-    <figure className="my-10" aria-labelledby="dc-heading">
+    <figure className="my-10" aria-labelledby={headingId}>
       <figcaption
-        id="dc-heading"
+        id={headingId}
         className="font-mono text-[11px] tracking-widest text-text-muted uppercase"
       >
         {label} — wireframes of both directions
