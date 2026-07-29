@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Ligature — typefaces engineered for the screen</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Ligature
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Specimen</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Digital type foundry, est. 2019</p>
+          <h1 id="hero-title">Typefaces engineered for the screen.</h1>
+          <p class="sub">Ligature draws letterforms that hold their shape at every size and pixel density — hinted, tested and tuned for the interfaces people actually read on.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Browse the catalog</a>
+            <a class="cta cta-secondary" href="#features">See the specimen</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to set</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Scattered forms — a thousand loose glyphs</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Drawn for the medium</h2>
+          <p class="section-lead">Four things we test before a face leaves the studio.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Hinted for real screens</h3>
+              <p>Every face is tested at 11px on the panels people own, not only on the studio display where everything looks fine.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Optical sizes</h3>
+              <p>Display and text cuts are drawn separately, because a headline letter shrunk to caption size is a compromise, not a size.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Variable axes</h3>
+              <p>Weight and optical size ship as continuous axes, so a design system can interpolate instead of stockpiling static weights.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Wide language support</h3>
+              <p>Latin, Greek and Cyrillic drawn together from the start, so the diacritics are designed rather than bolted on.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> They resolve into a single letter</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">License a face</h2>
+          <p class="section-lead">Tell us where the type will live and we will quote the right licence.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Where it will be used</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a licence</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Ligature Type Foundry. Drawn for the screen.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

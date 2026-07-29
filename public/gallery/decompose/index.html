@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Decompose — was it the rate or the hours?</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Decompose
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The method</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Labour variance decomposition</p>
+          <h1 id="hero-title">A labour miss is two different problems wearing one number.</h1>
+          <p class="sub">Decompose splits every labour variance into the part you paid more per hour for and the part you used more hours for. A $360 miss that reads as one number is $180 of rate and $180 of efficiency — one is a negotiation and the other is a line problem, and they are not fixed by the same person.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Split a variance</a>
+            <a class="cta cta-secondary" href="#features">See the method</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to split</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> One rectangle — hours times rate</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">The oldest decomposition in cost accounting</h2>
+          <p class="section-lead">Price times quantity. It is not sophisticated, and almost nobody actually does it by cost centre.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Rate is a negotiation</h3>
+              <p>Paying above standard per hour is a purchasing and scheduling question — overtime, premium shifts, agency labour — and it is answered away from the plant floor.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Efficiency is a line</h3>
+              <p>Using more hours than the standard allows is a throughput, changeover or downtime question, and it is answered by the people standing next to the machine.</p>
+            </li>
+            <li class="feature-card">
+              <h3>By cost centre, not in total</h3>
+              <p>A plant-level variance of nearly zero routinely hides one centre badly over and another badly under, so the split is shown per centre as small multiples.</p>
+            </li>
+            <li class="feature-card">
+              <h3>The joint variance, named</h3>
+              <p>When both rate and quantity move, the overlap belongs somewhere explicit rather than being quietly absorbed into whichever term is reported first.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Two causes, separated and owned</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Split a variance</h2>
+          <p class="section-lead">Send a period of labour actuals against standard and we will split every centre.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Cost centre or plant</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a split</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Decompose. Two causes, never one number.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

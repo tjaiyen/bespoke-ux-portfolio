@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Eligible — what a lender will actually advance against</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Eligible
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The carve-outs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Borrowing-base certification</p>
+          <h1 id="hero-title">Inventory on the books is not inventory a bank will lend against.</h1>
+          <p class="sub">Eligible recomputes the borrowing base every night. On this plant's frozen book, $376K of gross inventory came down to $199K of advanceable collateral once aged stock, a consignment and a $12K PACA grower-trust claim were carved out — a 47% haircut nobody had booked.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Request a certification</a>
+            <a class="cta cta-secondary" href="#features">See the carve-outs</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to carve</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Gross book value — every lot, at cost</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">The exclusions a certificate has to survive</h2>
+          <p class="section-lead">A borrowing base is not an inventory report. It is an inventory report minus everything the lender will not count.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>PACA outranks the bank</h3>
+              <p>An unpaid produce grower holds a federal trust claim that sits ahead of a secured lender, so that value leaves the base entirely — and it is the carve-out most often missed, because nothing in the ledger flags it.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Aged and slow-moving</h3>
+              <p>Stock past its eligibility window stops counting on a date, not on a judgement, so the certificate is recomputed nightly rather than argued monthly.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Consignment is not yours</h3>
+              <p>Goods held on consignment sit in your warehouse and on someone else's balance sheet; counting them is the fastest way to lose a lender's trust in the whole certificate.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Traceable to the lot</h3>
+              <p>Every excluded dollar names the lot, the reason and the rule, because a base a field examiner cannot re-derive is a base that gets discounted.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> What survives the carve-outs</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Request a certification</h2>
+          <p class="section-lead">Send a perpetual-inventory extract and we will return the certificate your lender would.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Facility or entity</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a certification</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Eligible. Only what the lender will actually count.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

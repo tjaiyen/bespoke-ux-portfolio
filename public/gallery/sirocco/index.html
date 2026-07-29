@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Sirocco — desert-botanical fragrance house</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Sirocco
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The house</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Desert-botanical perfumery</p>
+          <h1 id="hero-title">Everything here grows where nothing should.</h1>
+          <p class="sub">Sirocco composes with botanicals from arid margins — resins, grasses and roots that survive on fog and one rain a year — harvested by the communities who have always managed them.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Enquire</a>
+            <a class="cta cta-secondary" href="#features">Meet the house</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll with the wind</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Still air — the dune holds its shape</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">A house built on scarcity</h2>
+          <p class="section-lead">Arid botanicals are slow, sparse and easy to ruin. That is precisely why they are worth composing with.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Named provenance</h3>
+              <p>Every material lists its cooperative and harvest year, because 'sustainably sourced' with no name attached to it is a claim that costs nothing to make.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Harvest ceilings</h3>
+              <p>We buy to an agreed annual ceiling set by the harvesters, so a good year for us never becomes a bad decade for a slow-growing stand of frankincense.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Composed, not layered</h3>
+              <p>Each fragrance is built as a single accord rather than assembled from stock bases, which is slower, more expensive, and the entire reason to run a house at all.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Full disclosure</h3>
+              <p>The complete material list ships with the bottle — allergens, naturals and synthetics alike — because secrecy in perfumery mostly protects the margin, not the art.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The wind turns: the whole field migrates</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Enquire</h2>
+          <p class="section-lead">Tell us what you are looking for and we will send samples from the current harvest.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">What you are seeking</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request samples</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Sirocco. Composed from what the desert spares.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

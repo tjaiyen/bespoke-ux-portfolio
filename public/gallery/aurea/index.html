@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Auréa — Fine Jewellery Atelier</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body id="top">
+    <!-- Decorative 3D. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        Auréa
+      </a>
+      <nav aria-label="Primary">
+        <a href="#collections">Collections</a>
+        <a href="#atelier">Atelier</a>
+        <a href="#appointment">Appointment</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Maison de haute joaillerie · Est. 1974</p>
+        <h1 id="hero-title">Quiet brilliance, patiently made</h1>
+        <p class="sub">Auréa is a fine jewellery atelier working in warm gold and rare stones — each piece drawn by hand, set by a single maker, and finished to last generations.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#collections">View the collections</a>
+          <a class="cta cta-ghost" href="#appointment">Request an appointment</a>
+        </div>
+      </section>
+
+      <section id="collections" class="panel" aria-labelledby="collections-title">
+        <p class="eyebrow">The collections</p>
+        <h2 id="collections-title">Four studies in restraint</h2>
+        <ul class="collection-list">
+          <li class="collection">
+            <h3>Lumière</h3>
+            <p>Solitaire rings in brushed 18-carat gold, each holding a single old-cut diamond chosen for its warmth rather than its size.</p>
+          </li>
+          <li class="collection">
+            <h3>Ondine</h3>
+            <p>Fluid necklaces that trace the collarbone — hand-linked chain punctuated by seed pearls and pale aquamarine.</p>
+          </li>
+          <li class="collection">
+            <h3>Braise</h3>
+            <p>Signet and band rings in a deep, ember-toned gold, engraved to order with a mark of your choosing.</p>
+          </li>
+          <li class="collection">
+            <h3>Silence</h3>
+            <p>Unadorned earrings and cuffs — pure metal, softly polished, made for those who prefer the form to speak alone.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="atelier" class="panel" aria-labelledby="atelier-title">
+        <p class="eyebrow">The atelier</p>
+        <h2 id="atelier-title">One bench, one maker, one piece at a time</h2>
+        <p class="lede">We keep production deliberately small. Every commission begins with a conversation and a pencil drawing, and passes through the hands of a single goldsmith from the first cut to the final polish.</p>
+        <dl class="facts">
+          <div class="fact">
+            <dt>Materials</dt>
+            <dd>Recycled 18-carat gold and responsibly sourced, individually certified stones.</dd>
+          </div>
+          <div class="fact">
+            <dt>Timeframe</dt>
+            <dd>Six to ten weeks for a bespoke commission, from first sketch to hallmark.</dd>
+          </div>
+          <div class="fact">
+            <dt>Guarantee</dt>
+            <dd>Lifetime care — cleaning, re-polishing and resizing at no charge, always.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="appointment" class="panel" aria-labelledby="appointment-title">
+        <p class="eyebrow">By appointment</p>
+        <h2 id="appointment-title">Visit the salon</h2>
+        <p class="lede">Consultations are held privately at our Marais salon. Share your details and the piece you have in mind, and we will arrange a time to meet.</p>
+        <form class="appointment-form" action="#appointment" method="post" novalidate>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="interest">Collection of interest</label>
+            <select id="interest" name="interest">
+              <option value="lumiere">Lumière</option>
+              <option value="ondine">Ondine</option>
+              <option value="braise">Braise</option>
+              <option value="silence">Silence</option>
+              <option value="bespoke">A bespoke commission</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">The piece you have in mind</label>
+            <input id="notes" name="notes" type="text" autocomplete="off" />
+          </div>
+          <button class="cta" type="submit">Request an appointment</button>
+        </form>
+      </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-brand"><span class="brand-mark" aria-hidden="true">✦</span> Auréa</p>
+      <p>12 Rue des Archives, Le Marais, Paris · By appointment</p>
+      <p class="fine">© 2026 Auréa Joaillerie. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

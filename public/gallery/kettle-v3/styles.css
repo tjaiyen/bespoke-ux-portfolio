@@ -1,0 +1,192 @@
+:root {
+  --bg: #f6efe4;          /* warm oat */
+  --surface: #fffaf2;     /* opaque card */
+  --surface-2: #f3e8d6;
+  --fg: #3a2c1e;          /* deep cocoa text */
+  --muted: #6b5844;       /* readable brown */
+  --line: #e0d1ba;
+  --accent: #9a5a2c;      /* toasted clay */
+  --accent-deep: #7c451f;
+  --accentfg: #fffaf2;
+  --amber: #c98a3c;
+  --sage: #7c9469;
+  --clay: #b06a45;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full-bleed decorative steam backdrop. The content column below is one big
+   OPAQUE surface, so the 3D only shows in the outer page margins and all text
+   contrast stays verifiable. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* Header */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 18px clamp(20px, 5vw, 64px);
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--fg); font-weight: 700; text-decoration: none;
+  font-size: 21px; letter-spacing: 0.01em;
+}
+.brand-mark { font-size: 24px; }
+nav a {
+  color: var(--muted); text-decoration: none; margin-left: 22px;
+  font-size: 16px; padding: 4px 2px; border-bottom: 2px solid transparent;
+}
+nav a:hover, nav a:focus-visible { color: var(--accent-deep); border-bottom-color: var(--accent); }
+
+/* The whole content column is an opaque panel. Steam shows in the page margins. */
+main {
+  max-width: 1120px; margin: clamp(32px, 6vh, 72px) auto;
+  padding: clamp(28px, 5vw, 60px) clamp(20px, 4vw, 52px);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+}
+
+/* Hero */
+.hero {
+  max-width: 760px; margin: 0 auto 44px; text-align: center;
+  padding: clamp(24px, 4vw, 48px) 0 clamp(20px, 3vw, 36px);
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.22em; font-size: 12.5px;
+  color: var(--accent); margin: 0 0 16px; font-family: system-ui, sans-serif; font-weight: 600;
+}
+h1 {
+  font-size: clamp(36px, 6.5vw, 60px); line-height: 1.08; margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+.sub { font-size: 19px; color: var(--muted); max-width: 54ch; margin: 0 auto 30px; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.cta {
+  display: inline-block; background-color: var(--accent); color: var(--accentfg);
+  padding: 14px 30px; border-radius: 999px; text-decoration: none; font-weight: 700;
+  font-family: system-ui, sans-serif; font-size: 16px; border: 1px solid var(--accent);
+  cursor: pointer;
+}
+.cta:hover, .cta:focus-visible { background-color: var(--accent-deep); border-color: var(--accent-deep); }
+.cta-ghost {
+  background-color: var(--surface); color: var(--accent-deep); border-color: var(--accent);
+}
+.cta-ghost:hover, .cta-ghost:focus-visible { background-color: var(--surface-2); color: var(--accent-deep); }
+
+/* Sections */
+.section { max-width: 900px; margin: 0 auto; padding: clamp(24px, 4vw, 44px) 0; border-top: 1px solid var(--line); }
+.section-head { max-width: 680px; margin: 0 auto 30px; text-align: center; }
+h2 { font-size: clamp(28px, 4.5vw, 40px); margin: 0 0 14px; letter-spacing: -0.01em; }
+.lede { font-size: 18px; color: var(--muted); margin: 0; }
+
+/* Blend + ritual grids */
+.blend-grid, .ritual-steps {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  padding: 30px 28px; background-color: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 26px;
+}
+.card h3 { font-size: 22px; margin: 0 0 8px; }
+.card p { margin: 0 0 8px; color: var(--muted); }
+.card p:last-child { margin-bottom: 0; }
+.notes {
+  font-family: system-ui, sans-serif; font-size: 13px; letter-spacing: 0.02em;
+  color: var(--accent-deep) !important; text-transform: lowercase;
+  margin-bottom: 14px !important;
+}
+
+.swatch {
+  display: block; width: 52px; height: 52px; border-radius: 50%;
+  margin-bottom: 16px; border: 3px solid var(--surface);
+}
+.swatch-amber { background-color: var(--amber); }
+.swatch-sage  { background-color: var(--sage); }
+.swatch-clay  { background-color: var(--clay); }
+
+/* Ritual */
+.section-ritual .card { padding-top: 26px; }
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background-color: var(--surface); color: var(--accent-deep);
+  font-family: system-ui, sans-serif; font-weight: 700; font-size: 20px;
+  margin-bottom: 14px; border: 1px solid var(--line);
+}
+
+/* Shop */
+.shop-grid {
+  list-style: none; padding: 0; margin: 0 0 40px;
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.price-card {
+  background-color: var(--surface-2); padding: 28px 26px; position: relative;
+  border: 1px solid var(--line); border-radius: 22px;
+}
+.price-card h3 { font-size: 21px; margin: 0 0 10px; }
+.price-card p { color: var(--muted); margin: 0 0 8px; }
+.price-card p:last-child { margin-bottom: 0; }
+.price {
+  font-size: 30px; color: var(--fg) !important; font-weight: 700;
+  margin-bottom: 12px !important;
+}
+.price span {
+  display: block; font-size: 14px; font-weight: 400; color: var(--muted);
+  font-family: system-ui, sans-serif;
+}
+.price-featured { border: 2px solid var(--accent); background-color: var(--surface); }
+.badge {
+  display: inline-block; background-color: var(--accent); color: var(--accentfg) !important;
+  font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px; margin: 0 0 12px !important;
+}
+
+/* Notify form */
+.notify { padding: 30px 28px; background-color: var(--surface-2); border: 1px solid var(--line); border-radius: 26px; }
+.notify h3 { font-size: 22px; margin: 0 0 8px; }
+.notify .lede { margin-bottom: 20px; }
+.field-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+.field { flex: 1 1 240px; }
+.field label {
+  display: block; font-family: system-ui, sans-serif; font-size: 14px;
+  font-weight: 600; color: var(--fg); margin-bottom: 6px;
+}
+.field input {
+  width: 100%; padding: 13px 16px; border-radius: 14px;
+  border: 1px solid var(--accent); background-color: var(--surface);
+  color: var(--fg); font-size: 16px; font-family: system-ui, sans-serif;
+}
+.field input::placeholder { color: #8a745c; }
+.field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.notify .cta { flex: 0 0 auto; }
+
+:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; border-radius: 6px; }
+
+/* Footer */
+.site-footer {
+  text-align: center; padding: 34px 24px; color: var(--muted);
+  background-color: var(--surface); border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+
+@media (max-width: 520px) {
+  nav a { margin-left: 0; margin-right: 18px; }
+  .site-header { justify-content: center; }
+}

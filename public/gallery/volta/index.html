@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Volta — storing renewable power for when the grid needs it</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Volta
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">How it works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Grid-scale energy storage</p>
+          <h1 id="hero-title">Storing renewable power for when the grid needs it.</h1>
+          <p class="sub">Volta holds the surplus of a bright afternoon and returns it at the evening peak — so the cleanest electron on the grid is the one that did not have to be generated twice.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to our team</a>
+            <a class="cta cta-secondary" href="#features">How it works</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll through the day</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Midday — surplus flows in, the bank charges</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Built for the duty cycle</h2>
+          <p class="section-lead">Storage is judged over decades of cycles, not on a spec sheet.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Cycle-aware dispatch</h3>
+              <p>Each charge decision is priced against the degradation it causes, so the asset is not spent chasing a marginal arbitrage.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Thermal discipline</h3>
+              <p>Cell temperature is held in a narrow band, which is the single largest determinant of how many cycles you actually get.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Grid services stacking</h3>
+              <p>Frequency response and capacity are layered on the same asset, because one revenue stream rarely pays for a battery.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Second-life routing</h3>
+              <p>Cells retiring from grid duty are graded and routed to lower-demand applications rather than straight to recycling.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Evening peak — the flow reverses, the grid draws</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to our team</h2>
+          <p class="section-lead">Tell us about your site or portfolio and we will model the duty cycle.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Site or portfolio</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a model</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Volta Storage. Keep the afternoon for the evening.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Solace — breathe your way back to calm</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Solace
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The practice</a>
+        <a href="#contact">Download</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Breathwork &amp; meditation</p>
+          <h1 id="hero-title">Breathe your way back to calm.</h1>
+          <p class="sub">Solace guides the one thing you can always control. A few minutes of paced breathing, and the day gets quieter — no streaks, no badges, nothing to keep up with.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Start a session</a>
+            <a class="cta cta-secondary" href="#features">The practice</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll, and breathe</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Unsettled — the breath is short and quick</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">What the practice is</h2>
+          <p class="section-lead">Four ideas, and deliberately nothing else.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Paced, not prescribed</h3>
+              <p>You set the rhythm and the app follows, because a breath imposed at someone else's tempo is just another instruction.</p>
+            </li>
+            <li class="feature-card">
+              <h3>No streaks</h3>
+              <p>Nothing is counted and nothing is lost by missing a day, which is the point of a practice you can return to.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Works offline</h3>
+              <p>Every session is on the device. No account, no sync, and nothing about your breathing leaves your phone.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Ends deliberately</h3>
+              <p>Sessions finish rather than autoplay into the next thing, so the calm belongs to you instead of to a session length.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Settled — long, even, and entirely yours</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Start a session</h2>
+          <p class="section-lead">Leave an address and we will send the download link — nothing else, ever.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">What brought you here</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send the link</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Solace. A few minutes is enough.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

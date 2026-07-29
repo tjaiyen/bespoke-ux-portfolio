@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Maturity — what to fix in the finance function first</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Maturity
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The domains</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Finance-function assessment</p>
+          <h1 id="hero-title">Everything needs improving. Only one thing should be improved first.</h1>
+          <p class="sub">Maturity scores seven domains from 0 to 4 and weights them by what the business actually needs next. This plant scored 1.6 out of 4 on systems, data and automation — the lowest axis by a distance, and the one holding back every other domain's score.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Enquire</a>
+            <a class="cta cta-secondary" href="#features">See the domains</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the assessment</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Last year's shape, and the target ring</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">A shape, not a scorecard</h2>
+          <p class="section-lead">A list of twenty findings produces no action. A shape with one obvious dent produces a plan.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Weighted, not averaged</h3>
+              <p>A flat mean across domains lets a strong controls score paper over a weak data score, so each axis is weighted by how much the next twelve months depend on it.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Evidence per score</h3>
+              <p>Every point on every axis names what was observed to justify it, because a maturity score without evidence is a consultant's opinion with a number attached.</p>
+            </li>
+            <li class="feature-card">
+              <h3>The blocking axis</h3>
+              <p>Domains are not independent — weak data caps what reporting and automation can ever reach — so the assessment names the axis whose ceiling the others are hitting.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Re-scored, not re-written</h3>
+              <p>The same rubric is applied each year against the previous shape, so progress is visible as movement rather than as a new document.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> This year — and the axis that is holding the rest back</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Enquire</h2>
+          <p class="section-lead">Tell us how the finance function is organised today and we will scope an assessment.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Team size</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send an enquiry</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Maturity. One dent at a time.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

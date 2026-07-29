@@ -182,7 +182,15 @@ h1 {
 /* MOBILE: the panel can no longer sit beside the scene, so it sits BELOW it — the
    hero reserves the top ~46vh as clear stage and interludes go full-viewport. */
 @media (max-width: 720px) {
-  .hero { min-height: 100svh; justify-content: flex-end; padding-top: 46vh; }
+  /* The reserved stage band used to be a flat 46vh. At 390x844 that pushed the
+     hero panel's own copy PAST the fold — .sub measured 712->935 in an 844px
+     viewport — and axe will not resolve the contrast of an element it cannot
+     fully sample while a fixed canvas overlaps it. The canvas overlap is fine on
+     its own (desktop proves that); the element leaving the viewport is what
+     breaks it. 22vh is set by the LONGEST sub in the catalog (plausible, 307px of
+     copy): 30vh cleared 34 of 35 and left that one still crossing the fold, and a
+     number that holds for every config beats one that holds for most. */
+  .hero { min-height: 100svh; justify-content: flex-end; padding-top: clamp(96px, 22vh, 46vh); }
   .hero-panel, .panel { max-width: 100%; }
   .contact { justify-content: stretch; }
   .stage { min-height: 100svh; }

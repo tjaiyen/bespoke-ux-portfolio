@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Glacial — still water drawn from glacier melt</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Glacial
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The source</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Still water, single source</p>
+          <h1 id="hero-title">Water that took nine hundred years to reach you.</h1>
+          <p class="sub">Every bottle is drawn from a single alpine glacier's melt season — snow that fell before the ice locked it away, released now at the rate the mountain decides.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Enquire about supply</a>
+            <a class="cta cta-secondary" href="#features">See the source</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to thaw</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Locked lattice — nine centuries of stillness</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">One glacier, one season, one run</h2>
+          <p class="section-lead">Scarcity here is not a marketing decision. It is a melt rate.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Single-season runs</h3>
+              <p>Each bottling is dated to the melt window it came from, because a warm July and a cold one do not produce the same water and we will not blend them to pretend otherwise.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Untouched mineralogy</h3>
+              <p>The water arrives already filtered by nine hundred years of compression, so we add nothing and strip nothing — the profile on the label is the profile in the ice.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Measured extraction</h3>
+              <p>Draw is capped at a fraction of the annual melt and audited by an independent glaciologist, because a source you exhaust is a source you only sell once.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Returnable glass</h3>
+              <p>Bottles come back, are sterilised locally, and go out again. Shipping empty glass across a continent to be melted down was never the sustainable option.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The melt: order gives way to water</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Enquire about supply</h2>
+          <p class="section-lead">Tell us where the water is going and we will tell you what this season can spare.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Venue or region</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send an enquiry</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Glacial. Drawn slowly, and only once.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

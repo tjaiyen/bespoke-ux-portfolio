@@ -1,0 +1,95 @@
+:root {
+  --bg: #f5f0e6;
+  --surface: #fffdf8;
+  --fg: #2c2620;
+  --muted: #6b6155;
+  --line: #e3dccd;
+  --accent: #6a5c3f;
+  --accentfg: #fffdf8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Times New Roman", "Iowan Old Style", serif;
+  line-height: 1.6;
+}
+
+/* Full-bleed decorative 3D steam. Content cards below are OPAQUE and float
+   over it, so the 3D drifts around them AND text contrast stays verifiable. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* Header: opaque bar so its text sits over a known background. */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding: 20px clamp(20px, 5vw, 64px); background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.brand { color: var(--fg); font-weight: 700; text-decoration: none; font-size: 20px; letter-spacing: 0.02em; }
+nav a { color: var(--muted); text-decoration: none; margin-left: clamp(16px, 3vw, 28px); font-size: 15px; letter-spacing: 0.04em; }
+nav a:hover, nav a:focus-visible { color: var(--accent); text-decoration: underline; }
+
+main { padding: clamp(40px, 8vh, 96px) clamp(16px, 4vw, 40px); }
+
+/* Opaque content sections — text over var(--surface), 3D visible in the margins. */
+.hero, .section {
+  max-width: 780px; margin: 0 auto 40px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 4px;
+  padding: clamp(36px, 6vw, 72px);
+}
+
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.28em; font-size: 12px;
+  color: var(--muted); margin: 0 0 18px; font-family: system-ui, sans-serif; font-weight: 600;
+}
+
+.hero { text-align: center; margin-top: 8px; }
+h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.08; margin: 0 0 22px; letter-spacing: -0.01em; font-weight: 400; }
+.sub { font-size: 20px; color: var(--muted); max-width: 46ch; margin: 0 auto 34px; }
+
+.cta {
+  display: inline-block; background: var(--accent); color: var(--accentfg);
+  padding: 14px 32px; border-radius: 2px; text-decoration: none; font-weight: 600;
+  font-family: system-ui, sans-serif; font-size: 15px; letter-spacing: 0.04em; border: none; cursor: pointer;
+}
+.cta:hover, .cta:focus-visible { background: #56492f; }
+
+h2 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 16px; font-weight: 400; letter-spacing: -0.01em; }
+.lede { color: var(--muted); font-size: 18px; margin: 0 0 32px; max-width: 52ch; }
+
+/* Signature blends */
+.cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; }
+.card { border-top: 1px solid var(--line); padding-top: 22px; }
+.card h3 { font-size: 22px; margin: 0 0 6px; font-weight: 400; }
+.card p { margin: 0 0 8px; color: var(--fg); }
+.price { color: var(--accent); font-family: system-ui, sans-serif; font-size: 14px; letter-spacing: 0.04em; }
+
+/* The ritual */
+.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; display: grid; gap: 26px; }
+.steps li { position: relative; padding-left: 52px; counter-increment: step; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 2px;
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line);
+  display: grid; place-items: center; color: var(--accent);
+  font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600;
+}
+.steps h3 { font-size: 20px; margin: 0 0 4px; font-weight: 400; }
+.steps p { margin: 0; color: var(--muted); }
+
+/* Shop form */
+.shop-form { display: grid; gap: 20px; max-width: 460px; }
+.field { display: grid; gap: 8px; }
+.field label { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
+.field input, .field select {
+  font-family: system-ui, sans-serif; font-size: 16px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 2px; background: var(--bg); color: var(--fg);
+}
+.field input:focus-visible, .field select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.shop-form .cta { justify-self: start; }
+
+.site-footer {
+  text-align: center; padding: 36px; color: var(--muted); background: var(--surface);
+  border-top: 1px solid var(--line); font-size: 15px;
+}

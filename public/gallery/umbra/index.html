@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Umbra — expedition astronomy travel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Umbra
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Expeditions</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Expedition astronomy</p>
+          <h1 id="hero-title">Two minutes and fifty-one seconds, and you have to be standing in the right place.</h1>
+          <p class="sub">Umbra puts small groups inside the path of totality — and under the darkest skies left — with the logistics, the weather calls and the astronomers that decide whether you actually see it.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Enquire about a place</a>
+            <a class="cta cta-secondary" href="#features">See expeditions</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to first contact</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> First contact — the disc takes its first bite</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">The logistics are the expedition</h2>
+          <p class="section-lead">Everyone knows the date years ahead. Almost nothing else about an eclipse is easy.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Mobile to the weather</h3>
+              <p>We hold vehicles and a decision window until the morning of, because a fixed camp under the one cloud in the region is the most expensive way to miss an eclipse.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Centre-line placement</h3>
+              <p>Positioning is planned to the centre line, where totality runs longest — the difference between the edge and the middle of the path is most of the experience.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Astronomer-led, small</h3>
+              <p>Groups stay small enough that the astronomer is answering your question rather than addressing a coach, which is the whole reason to travel with anyone at all.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Honest about failure</h3>
+              <p>Cloud is a real possibility and we say so in writing with the historical rates for each site, rather than selling certainty we cannot deliver.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Totality: the corona, and the sky goes wrong</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Enquire about a place</h2>
+          <p class="section-lead">Tell us which eclipse you are thinking about and we will send the site options and the odds.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Which eclipse</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send the details</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Umbra. In the path, on the centre line.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

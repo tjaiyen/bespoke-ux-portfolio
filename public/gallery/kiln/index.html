@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Kiln — pottery shaped by hand, fired slowly</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Kiln
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Process</a>
+        <a href="#contact">Visit</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Small-batch ceramics studio</p>
+          <h1 id="hero-title">Pottery shaped by hand, fired slowly.</h1>
+          <p class="sub">Each vessel is thrown, trimmed and glazed in small batches — then given the time a kiln asks for. Warm, unhurried, and never quite the same twice.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">View the collection</a>
+            <a class="cta cta-secondary" href="#features">Visit the studio</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to fire</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Bisque — the clay gives up its water</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">How a piece is made</h2>
+          <p class="section-lead">Four stages, none of which can be hurried.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Thrown by hand</h3>
+              <p>Every form is raised on the wheel from a single ball of stoneware, so no two rims land in exactly the same place.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Trimmed green</h3>
+              <p>Once leather-hard the foot is turned by hand, giving the piece its balance and the underside worth turning over to see.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Glazed in small batches</h3>
+              <p>Glazes are mixed from raw materials in the studio, so a batch carries the character of the season it was made in.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Fired to cone 10</h3>
+              <p>A slow reduction firing over eighteen hours, cooled just as slowly — which is where the celadon finds its depth.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Cone 10 — glaze turns to glass at 1300°C</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Visit the studio</h2>
+          <p class="section-lead">We keep open studio hours most weekends. Tell us when you would like to come.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">What draws you in</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Get in touch</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Kiln Ceramics. Made slowly, on purpose.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

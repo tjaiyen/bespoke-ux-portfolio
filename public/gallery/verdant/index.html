@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Verdant — botanical skincare, calmly made</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#top">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">✿</span>
+        Verdant
+      </a>
+      <nav aria-label="Primary">
+        <a href="#ritual">The ritual</a>
+        <a href="#collection">Collection</a>
+        <a href="#roots">Our roots</a>
+        <a href="#newsletter">Join</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">Botanical skincare</p>
+        <h1>Skin, quietly restored by plants</h1>
+        <p class="sub">Cold-pressed oils, pressed-flower extracts, and nothing you can't pronounce. Verdant is a slow ritual for skin that wants to breathe.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#collection">Explore the collection</a>
+          <a class="cta cta-quiet" href="#ritual">See the ritual</a>
+        </div>
+      </section>
+
+      <section id="ritual" class="panel ritual">
+        <h2>An unhurried daily ritual</h2>
+        <p class="lead">Three gentle steps, morning and night. No rush, no residue — just skin that feels calm and cared for.</p>
+        <ol class="steps">
+          <li>
+            <span class="step-num" aria-hidden="true">01</span>
+            <h3>Cleanse</h3>
+            <p>A creamy oat-and-chamomile milk that lifts the day away without stripping your skin's own oils.</p>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">02</span>
+            <h3>Nourish</h3>
+            <p>Our sage &amp; squalane serum drinks in fast, softening fine lines and leaving a soft matte glow.</p>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">03</span>
+            <h3>Seal</h3>
+            <p>A whipped clay-and-shea balm locks in moisture overnight so you wake up plump and dewy.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="collection" class="panel collection">
+        <h2>The collection</h2>
+        <p class="lead">Small-batch formulas, made in cream-toned glass you'll want to keep.</p>
+        <ul class="products">
+          <li class="product">
+            <h3>Sage Renewal Serum</h3>
+            <p class="product-note">Sage · squalane · niacinamide</p>
+            <p>A lightweight daily serum that evens tone and calms redness. 30&nbsp;ml.</p>
+            <p class="price">$48</p>
+          </li>
+          <li class="product">
+            <h3>Clay Comfort Mask</h3>
+            <p class="product-note">Red clay · aloe · rosehip</p>
+            <p>A five-minute reset that draws out congestion without tightness. 60&nbsp;ml.</p>
+            <p class="price">$34</p>
+          </li>
+          <li class="product">
+            <h3>Cream Meadow Balm</h3>
+            <p class="product-note">Shea · calendula · chamomile</p>
+            <p>A rich overnight balm for dry patches and windburned days. 45&nbsp;ml.</p>
+            <p class="price">$52</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="roots" class="panel roots">
+        <h2>Our roots</h2>
+        <p>Verdant began in a small garden greenhouse, blending botanicals for hands that had grown tired of harsh actives. We still make everything in small batches, cruelty-free, in recyclable glass — and we tell you exactly what's inside, every time.</p>
+        <ul class="values">
+          <li><strong>Plant-first</strong> — botanical actives, never fillers.</li>
+          <li><strong>Honest labels</strong> — full ingredient lists, plainly named.</li>
+          <li><strong>Gentle on earth</strong> — refillable glass, no plastic wrap.</li>
+        </ul>
+      </section>
+
+      <section id="newsletter" class="panel newsletter">
+        <h2>Join the slow-beauty letter</h2>
+        <p class="lead">Seasonal rituals and early access to new batches. One thoughtful note a month — no noise.</p>
+        <form action="#newsletter" method="post" class="signup" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          </div>
+          <button type="submit" class="cta">Subscribe</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Verdant Botanicals. Made slowly, by hand.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

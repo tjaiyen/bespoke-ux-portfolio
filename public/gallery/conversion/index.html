@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Conversion — the 68 days your revolver is funding</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Conversion
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The cycle</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Working-capital cycle</p>
+          <h1 id="hero-title">You pay for the corn in March and get paid for the bag in June.</h1>
+          <p class="sub">Conversion follows one dollar from raw-material purchase to cash collected. Holding inventory 74 days and collecting in 38 while paying suppliers in 44 leaves a 68-day gap — and that gap, not the P&amp;L, is what the revolver is actually funding.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Map your cycle</a>
+            <a class="cta cta-secondary" href="#features">See the cycle</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the cycle</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Cash out — the corn is paid for</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Days, not ratios</h2>
+          <p class="section-lead">Profitable companies run out of cash in the gap between paying and being paid.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>The three legs, separately</h3>
+              <p>Days inventory, days sales and days payable each move for different reasons, and a single blended cycle number hides which one is actually costing you.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Seasonal by nature</h3>
+              <p>A pack season loads inventory months before revenue arrives, so the cycle is shown period by period rather than as an annual figure nobody experiences.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Priced in interest</h3>
+              <p>Each day of the gap carries a real financing cost at your revolver rate, which turns a days number into a dollar number a decision can be made on.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Where the day comes from</h3>
+              <p>A day of improvement is traced to the customer, supplier or SKU that produced it, because a target with no owner is a target that does not move.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Cash back — 68 days of gap in between</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Map your cycle</h2>
+          <p class="section-lead">Send a year of AR, AP and inventory balances and we will map the gap and price it.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Season or product line</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a map</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Conversion. The gap is the business.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Fathom — mapping the deep sky, one faint point of light at a time</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Fathom
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Instruments</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Independent observatory · data collective</p>
+          <h1 id="hero-title">We map the deep sky, one faint point of light at a time.</h1>
+          <p class="sub">Fathom is a collective of astronomers, engineers and open-data stewards charting the structure of the galaxy — turning millions of raw exposures into an atlas anyone can explore.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Explore the atlas</a>
+            <a class="cta cta-secondary" href="#features">See the instruments</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to look back</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Near field — light that left a century ago</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">The instruments behind the atlas</h2>
+          <p class="section-lead">Open hardware, open reduction pipelines, open data.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Wide-field survey</h3>
+              <p>A drift-scan camera walks the meridian nightly, so the same patch of sky is measured against itself hundreds of times a year.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Spectroscopic follow-up</h3>
+              <p>Anything that varies gets a spectrum within the week, because a light curve without a spectrum is a question, not a result.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Open reduction</h3>
+              <p>Every calibration frame and pipeline commit is public, so a result you cannot reproduce is a result we treat as unfinished.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Community time</h3>
+              <p>A fixed share of clear-sky hours is allocated to proposals from outside the collective, including from schools.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Redshift deepens — the first light, still arriving</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Explore the atlas</h2>
+          <p class="section-lead">Tell us what you are looking for and we will point you at the right catalogue.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Field of interest</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request access</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Fathom Observatory. Looking out is looking back.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

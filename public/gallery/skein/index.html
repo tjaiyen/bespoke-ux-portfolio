@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Skein — fleet routing and coordination software</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Skein
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Platform</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Fleet routing &amp; coordination</p>
+          <h1 id="hero-title">A hundred vehicles, moving like one.</h1>
+          <p class="sub">Skein routes distributed fleets the way a flock holds formation — every vehicle following local rules about its neighbours, with the efficient shape emerging rather than being dispatched from the top.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Book a walkthrough</a>
+            <a class="cta cta-secondary" href="#features">See the platform</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to gather</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Scattered singles — no formation, no draft</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Coordination, not dispatch</h2>
+          <p class="section-lead">Central dispatch degrades the moment reality stops matching the plan. Local rules do not.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Emergent routing</h3>
+              <p>Each vehicle solves against its own neighbours and constraints, so a closed road re-shapes the fleet in seconds instead of invalidating a plan computed at 4am.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Live re-forming</h3>
+              <p>Add a stop, lose a driver, or take a vehicle off the road and the remaining fleet closes the gap on its own — no re-run, no dispatcher on the phone.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Explainable decisions</h3>
+              <p>Every routing choice comes with the constraints that produced it, because a driver who cannot see why will simply drive the way they always have.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Reads your telematics</h3>
+              <p>We ingest the feeds you already pay for rather than asking you to fit new hardware, which means a pilot takes a fortnight instead of a quarter.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> One skein: the line forms and holds</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Book a walkthrough</h2>
+          <p class="section-lead">Tell us the size and shape of your fleet and we will run your own week of data through it.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Fleet size</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a walkthrough</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Skein Systems. Local rules, global shape.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

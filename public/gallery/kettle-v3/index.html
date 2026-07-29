@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Kettle &amp; Cloud — Artisan Loose-Leaf Tea</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative steam-like 3D accent. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">🫖</span>
+        Kettle &amp; Cloud
+      </a>
+      <nav aria-label="Primary">
+        <a href="#blends">Blends</a>
+        <a href="#ritual">The Ritual</a>
+        <a href="#shop">Shop</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">Artisan loose-leaf tea</p>
+        <h1>Slow mornings, steeped with care</h1>
+        <p class="sub">Hand-blended leaves, whole botanicals, and a little patience. Kettle &amp; Cloud makes teas worth pausing for — warm, honest, and gently aromatic.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#shop">Shop the collection</a>
+          <a class="cta cta-ghost" href="#ritual">Learn the ritual</a>
+        </div>
+      </section>
+
+      <section id="blends" class="section">
+        <div class="section-head">
+          <p class="eyebrow">Small-batch favourites</p>
+          <h2>Three signature blends</h2>
+          <p class="lede">Each blend is composed by hand and rested to let the flavours settle before it reaches your cup.</p>
+        </div>
+        <ul class="blend-grid">
+          <li class="card">
+            <span class="swatch swatch-amber" aria-hidden="true"></span>
+            <h3>Morning Ember</h3>
+            <p class="notes">Assam · honeybush · roasted chicory</p>
+            <p>A malty, warming breakfast blend with a caramel finish — bold enough to greet the day, smooth enough to linger.</p>
+          </li>
+          <li class="card">
+            <span class="swatch swatch-sage" aria-hidden="true"></span>
+            <h3>Cloud Garden</h3>
+            <p class="notes">Jasmine green · lemongrass · white peony</p>
+            <p>Delicate and floral, with a soft, misty sweetness. A gentle afternoon cup that unfolds slowly with each steep.</p>
+          </li>
+          <li class="card">
+            <span class="swatch swatch-clay" aria-hidden="true"></span>
+            <h3>Hearth &amp; Spice</h3>
+            <p class="notes">Rooibos · cinnamon bark · cardamom · orange peel</p>
+            <p>A caffeine-free evening blend — spiced, rounded, and comforting, like a quilt for the last hour of the day.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="ritual" class="section section-ritual">
+        <div class="section-head">
+          <p class="eyebrow">Unhurried by design</p>
+          <h2>The ritual</h2>
+          <p class="lede">Good tea rewards attention. Four small steps turn a drink into a pause.</p>
+        </div>
+        <ol class="ritual-steps">
+          <li class="card">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Warm the pot</h3>
+            <p>Rinse your teapot with hot water so the first steep stays even and the leaves open gently.</p>
+          </li>
+          <li class="card">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Measure the leaf</h3>
+            <p>One rounded teaspoon per cup. Loose leaf wants room to swirl, so give it space to breathe.</p>
+          </li>
+          <li class="card">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Mind the water</h3>
+            <p>Greens near 80°C, blacks and herbals at a rolling boil. Temperature is the quiet difference-maker.</p>
+          </li>
+          <li class="card">
+            <span class="step-num" aria-hidden="true">4</span>
+            <h3>Let it drift</h3>
+            <p>Steep three to five minutes, watch the steam rise, and breathe. The waiting is part of the cup.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="shop" class="section section-shop">
+        <div class="shop-card">
+          <div class="section-head">
+            <p class="eyebrow">Fresh to your door</p>
+            <h2>Shop the collection</h2>
+            <p class="lede">Choose a tin or the sampler trio, and we'll blend it the week it ships. Free shipping over $40.</p>
+          </div>
+
+          <ul class="shop-grid">
+            <li class="price-card">
+              <h3>Single Tin</h3>
+              <p class="price">$16 <span>per 100g tin</span></p>
+              <p>Any one of our signature blends, in a resealable kraft tin. Roughly 40 cups.</p>
+            </li>
+            <li class="price-card price-featured">
+              <p class="badge">Most loved</p>
+              <h3>Sampler Trio</h3>
+              <p class="price">$38 <span>three 100g tins</span></p>
+              <p>All three signatures together — the easiest way to find your everyday cup.</p>
+            </li>
+            <li class="price-card">
+              <h3>Monthly Cloud</h3>
+              <p class="price">$28 <span>per month</span></p>
+              <p>A rotating tin delivered each month, plus early access to seasonal small batches.</p>
+            </li>
+          </ul>
+
+          <form class="notify" action="#shop" method="post">
+            <h3>Join the tea list</h3>
+            <p class="lede">Steeping notes and new-batch news, about once a month. No noise.</p>
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+              <button class="cta" type="submit">Keep me posted</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Kettle &amp; Cloud · Blended in small batches, packed by hand.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

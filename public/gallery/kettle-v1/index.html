@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Kettle and Cloud — Artisan Loose-Leaf Tea</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D steam. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Kettle&nbsp;&amp;&nbsp;Cloud</a>
+      <nav aria-label="Primary">
+        <a href="#blends">Blends</a>
+        <a href="#ritual">The Ritual</a>
+        <a href="#shop">Shop</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">Artisan loose-leaf tea</p>
+        <h1>Small-batch tea, gently steeped</h1>
+        <p class="sub">Whole leaves, slow blends, and quiet mornings. Kettle&nbsp;&amp;&nbsp;Cloud is a return to the unhurried ritual of a proper cup.</p>
+        <a class="cta" href="#shop">Explore the shop</a>
+      </section>
+
+      <section id="blends" class="section">
+        <p class="eyebrow">Signature</p>
+        <h2>Three blends to know</h2>
+        <p class="lede">Each tin is hand-blended in small batches and rested before it reaches your kettle.</p>
+        <ul class="cards">
+          <li class="card">
+            <h3>Morning Cloud</h3>
+            <p class="price">Breakfast black · £12</p>
+            <p>A bright, malty Assam softened with a whisper of bergamot. Steady enough to start the day, gentle enough to linger over.</p>
+          </li>
+          <li class="card">
+            <h3>Meadow Steep</h3>
+            <p class="price">Herbal green · £14</p>
+            <p>Sencha leaves folded with chamomile, lemon balm, and a breath of mint. Grassy, calm, and quietly floral.</p>
+          </li>
+          <li class="card">
+            <h3>Ember &amp; Oak</h3>
+            <p class="price">Smoked oolong · £16</p>
+            <p>A slow-roasted oolong with notes of toasted chestnut and warm cedar. Round, deep, and made for the evening.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="ritual" class="section ritual">
+        <p class="eyebrow">Unhurried</p>
+        <h2>The ritual</h2>
+        <p class="lede">Good tea asks for a little patience. Here is how we brew ours.</p>
+        <ol class="steps">
+          <li>
+            <h3>Warm the pot</h3>
+            <p>Rinse your teapot with hot water so the leaves meet an even, welcoming heat.</p>
+          </li>
+          <li>
+            <h3>Measure by hand</h3>
+            <p>One rounded teaspoon of loose leaf per cup — a touch more if you like it bold.</p>
+          </li>
+          <li>
+            <h3>Let it drift</h3>
+            <p>Pour just-off-boil water and wait. Three to five minutes while the steam rises and the leaves unfurl.</p>
+          </li>
+          <li>
+            <h3>Pour and pause</h3>
+            <p>Strain, breathe in, and take the first slow sip. The rest of the day can wait.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="shop" class="section shop">
+        <p class="eyebrow">Shop</p>
+        <h2>Bring a tin home</h2>
+        <p class="lede">Order a single tin or start a monthly steeping. Every order ships in fully recyclable packaging.</p>
+        <form class="shop-form" action="#shop" method="post" novalidate>
+          <div class="field">
+            <label for="blend">Choose a blend</label>
+            <select id="blend" name="blend">
+              <option value="morning-cloud">Morning Cloud — Breakfast black</option>
+              <option value="meadow-steep">Meadow Steep — Herbal green</option>
+              <option value="ember-oak">Ember &amp; Oak — Smoked oolong</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="email">Email for order updates</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          </div>
+          <button class="cta" type="submit">Add to basket</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Kettle &amp; Cloud. Blended by hand, brewed with patience.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

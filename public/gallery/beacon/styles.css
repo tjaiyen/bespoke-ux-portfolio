@@ -1,0 +1,112 @@
+:root {
+  --bg: #0a0f1c;
+  --surface: #121a2e;
+  --surface-2: #16203a;
+  --fg: #f3f7ff;
+  --muted: #aebbd6;
+  --accent: #2ec4b6;
+  --accent-2: #3d8bff;
+  --accentfg: #06121a;
+  --ring: rgba(46, 196, 182, 0.6);
+  --border: rgba(255, 255, 255, 0.09);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 10;
+  background: var(--accent); color: var(--accentfg);
+  padding: 10px 16px; border-radius: 10px; font-weight: 700;
+  text-decoration: none; transition: top 0.15s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* Decorative 3D backdrop; opaque cards sit over it. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--ring); outline-offset: 2px;
+}
+
+/* Header */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding: 16px clamp(20px, 5vw, 64px); background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; text-decoration: none; font-size: 20px; letter-spacing: -0.01em; }
+.brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(46, 196, 182, 0.2); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 24px; font-weight: 500; }
+nav a:hover { color: var(--fg); }
+
+main { padding: clamp(36px, 7vh, 84px) clamp(16px, 4vw, 40px); display: grid; gap: clamp(28px, 5vh, 56px); }
+
+/* Shared opaque section card */
+.hero, .benefits, .how, .signup {
+  max-width: 920px; margin: 0 auto; width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: clamp(32px, 5vw, 64px);
+}
+
+/* Hero */
+.hero { text-align: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 13px; color: var(--accent); margin: 0 0 18px; font-weight: 700; }
+h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.05; margin: 0 0 20px; letter-spacing: -0.02em; }
+.sub { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); max-width: 56ch; margin: 0 auto 30px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.hero-note { color: var(--muted); font-size: 14px; margin: 22px 0 0; }
+
+.cta { display: inline-block; background: var(--accent); color: var(--accentfg); padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 700; border: none; cursor: pointer; font-size: 16px; }
+.cta:hover { background: #35d6c6; }
+.cta-ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+.cta-ghost:hover { background: rgba(255, 255, 255, 0.05); }
+
+/* Section titles */
+.benefits h2, .how h2, .signup h2 { font-size: clamp(26px, 4vw, 36px); margin: 0 0 8px; letter-spacing: -0.01em; text-align: center; }
+
+/* Benefit cards */
+.card-grid { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+.card-icon { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 12px; background: rgba(46, 196, 182, 0.14); font-size: 22px; margin-bottom: 14px; }
+.card h3 { margin: 0 0 8px; font-size: 20px; }
+.card p { margin: 0; color: var(--muted); }
+
+/* Steps */
+.steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.step { background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+.step-num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent-2); color: #06121a; font-weight: 800; margin-bottom: 14px; }
+.step h3 { margin: 0 0 8px; font-size: 20px; }
+.step p { margin: 0; color: var(--muted); }
+
+/* Signup */
+.signup { text-align: center; }
+.signup-sub { color: var(--muted); max-width: 52ch; margin: 4px auto 28px; font-size: 17px; }
+.signup-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: flex-end; max-width: 520px; margin: 0 auto; }
+.field { flex: 1 1 240px; text-align: left; }
+.field label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+.field input {
+  width: 100%; padding: 13px 16px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  font-size: 16px; font-family: inherit;
+}
+.field input::placeholder { color: #7686a6; }
+.signup-form .cta { flex: 0 0 auto; }
+.signup-note { color: var(--muted); font-size: 13px; margin: 20px 0 0; }
+
+/* Footer */
+.site-footer { text-align: center; padding: 32px; color: var(--muted); background: var(--bg); border-top: 1px solid var(--border); }
+
+@media (max-width: 560px) {
+  nav a { margin-left: 16px; }
+  .signup-form .cta { width: 100%; }
+}

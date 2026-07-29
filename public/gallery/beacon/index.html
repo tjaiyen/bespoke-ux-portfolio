@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Beacon — uptime monitoring built for indie developers</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Decorative 3D backdrop. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-dot" aria-hidden="true"></span>
+        Beacon
+      </a>
+      <nav aria-label="Primary">
+        <a href="#benefits">Benefits</a>
+        <a href="#how">How it works</a>
+        <a href="#signup">Sign up</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <p class="eyebrow">Uptime monitoring for indie developers</p>
+        <h1>Know the moment your site goes down.</h1>
+        <p class="sub">Beacon watches your sites and APIs around the clock and alerts you within seconds — so your users never find the outage before you do.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#signup">Start monitoring free</a>
+          <a class="cta cta-ghost" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note">No credit card required · Free for your first 5 monitors</p>
+      </section>
+
+      <section class="benefits" id="benefits" aria-labelledby="benefits-title">
+        <h2 id="benefits-title">Everything you need, nothing you don't</h2>
+        <ul class="card-grid">
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">⚡</span>
+            <h3>Instant alerts</h3>
+            <p>Checks every 30 seconds from multiple regions. Get notified by email, SMS, or webhook the moment something breaks.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">🛡️</span>
+            <h3>No noise, no spam</h3>
+            <p>Smart confirmation across regions filters out false alarms, so you only hear from Beacon when it actually matters.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">📈</span>
+            <h3>Status your users trust</h3>
+            <p>Share a clean public status page and honest uptime history that builds confidence with the people who rely on you.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="how" id="how" aria-labelledby="how-title">
+        <h2 id="how-title">Up and running in three steps</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Add your URL</h3>
+            <p>Paste the address of any site or API endpoint. No agents to install, no config files to wrangle.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Choose how you're alerted</h3>
+            <p>Pick email, SMS, or a webhook into Slack or Discord. Set quiet hours and escalation to fit your day.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Get back to building</h3>
+            <p>Beacon keeps watch 24/7. You'll only hear from us when something needs your attention.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="signup" id="signup" aria-labelledby="signup-title">
+        <h2 id="signup-title">Start watching your sites today</h2>
+        <p class="signup-sub">Join thousands of indie developers who sleep better with Beacon. Free forever for small projects.</p>
+        <form class="signup-form" action="#" method="post">
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourproject.dev" required />
+          </div>
+          <button type="submit" class="cta">Create free account</button>
+        </form>
+        <p class="signup-note">By signing up you agree to our terms. Cancel anytime.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Beacon. Made for indie developers who ship.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

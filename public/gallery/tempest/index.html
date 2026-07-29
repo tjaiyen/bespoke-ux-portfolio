@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Tempest — grid resilience for storm-exposed utilities</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Tempest
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Capability</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Grid resilience &amp; storm response</p>
+          <h1 id="hero-title">The strike takes forty microseconds. The outage takes nine hours.</h1>
+          <p class="sub">Tempest models where a storm will actually break a network — down to the span and the pole — so crews are pre-staged before the front arrives instead of dispatched after the lights go out.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to us</a>
+            <a class="cta cta-secondary" href="#features">See the capability</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to charge</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Charge separation — the cloud builds its potential</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Pre-position, don't react</h2>
+          <p class="section-lead">Restoration time is decided before the storm lands, by where the trucks already are.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Span-level risk</h3>
+              <p>Failure probability is computed per span from conductor age, span length, vegetation encroachment and forecast gust — not averaged across a feeder that is thirty kilometres long.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Crew pre-staging</h3>
+              <p>Crews and materials are positioned against predicted damage the evening before, which is the single largest lever on restoration time and costs nothing but a decision.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Lightning attachment modelling</h3>
+              <p>Strike density is combined with shielding failure rates to find the structures that will actually take the hit, rather than the ones that took it last time.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Post-event learning</h3>
+              <p>Every real outage is scored against what we predicted, and the misses are what tune the model — a forecast that is never graded is a forecast nobody should trust.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The sky breaks: one path to ground, found instantly</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to us</h2>
+          <p class="section-lead">Send us a network extract and a storm you remember, and we will show you what we would have called.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Utility or network</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request an assessment</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Tempest Grid. Ready before the front arrives.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

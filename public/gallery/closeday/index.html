@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Close — the five-day close, on a clock</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Close
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The critical path</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Close management</p>
+          <h1 id="hero-title">The close is not slow because people are slow.</h1>
+          <p class="sub">Close lays all 40 tasks on a clock and finds the chain that actually sets the date. Only 11 of them are on the critical path; the other 29 have slack, and shortening any of those has never once moved a close a single day.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Map your close</a>
+            <a class="cta cta-secondary" href="#features">See the critical path</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the close</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Day 1 — everything starts at once</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Shorten the chain, not the list</h2>
+          <p class="section-lead">Every close project starts by making a list of forty tasks. The list is the problem.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Dependencies, honestly</h3>
+              <p>The chain is built from what genuinely blocks what, not from the order tasks appear on the checklist, and those two are almost never the same sequence.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Slack is the answer</h3>
+              <p>A task with three days of slack cannot shorten the close no matter how much it is optimised, so effort is directed at the eleven tasks that can.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Waiting is a task</h3>
+              <p>Time spent waiting for a bank file or a subledger to post is on the clock like everything else, and it is frequently the longest single block on the path.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Measured every month</h3>
+              <p>The path moves as the business changes, so it is recomputed each close rather than fixed once in a project that finished two years ago.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Day 5 — and the 11 tasks that set the date</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Map your close</h2>
+          <p class="section-lead">Send your close checklist with timestamps and we will find the chain that sets the date.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Close length today</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a map</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Close. Eleven tasks decide the date.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

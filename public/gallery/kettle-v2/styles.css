@@ -1,0 +1,183 @@
+:root {
+  --bg: #1a0f08;          /* deep roasted espresso-brown */
+  --bg-2: #2a1810;
+  --surface: #fbf3e7;     /* warm cream card */
+  --surface-2: #f3e6d2;
+  --ink: #2a1a10;         /* dark cocoa text on cream */
+  --ink-muted: #6b4a34;
+  --cream: #fbf3e7;
+  --accent: #c2410c;      /* confident burnt-amber */
+  --accent-deep: #9a3208;
+  --accentfg: #ffffff;
+  --gold: #e8a54b;
+  --line: rgba(42, 26, 16, 0.14);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: "Georgia", "Iowan Old Style", "Palatino Linotype", serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full-bleed decorative 3D steam. Content cards are OPAQUE and float over it,
+   so text contrast stays verifiable while the steam drifts in the margins. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* Header: opaque bar so its text sits over a known background. */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px clamp(20px, 5vw, 64px);
+  background: var(--bg-2);
+  border-bottom: 1px solid rgba(232, 165, 75, 0.2);
+}
+.brand {
+  color: var(--cream); font-weight: 700; text-decoration: none;
+  font-size: 21px; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 10px;
+}
+.brand-mark { color: var(--gold); font-size: 24px; }
+nav a {
+  color: #f0dcc2; text-decoration: none; margin-left: 26px; font-size: 16px;
+  padding-bottom: 3px; border-bottom: 2px solid transparent;
+}
+nav a:hover, nav a:focus-visible { color: #fff; border-bottom-color: var(--gold); }
+
+main { padding: clamp(40px, 8vh, 96px) clamp(16px, 4vw, 40px); }
+
+section { max-width: 1000px; margin: 0 auto; }
+
+/* Opaque content surfaces — text over solid cream, 3D visible around them. */
+.hero, .blends, .ritual, .shop {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid rgba(232, 165, 75, 0.35);
+  border-radius: 24px;
+  padding: clamp(36px, 6vw, 72px);
+  margin-bottom: clamp(28px, 5vh, 48px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- Hero: high-contrast, confident ---- */
+.hero {
+  text-align: center;
+  background: #fff7ec;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.28em; font-size: 13px; font-weight: 700;
+  color: var(--accent-deep); margin: 0 0 20px; font-family: system-ui, sans-serif;
+}
+h1 {
+  font-size: clamp(38px, 7vw, 72px); line-height: 1.02; margin: 0 auto 22px;
+  letter-spacing: -0.02em; color: var(--ink); max-width: 16ch;
+}
+.sub {
+  font-size: clamp(18px, 2.4vw, 22px); color: var(--ink-muted);
+  max-width: 54ch; margin: 0 auto 34px;
+}
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+.cta {
+  display: inline-block; background: var(--accent); color: var(--accentfg);
+  padding: 15px 32px; border-radius: 999px; text-decoration: none; font-weight: 700;
+  font-family: system-ui, sans-serif; font-size: 16px; border: 2px solid var(--accent);
+  cursor: pointer;
+}
+.cta:hover, .cta:focus-visible { background: var(--accent-deep); border-color: var(--accent-deep); }
+.cta-ghost {
+  background: transparent; color: var(--accent-deep); border-color: var(--accent-deep);
+}
+.cta-ghost:hover, .cta-ghost:focus-visible { background: var(--accent-deep); color: #fff; }
+
+/* ---- Section heads ---- */
+.section-head { text-align: center; max-width: 60ch; margin: 0 auto clamp(32px, 5vw, 48px); }
+h2 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.1; margin: 0 0 16px; color: var(--ink); letter-spacing: -0.01em; }
+.section-lead { font-size: 18px; color: var(--ink-muted); margin: 0; }
+
+/* ---- Blends ---- */
+.blend-grid { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.blend-card {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 18px;
+  padding: 28px; text-align: left;
+}
+.blend-swatch { display: block; width: 100%; height: 8px; border-radius: 999px; margin-bottom: 20px; }
+.swatch-morning { background: linear-gradient(90deg, #7a2e0c, #c2410c); }
+.swatch-garden  { background: linear-gradient(90deg, #4d7c3a, #a3c585); }
+.swatch-dusk    { background: linear-gradient(90deg, #9a3208, #e8a54b); }
+.blend-card h3 { font-size: 24px; margin: 0 0 6px; color: var(--ink); }
+.blend-notes {
+  font-family: system-ui, sans-serif; font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent-deep); font-weight: 700; margin: 0 0 14px;
+}
+.blend-card p:last-child { margin: 0; color: var(--ink-muted); }
+
+/* ---- Ritual ---- */
+.ritual { background: var(--surface-2); }
+.ritual-steps {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.ritual-steps li {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 18px; padding: 28px;
+}
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 20px;
+  font-family: system-ui, sans-serif; margin-bottom: 18px;
+}
+.ritual-steps h3 { font-size: 21px; margin: 0 0 10px; color: var(--ink); }
+.ritual-steps p { margin: 0; color: var(--ink-muted); }
+
+/* ---- Shop ---- */
+.shop-body { display: grid; gap: 32px; grid-template-columns: 1.2fr 1fr; align-items: start; }
+.shop-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.shop-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: var(--cream); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px;
+}
+.shop-item-text h3 { font-size: 20px; margin: 0 0 6px; color: var(--ink); }
+.shop-item-text p { margin: 0; color: var(--ink-muted); font-size: 15px; }
+.price { font-size: 26px; font-weight: 700; color: var(--accent-deep); margin: 0; font-family: system-ui, sans-serif; white-space: nowrap; }
+
+.signup {
+  background: var(--bg-2); color: var(--cream); border-radius: 18px; padding: 32px;
+  border: 1px solid rgba(232, 165, 75, 0.3);
+}
+.signup h3 { font-size: 22px; margin: 0 0 10px; color: var(--gold); }
+.signup p { margin: 0 0 22px; color: #e7d3ba; font-size: 15px; }
+.field { display: grid; gap: 8px; margin-bottom: 20px; }
+.field label { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #f0dcc2; }
+.field input {
+  padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(232, 165, 75, 0.4);
+  background: #fbf3e7; color: var(--ink); font-size: 16px; font-family: system-ui, sans-serif;
+}
+.field input::placeholder { color: #7a5c44; }
+.field input:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; }
+.signup .cta { width: 100%; text-align: center; }
+
+/* ---- Footer ---- */
+.site-footer {
+  text-align: center; padding: 40px 24px; color: #f0dcc2;
+  background: var(--bg-2); border-top: 1px solid rgba(232, 165, 75, 0.2);
+  font-size: 15px;
+}
+.site-footer p { margin: 0; }
+
+/* Focus visibility for keyboard users */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px;
+}
+
+@media (max-width: 720px) {
+  .shop-body { grid-template-columns: 1fr; }
+  nav a { margin-left: 0; margin-right: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

@@ -1,0 +1,204 @@
+:root {
+  --bg: #000000;
+  --surface: #0d0d12;
+  --surface-2: #14141c;
+  --fg: #f5f6fa;
+  --muted: #b6bcca;
+  --border: rgba(255,255,255,0.12);
+  --accent: #5b3fd6;
+  --accentfg: #ffffff;
+  --spot-1: #ff5a6e;
+  --spot-2: #35d0e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+/* THE STAGE: a FIXED backdrop the whole page scrolls over. Panels are compact and
+   offset so the scene owns real screen area at every scroll position, and the
+   .stage bands are pure open canvas where it performs with nothing on top. */
+#bg {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0; display: block; pointer-events: none;
+}
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+.skip-link {
+  position: absolute; left: 8px; top: -48px; z-index: 5;
+  background: #0d0d12; color: #f5f6fa;
+  padding: 10px 16px; border-radius: 10px; text-decoration: none;
+  border: 1px solid var(--border);
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 8px; }
+
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px clamp(20px, 5vw, 64px);
+  background: #0d0d12;
+  border-bottom: 1px solid var(--border);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 12px;
+  color: var(--fg); font-weight: 700; text-decoration: none;
+  font-size: 20px; letter-spacing: -0.01em;
+}
+.brand-mark {
+  width: 16px; height: 16px; border-radius: 3px;
+  background: linear-gradient(135deg, var(--spot-1), var(--accent) 55%, var(--spot-2));
+}
+nav a { color: var(--muted); text-decoration: none; margin-left: 24px; }
+nav a:hover, nav a:focus-visible { color: var(--fg); }
+
+main { padding: 0 clamp(20px, 4vw, 48px); }
+
+/* Text always sits on a SOLID panel — contrast always verifiable — but capped
+   well below full width so the stage breathes around it. */
+.panel {
+  background: #0d0d12;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: clamp(28px, 4.5vw, 60px);
+  max-width: 620px;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: clamp(80px, 12vh, 140px) 0 clamp(60px, 10vh, 110px);
+}
+.hero-panel { max-width: 560px; }
+
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.24em; font-size: 12px;
+  color: var(--spot-2); margin: 0 0 20px; font-weight: 600;
+}
+h1 {
+  font-size: clamp(36px, 5.4vw, 60px); line-height: 1.04;
+  margin: 0 0 20px; letter-spacing: -0.03em; color: var(--fg);
+}
+.sub { font-size: 18px; color: var(--muted); margin: 0 0 30px; }
+
+.cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.cta {
+  display: inline-block; padding: 14px 26px; border-radius: 12px;
+  text-decoration: none; font-weight: 600; font-size: 16px;
+  border: 1px solid transparent; cursor: pointer;
+}
+.cta-primary { background: var(--accent); color: var(--accentfg); }
+.cta-primary:hover, .cta-primary:focus-visible { filter: brightness(0.9); }
+.cta-secondary { background: #14141c; color: var(--fg); border-color: var(--border); }
+.cta-secondary:hover, .cta-secondary:focus-visible { border-color: var(--spot-2); }
+
+.scroll-hint {
+  margin: clamp(36px, 7vh, 72px) 0 0;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+  background: #0d0d12; border: 1px solid var(--border);
+  border-radius: 999px; padding: 9px 18px 9px 14px;
+}
+.scroll-hint-line {
+  display: block; width: 30px; height: 1px; background: var(--spot-2);
+  transform-origin: left center;
+  animation: sweep 2.4s ease-in-out infinite;
+}
+@keyframes sweep {
+  0%, 100% { transform: scaleX(0.35); opacity: 0.45; }
+  50%      { transform: scaleX(1);    opacity: 1; }
+}
+
+/* Tall enough that scrolling to an interlude leaves the viewport free of panels —
+   the fixed canvas then has the whole screen to perform on. */
+.stage {
+  min-height: 94vh;
+  display: flex; align-items: flex-end;
+  padding: clamp(24px, 5vh, 56px) 0 clamp(40px, 9vh, 90px);
+}
+.act-chip {
+  margin: 0;
+  display: inline-flex; align-items: baseline; gap: 12px;
+  background: #0d0d12; border: 1px solid var(--border);
+  border-left: 3px solid var(--spot-2);
+  border-radius: 4px 14px 14px 4px;
+  padding: 12px 22px;
+  font-size: 14px; color: var(--muted); max-width: 340px;
+}
+.act-chip-right { margin-left: auto; border-left-color: var(--spot-1); }
+.act-num {
+  font-variant-numeric: tabular-nums; font-weight: 700;
+  color: var(--fg); font-size: 12px; letter-spacing: 0.14em;
+}
+
+.features, .contact { padding: clamp(30px, 6vh, 70px) 0; }
+.contact .panel, .features .panel { max-width: 720px; }
+.contact { display: flex; justify-content: flex-end; }
+
+.features h2, .contact h2 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 12px; letter-spacing: -0.02em; }
+.section-lead { color: var(--muted); font-size: 17px; margin: 0 0 30px; }
+
+.feature-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.feature-card {
+  background: #14141c;
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px;
+}
+.feature-card h3 { margin: 0 0 10px; font-size: 18px; color: var(--fg); }
+.feature-card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.contact-form { display: grid; gap: 18px; max-width: 520px; }
+.field { display: grid; gap: 8px; }
+.field label { font-weight: 600; font-size: 15px; }
+/* Solid, fully-opaque LITERAL colors: axe contrast-checks form controls even when
+   empty, and cannot resolve a translucent or variable background. */
+.field input {
+  -webkit-appearance: none; appearance: none;
+  background: #14141c; color: #f5f6fa;
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; font: inherit; width: 100%;
+}
+.field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.contact-form button { justify-self: start; margin-top: 4px; }
+
+:focus-visible { outline: 2px solid var(--spot-2); outline-offset: 3px; }
+
+.site-footer {
+  text-align: center; padding: 32px; color: var(--muted);
+  background: #0d0d12; border-top: 1px solid var(--border);
+}
+
+/* MOBILE: the panel can no longer sit beside the scene, so it sits BELOW it — the
+   hero reserves the top ~46vh as clear stage and interludes go full-viewport. */
+@media (max-width: 720px) {
+  /* The reserved stage band used to be a flat 46vh. At 390x844 that pushed the
+     hero panel's own copy PAST the fold — .sub measured 712->935 in an 844px
+     viewport — and axe will not resolve the contrast of an element it cannot
+     fully sample while a fixed canvas overlaps it. The canvas overlap is fine on
+     its own (desktop proves that); the element leaving the viewport is what
+     breaks it. 22vh is set by the LONGEST sub in the catalog (plausible, 307px of
+     copy): 30vh cleared 34 of 35 and left that one still crossing the fold, and a
+     number that holds for every config beats one that holds for most. */
+  .hero { min-height: 100svh; justify-content: flex-end; padding-top: clamp(96px, 22vh, 46vh); }
+  .hero-panel, .panel { max-width: 100%; }
+  .contact { justify-content: stretch; }
+  .stage { min-height: 100svh; }
+  .act-chip { max-width: 100%; }
+  .features, .contact { padding: clamp(24px, 5vh, 56px) 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-hint-line { animation: none; transform: scaleX(1); opacity: 1; }
+}

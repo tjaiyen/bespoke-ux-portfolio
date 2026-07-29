@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Prism — color &amp; design tools that split light into color</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Prism
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Color &amp; design tools</p>
+          <h1 id="hero-title">Tools that split light into color.</h1>
+          <p class="sub">Prism is a studio for building palettes, gradients, and design systems with the precision of optics. Feed in one beam — get a full, usable spectrum out the other side.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Try the tools</a>
+            <a class="cta cta-secondary" href="#features">See how it works</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to refract</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> One beam enters the glass</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">A precise instrument for color</h2>
+          <p class="section-lead">Every feature is built to be exact where it matters and playful where it counts.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Spectral palettes</h3>
+              <p>Generate perceptually even palettes from a single seed color, tuned in a uniform color space so no hue overpowers the rest.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Caustic gradients</h3>
+              <p>Blend light the way glass does — smooth, refractive gradients that avoid muddy midpoints and banding.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Contrast lab</h3>
+              <p>Check every pairing against WCAG thresholds as you design, so accessible color is the default, not an afterthought.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Token export</h3>
+              <p>Ship your spectrum as design tokens, CSS variables, or a Figma-ready file — one source of truth, many surfaces.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Seven wavelengths fan out</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Try the tools</h2>
+          <p class="section-lead">Tell us where you want your color to go. We'll send early access and a starter spectrum.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">What are you building</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request access</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Prism Studio. Splitting light into color.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

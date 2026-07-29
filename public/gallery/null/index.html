@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Null — structured logging for developers</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">NULL<span class="brand-dot">_</span></a>
+      <nav aria-label="Primary">
+        <a href="#does">DOES</a>
+        <a href="#strip">OUTPUT</a>
+        <a href="#install">INSTALL</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">// structured logging. nothing else.</p>
+        <h1>LOGS THAT<br />AREN'T<br /><span class="hl">GARBAGE.</span></h1>
+        <p class="sub">Null is a developer tool that turns your log noise into strict, queryable, structured events. No colored fluff. No magic. Just fields you can grep, ship, and trust.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#install">GET NULL &rarr;</a>
+          <a class="btn btn-ghost" href="#does">SEE WHAT IT DOES</a>
+        </div>
+        <p class="hero-meta">v2.0.4 &middot; MIT &middot; zero deps &middot; 41kb</p>
+      </section>
+
+      <section id="does" class="does">
+        <h2 class="section-title">THREE THINGS<br />IT DOES.</h2>
+        <ul class="cards">
+          <li class="card">
+            <p class="card-num">01</p>
+            <h3>STRUCTURES EVERYTHING</h3>
+            <p>Every log line is a typed record — key, value, level, timestamp. No free-text strings. If it can't be a field, it doesn't get logged.</p>
+          </li>
+          <li class="card">
+            <p class="card-num">02</p>
+            <h3>QUERIES LOCALLY</h3>
+            <p>Filter, group, and count your logs from the terminal before they ever leave the box. <code>null where level=error</code> and you're done.</p>
+          </li>
+          <li class="card">
+            <p class="card-num">03</p>
+            <h3>SHIPS ANYWHERE</h3>
+            <p>One line-delimited JSON stream out. Pipe it to a file, a socket, or your aggregator of choice. No lock-in, no agent, no daemon.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="strip" class="strip">
+        <h2 class="section-title">THIS IS THE<br />OUTPUT.</h2>
+        <div class="terminal" role="img" aria-label="Example of Null's structured JSON log output: three line-delimited records showing an info-level request completion, a warn-level slow query, and an error-level payment declined event, each with typed fields.">
+          <div class="terminal-bar" aria-hidden="true">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="terminal-title">null &mdash; stdout</span>
+          </div>
+          <pre class="terminal-body" aria-hidden="true"><span class="ln"><span class="k">"ts"</span>:<span class="v">"2026-02-11T09:14:02Z"</span> <span class="k">"lvl"</span>:<span class="ok">"info"</span>  <span class="k">"msg"</span>:"request.done" <span class="k">"ms"</span>:12</span>
+<span class="ln"><span class="k">"ts"</span>:<span class="v">"2026-02-11T09:14:03Z"</span> <span class="k">"lvl"</span>:<span class="warn">"warn"</span>  <span class="k">"msg"</span>:"query.slow"   <span class="k">"ms"</span>:842</span>
+<span class="ln"><span class="k">"ts"</span>:<span class="v">"2026-02-11T09:14:05Z"</span> <span class="k">"lvl"</span>:<span class="err">"error"</span> <span class="k">"msg"</span>:"pay.declined" <span class="k">"code"</span>:402</span></pre>
+        </div>
+        <p class="strip-note">// no ANSI soup. no emoji. every field parses.</p>
+      </section>
+
+      <section id="install" class="install">
+        <h2 class="section-title">INSTALL IT.</h2>
+        <p class="install-copy">One command. No config file required. Point it at stdout and start logging structured events in the next thirty seconds.</p>
+        <div class="install-box">
+          <p class="install-label" id="cmd-label">// run this</p>
+          <code class="install-cmd" aria-labelledby="cmd-label">$ curl -sSL null.sh | sh</code>
+        </div>
+        <a class="btn btn-primary btn-big" href="#top">READ THE DOCS &rarr;</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>NULL_ &copy; 2026 &middot; MIT LICENSE &middot; built for people who read their logs.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

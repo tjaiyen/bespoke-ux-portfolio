@@ -1,0 +1,235 @@
+:root {
+  --bg: #0d0c0a;          /* deep charcoal-black ground */
+  --surface: #17150f;     /* solid dark panel */
+  --field-bg: #100e09;    /* opaque field background */
+  --surface-edge: rgba(199, 164, 96, 0.22);
+  --fg: #f3ecdd;          /* warm off-white */
+  --muted: #b8ad97;       /* muted parchment (AA on --surface) */
+  --gold: #d8b26a;        /* warm muted gold accent */
+  --gold-soft: #c7a460;
+  --ink: #0d0c0a;
+  --serif: Georgia, "Times New Roman", "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--serif);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Decorative 3D backdrop. Every content region below carries its OWN opaque
+   background so text contrast is fully verifiable — text is never over the
+   live canvas; the 3D shows through the page edges only. */
+#bg {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0; display: block;
+}
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  z-index: 5;
+  background: var(--gold); color: var(--ink);
+  padding: 12px 18px; border-radius: 0 0 8px 0;
+  text-decoration: none; font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+
+/* Header */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  padding: 22px clamp(20px, 5vw, 72px);
+  background: var(--bg);
+  border-bottom: 1px solid var(--surface-edge);
+}
+.brand {
+  color: var(--fg); text-decoration: none;
+  font-size: 24px; letter-spacing: 0.34em;
+  text-transform: uppercase; font-weight: 400;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.brand-mark { color: var(--gold); font-size: 0.7em; }
+nav a {
+  color: var(--muted); text-decoration: none;
+  margin-left: clamp(16px, 3vw, 32px);
+  font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 2px; border-bottom: 1px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+nav a:hover, nav a:focus-visible { color: var(--gold); border-color: var(--gold); }
+
+/* Opaque content column — guarantees every text node resolves over solid
+   pixels, so axe can prove contrast (never over the live canvas). */
+main {
+  padding: clamp(48px, 9vh, 110px) clamp(16px, 5vw, 48px);
+  display: grid; gap: clamp(40px, 7vh, 80px);
+}
+.wrap {
+  max-width: 900px; margin: 0 auto; width: 100%;
+  display: grid; gap: clamp(40px, 7vh, 80px);
+}
+
+/* Panels — opaque, text contrast verifiable */
+.hero, .panel {
+  background: var(--surface);
+  border: 1px solid var(--surface-edge);
+  border-radius: 4px;
+  padding: clamp(40px, 6vw, 84px);
+  position: relative;
+  isolation: isolate;
+}
+/* Decorative inner rule — sits BEHIND content so it never overlays text. */
+.hero::after, .panel::after {
+  content: ""; position: absolute; inset: 0;
+  border: 1px solid rgba(216, 178, 106, 0.10);
+  border-radius: 4px; margin: 7px; pointer-events: none;
+  z-index: -1;
+}
+
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.32em;
+  font-size: 12px; color: var(--gold);
+  margin: 0 0 22px;
+  font-family: var(--serif);
+}
+
+.hero { text-align: center; }
+h1 {
+  font-size: clamp(38px, 7vw, 66px);
+  line-height: 1.08; margin: 0 0 26px;
+  font-weight: 400; letter-spacing: 0.01em;
+  color: var(--fg);
+}
+.sub {
+  font-size: clamp(17px, 2.4vw, 21px);
+  color: var(--muted);
+  max-width: 54ch; margin: 0 auto 40px;
+  font-style: italic;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.cta {
+  display: inline-block;
+  background: var(--gold); color: var(--ink);
+  padding: 15px 34px; border-radius: 2px;
+  text-decoration: none; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; font-size: 13px;
+  border: 1px solid var(--gold); cursor: pointer;
+  font-family: var(--serif);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.cta:hover, .cta:focus-visible { background: var(--gold-soft); }
+.cta-ghost {
+  background: transparent; color: var(--gold);
+  border: 1px solid var(--gold);
+}
+.cta-ghost:hover, .cta-ghost:focus-visible { background: rgba(216, 178, 106, 0.12); color: var(--fg); }
+
+h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400; margin: 0 0 20px; letter-spacing: 0.01em;
+  color: var(--fg);
+}
+h3 {
+  font-size: 21px; font-weight: 400; margin: 0 0 8px;
+  color: var(--gold); letter-spacing: 0.06em;
+}
+.lede { font-size: 18px; color: var(--muted); max-width: 60ch; margin: 0 0 8px; }
+
+/* Collections */
+.collection-list {
+  list-style: none; padding: 0; margin: 34px 0 0;
+  display: grid; gap: clamp(24px, 4vw, 40px);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.collection {
+  padding-top: 22px;
+  border-top: 1px solid var(--surface-edge);
+}
+.collection p { color: var(--muted); margin: 0; font-size: 16px; }
+
+/* Atelier facts */
+.facts {
+  margin: 34px 0 0; padding: 0;
+  display: grid; gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.fact { border-top: 1px solid var(--surface-edge); padding-top: 20px; }
+.fact dt {
+  text-transform: uppercase; letter-spacing: 0.22em;
+  font-size: 12px; color: var(--gold); margin-bottom: 8px;
+}
+.fact dd { margin: 0; color: var(--muted); font-size: 16px; }
+
+/* Appointment form */
+.appointment-form {
+  margin-top: 36px;
+  display: grid; gap: 22px;
+  max-width: 520px;
+}
+.field { display: grid; gap: 8px; }
+.field label {
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted);
+}
+.field input, .field select, .field textarea {
+  background-color: var(--field-bg);
+  border: 1px solid var(--surface-edge);
+  border-radius: 2px;
+  color: var(--fg);
+  padding: 13px 15px;
+  font-family: var(--serif); font-size: 16px;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+.field textarea { resize: vertical; }
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-color: var(--gold);
+}
+.appointment-form .cta { justify-self: start; border: none; }
+
+/* Focus visibility for all interactive elements */
+a:focus-visible, .cta:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: clamp(40px, 6vh, 64px) 24px;
+  background: var(--bg);
+  border-top: 1px solid var(--surface-edge);
+  color: var(--muted);
+}
+.footer-brand {
+  color: var(--fg); font-size: 20px;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  margin: 0 0 14px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.site-footer p { margin: 0 0 8px; font-size: 15px; }
+.fine { color: var(--muted); font-size: 13px; margin-top: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

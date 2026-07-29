@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Slope — should-cost estimating on the learning curve</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Slope
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The method</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Should-cost &amp; learning-curve estimating</p>
+          <h1 id="hero-title">The hundredth unit should not cost what the first one did.</h1>
+          <p class="sub">Slope prices production programmes on the learning curve rather than on last year's actuals. On an 85% slope, every doubling of cumulative units takes 15% out of unit cost — by unit 512, nine doublings in, you should be building at roughly 23% of first-unit cost.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Book a walkthrough</a>
+            <a class="cta cta-secondary" href="#features">See the method</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll down the curve</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Unit one — the most expensive article you will ever build</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Estimating that assumes you get better</h2>
+          <p class="section-lead">A rate that never improves is not a forecast. It is an admission.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Fitted, not assumed</h3>
+              <p>The slope is regressed from your own touch-labour hours per unit, so a programme running at 92% is priced at 92% — not at the 85% an airframe textbook suggests.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Breaks in the curve</h3>
+              <p>A design change, a line move or a two-year production gap all reset learning, and the model shows the step rather than smoothing a break that really happened.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Rate-effect separated</h3>
+              <p>Cost improvement from learning is held apart from cost improvement from volume, because they unwind differently when the buy is cut.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Defensible to an auditor</h3>
+              <p>Every fitted curve exports with its underlying unit data and its R², so the basis of estimate survives a question about where the number came from.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Unit 512 — nine doublings down the slope</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Book a walkthrough</h2>
+          <p class="section-lead">Send us a production history and we will fit its curve.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Programme or platform</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a walkthrough</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Slope Analytics. Price the hundredth unit, not the first.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

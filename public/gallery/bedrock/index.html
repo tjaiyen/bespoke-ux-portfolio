@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Bedrock — read what lies beneath before you build</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Bedrock
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Geological survey &amp; materials</p>
+          <h1 id="hero-title">Read what lies beneath before you build.</h1>
+          <p class="sub">Bedrock cores, logs and models the ground under your project — so the surprise that costs a season shows up in a report instead of in an excavation.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Request a survey</a>
+            <a class="cta cta-secondary" href="#features">See our services</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to descend</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Topsoil and recent alluvium — thousands of years</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Ground truth, not guesswork</h2>
+          <p class="section-lead">Every layer logged, sampled and defensible under review.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Core logging</h3>
+              <p>Continuous recovery logged to standard, photographed wet and dry, with every contact depth recorded rather than interpolated.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Geotechnical testing</h3>
+              <p>Strength, consolidation and permeability measured on real samples from your site, not inferred from a regional average.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Contamination screening</h3>
+              <p>Historic land use drives the analyte list, so the screen looks for what was actually there before you were.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Foundation modelling</h3>
+              <p>Bearing capacity and settlement modelled against the logged profile, handed over in a form your structural engineer can build from.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Basement rock — three hundred million years down</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Request a survey</h2>
+          <p class="section-lead">Tell us where you are building and we will scope the investigation.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Site location</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a survey</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Bedrock Geological. The ground keeps its own record.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

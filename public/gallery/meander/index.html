@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Meander — watershed and catchment restoration</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Meander
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Our work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Watershed &amp; catchment restoration</p>
+          <h1 id="hero-title">A river is only the part of the water you can see.</h1>
+          <p class="sub">Meander restores whole catchments — the wetlands, floodplains and soils that decide how much water arrives, how fast, and how clean — rather than engineering the channel at the bottom of it.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to us</a>
+            <a class="cta cta-secondary" href="#features">See our work</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll through the cycle</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Rises as vapour, falls as rain</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Work upstream of the problem</h2>
+          <p class="section-lead">Almost every flood and drought problem is cheaper to solve above the town than in it.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Slow the flow</h3>
+              <p>Leaky woody dams, re-meandered channels and restored floodplain hold water in the upper catchment, so the peak arrives lower and later than the concrete downstream was designed for.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Soil as reservoir</h3>
+              <p>A percent of soil organic matter holds a meaningful depth of rainfall across a catchment, which makes farm soil health a flood intervention as much as an agricultural one.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Gauged, not asserted</h3>
+              <p>We instrument before we intervene and publish the hydrographs either way, because restoration is full of confident claims and short on before-and-after gauging.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Landowner-first</h3>
+              <p>Nothing happens without the farmers who own the ground. Schemes designed around them last; schemes imposed on them are quietly undone within five years.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Runs to the river, returns to the sea</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to us</h2>
+          <p class="section-lead">Tell us about the catchment and what it has been doing lately.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Catchment or river</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Start a conversation</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Meander. Working above the problem.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

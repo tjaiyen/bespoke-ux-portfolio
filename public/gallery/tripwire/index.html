@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Tripwire — nothing gets paid on an invoice alone</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Tripwire
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The three checks</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">AP three-way match</p>
+          <h1 id="hero-title">An invoice is a claim. A match is evidence.</h1>
+          <p class="sub">Tripwire holds every invoice against its purchase order and its goods receipt before cash moves. Of 64 transactions in one month of this plant's AP, 48 matched clean and 16 were held: a $300 salt invoice arrived twice, a packaging line billed 4,000 units against 3,600 received, and corn at $0.675 against a $0.54 PO was 25% over — well past the 5% band.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Run a month</a>
+            <a class="cta cta-secondary" href="#features">See the three checks</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the gate</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Three streams — invoice, order, receipt</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Three documents or it does not pay</h2>
+          <p class="section-lead">Every control here exists because the alternative already happened to somebody.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Price, quantity, both</h3>
+              <p>A match is not a vendor-name lookup; the invoiced unit price and quantity are each held against the order and the receipt, and either one out of band stops the payment.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Duplicates by fingerprint</h3>
+              <p>The same invoice re-sent with a new number is caught on vendor, amount and date rather than on the number the sender controls.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Receipts, not promises</h3>
+              <p>Goods received is the only one of the three documents a supplier cannot write, which is exactly why it is the one that has to be in the match.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Exceptions with an owner</h3>
+              <p>A blocked payment routes to a named person with the reason attached, because a queue nobody owns becomes a queue somebody overrides.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The gate: matched pays, mismatched stops</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Run a month</h2>
+          <p class="section-lead">Send a month of invoices, orders and receipts and we will show you what would not have paid.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">AP volume per month</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a run</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Tripwire. Three documents, or it waits.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

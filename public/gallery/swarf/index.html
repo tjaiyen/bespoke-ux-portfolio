@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Swarf — material utilisation and buy-to-fly</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Swarf
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Capability</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Material utilisation &amp; buy-to-fly</p>
+          <h1 id="hero-title">You bought a tonne of titanium to fly a hundred kilos.</h1>
+          <p class="sub">Swarf tracks what the machine takes away. A structural fitting hogged from billet typically runs close to a 10:1 buy-to-fly ratio — the fitting shown measures 9.8:1, meaning 90% of the metal you paid for, certified and stocked, leaves as chips before the part ever flies.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to the team</a>
+            <a class="cta cta-secondary" href="#features">See the capability</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the toolpath</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Billet — every gram of it bought, certified and stocked</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">The cheapest metal is the metal you never bought</h2>
+          <p class="section-lead">Buy-to-fly is an accounting problem before it is a machining one.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Ratio per part number</h3>
+              <p>Buy-to-fly is measured per part rather than averaged across a plant, because the average hides the handful of parts carrying most of the raw-material spend.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Scrap value, recovered</h3>
+              <p>Chip value depends on whether alloys were segregated at the machine, and the model prices clean segregated turnings against the mixed skip they usually end up in.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Near-net trade study</h3>
+              <p>Forging, additive and plate are compared on total cost — tooling, lead time and machining hours together — rather than on raw-material weight alone.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Cutting-tool consumption</h3>
+              <p>Titanium eats tooling, so tool cost per part is tracked with the metal, which is the pair that actually decides whether a hogged part is worth quoting.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Finished part, and the pile that used to be around it</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to the team</h2>
+          <p class="section-lead">Send a part family and we will measure what it is really costing in metal.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Part family or alloy</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request an assessment</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Swarf. Measured by what leaves as chips.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

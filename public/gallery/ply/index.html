@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Ply — composite cost and cure traceability</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Ply
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The system</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Composite cost &amp; cure traceability</p>
+          <h1 id="hero-title">Forty plies, one cure, and no way to un-bake a mistake.</h1>
+          <p class="sub">Ply costs a composite structure at the ply, not at the part. A quasi-isotropic skin of 40 plies laid up at 0, ±45 and 90 degrees goes into the autoclave once — 350°F at 85 psi — and everything you got wrong before that point is scrap.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Enquire</a>
+            <a class="cta cta-secondary" href="#features">See the system</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll through the layup</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Bare mandrel — the cure clock has not started</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Cost that follows the material</h2>
+          <p class="section-lead">Prepreg has a shelf life, an out-time budget and a freezer bill. Most costing systems track none of it.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Out-time as a cost</h3>
+              <p>Every roll carries its remaining out-time, so material scrapped for expiry is booked against the programme that consumed the clock rather than lost in an overhead account.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Ply-level traceability</h3>
+              <p>Each ply records its roll, orientation and operator, which is what turns a cure deviation into a bounded recall instead of a quarantined shipset.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Scrap before cure</h3>
+              <p>Rework caught at ply twelve costs twelve plies of labour; caught after cure it costs the part, the tool time and the slot. The model prices both.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Autoclave as a constraint</h3>
+              <p>Cure slots are scheduled as the scarce resource they are, because a part waiting on an autoclave is a part accruing carrying cost and nothing else.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Forty plies down, into the autoclave</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Enquire</h2>
+          <p class="section-lead">Tell us what you lay up and we will cost a shipset at ply level.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Part or structure</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send an enquiry</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Ply. Costed by the ply, not by the part.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

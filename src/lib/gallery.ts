@@ -10,6 +10,11 @@ import path from "node:path";
  * only 9 existed on disk. Publishing on the strength of that claim would have been the
  * exact failure this gallery exists to argue against — so each site was re-audited and
  * only fresh passes are listed.
+ *
+ * All 47 now pass and all 47 are published. An earlier pass shipped 12, which was not a
+ * curation decision — the other 35 had simply never been run. Rebuild with
+ * `node scripts/sync-gallery.mjs --apply`, which re-runs the gate and refuses to publish
+ * anything that does not exit 0.
  */
 
 const GALLERY_DIR = path.join(process.cwd(), "public", "gallery");
@@ -36,7 +41,16 @@ export type Receipt = {
   failedWcagTags: string[];
 };
 
-/** Human-facing note on what each site explores. Editorial, not derived. */
+/**
+ * Human-facing note on what each site explores. Editorial, not derived.
+ *
+ * `baseline` deliberately has no entry. It carried "The control: minimal, no 3D — the
+ * reference the others are measured against", which is false: `src/stage.js` constructs a
+ * `THREE.WebGLRenderer` like every other site here. It was a claim about the work that
+ * nobody had checked, published on a portfolio whose whole argument is that its claims are
+ * checkable. It now falls through to the descriptor taken from the site's own <meta
+ * description>. Do not re-add a note you have not verified against the artifact.
+ */
 const NOTES: Record<string, string> = {
   meridian: "Editorial layout, restrained palette, type-led hierarchy",
   ascend: "Bold display type over a dark immersive stage",
@@ -44,7 +58,6 @@ const NOTES: Record<string, string> = {
   pomelo: "Dopamine colour — saturated, high-energy, still contrast-compliant",
   volt: "Retrofuturist neon on near-black, testing the contrast floor",
   carbon: "Neo-brutalist structure; heavy rules and blocky composition",
-  baseline: "The control: minimal, no 3D — the reference the others are measured against",
   chain: "Linked-node motion study; canvas kept decorative by construction",
   grove: "Organic forms, generous whitespace, nature-derived palette",
   tidal: "Fluid motion with reduced-motion adherence",
@@ -70,8 +83,31 @@ export function listGallery(): Receipt[] {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+/**
+ * Descriptors taken from each generated site's OWN <title>/meta description, written by
+ * `scripts/sync-gallery.mjs`. Used only where no editorial note exists above.
+ *
+ * The alternative was inventing a line of copy for each of the 35 sites added in one go,
+ * which would have meant 35 confident claims about what a design "explores" that nobody
+ * had actually decided. Quoting the artifact is the honest option.
+ */
+const DERIVED: Record<string, string> = (() => {
+  const f = path.join(GALLERY_DIR, "_notes.json");
+  if (!fs.existsSync(f)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(f, "utf8")).notes ?? {};
+  } catch {
+    return {};
+  }
+})();
+
 export function noteFor(slug: string): string | undefined {
-  return NOTES[slug];
+  return NOTES[slug] ?? DERIVED[slug];
+}
+
+/** True when the descriptor came from the site itself rather than being written here. */
+export function noteIsDerived(slug: string): boolean {
+  return !NOTES[slug] && !!DERIVED[slug];
 }
 
 /** Counts used in the card summary. Derived from the receipt, never hand-entered. */

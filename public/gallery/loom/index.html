@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Loom — cloth woven on hand looms</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Loom
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Materials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Weaving atelier</p>
+          <h1 id="hero-title">Cloth woven on hand looms.</h1>
+          <p class="sub">Warp by warp, pick by pick. Loom makes cloth the slow way — undyed linen, indigo, madder — so the hand that made it is still legible in the finished piece.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">See the weaves</a>
+            <a class="cta cta-secondary" href="#features">Our materials</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to weave</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> The warp is dressed — threads under tension</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">What goes into a length</h2>
+          <p class="section-lead">Four decisions, made before a single pick is thrown.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Fibre first</h3>
+              <p>Flax and long-staple cotton chosen for how they age, because cloth that looks best on day one is rarely the cloth you keep.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Natural dyeing</h3>
+              <p>Indigo vats and madder baths maintained in the studio, so colour arrives with the depth and variation only a live vat gives.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Dressed by hand</h3>
+              <p>Every warp is measured, sleyed and tied on by hand — three days of work before the weaving itself begins.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Woven to order</h3>
+              <p>Lengths are woven against a commission rather than to stock, which is why the waiting list is honest about its length.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Pick by pick, the weft makes it cloth</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Commission a length</h2>
+          <p class="section-lead">Tell us what you are making and we will talk through fibre, sett and colour.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">What you are making</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Start a commission</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Loom Atelier. Made pick by pick.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
