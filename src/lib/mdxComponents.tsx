@@ -38,6 +38,11 @@ const DesignTokenInspector = dynamic(
   { loading: skeleton("h-96") },
 );
 
+const DirectionComparison = dynamic(
+  () => import("@/components/widgets/DirectionComparison"),
+  { loading: skeleton("h-96") },
+);
+
 const FlowChartSimulator = dynamic(
   () => import("@/components/widgets/FlowChartSimulator"),
   { loading: skeleton("h-64") },
@@ -94,6 +99,7 @@ function H2({ children }: { children?: React.ReactNode }) {
 
 export const mdxComponents = {
   h2: H2,
+  DirectionComparison,
   MetricsGrid,
   BeforeAfterSlider,
   DesignTokenInspector,

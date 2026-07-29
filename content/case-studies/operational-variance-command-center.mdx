@@ -57,6 +57,29 @@ We chose the overlay for three reasons:
 
 The cost is real, and it is the failure mode I designed against. A separate pipeline invites a rounding-difference mismatch between the ERP's decimal precision and the warehouse default — the kind that does not announce itself, but accumulates into a drift in WIP valuation and surfaces months later as an unexplained few-hundred-dollar gap in one plant. That is expensive precisely because it erodes trust in the tool at the moment it should be earning it. The design answer is an automated monthly reconciliation that compares ETL totals against ERP totals and flags any divergence over $100, so the drift is caught by the system rather than by a controller. The point of the guard is that it fails loudly and early; a silent pipeline is the one I would not trust.
 
+<DirectionComparison
+  label="Architecture"
+  takenTitle="Read-only overlay on the existing ERP"
+  takenBlocks={[
+    { h: 2, label: "variance summary" },
+    { h: 4, cols: 3, key: true },
+    { h: 5, label: "work-order drill-down" },
+    { h: 2, label: "ERP stays untouched" }
+  ]}
+  takenNote="A focused surface over nightly ETL. The drill-down is the whole point — one path from summary to the transaction."
+  discardedTitle="Full ERP module replacement"
+  discardedBlocks={[
+    { h: 2, label: "native ERP chrome" },
+    { h: 3, label: "module nav" },
+    { h: 3, cols: 4 },
+    { h: 3, cols: 4 },
+    { h: 2, label: "18-month delivery" }
+  ]}
+  discardedNote="Perfect real-time data and native integration, at eighteen months and an IT-owned interface that changes on release cycles."
+  criterion="The pain was navigation speed, not data freshness — variances are reviewed weekly, not hourly."
+  cost="A secondary ETL pipeline with reconciliation drift that needs a monthly audit."
+/>
+
 ## Outcome
 
 This concept was not built for production, so the outcome below is modelled, not measured. The model: with the variance trace collapsed from a multi-module hunt into a single drill-down, the investigation step leaves the critical path of the close. Applied to the fourteen-day cycle I worked, that projects to roughly three days for the same four-controller team. The number to hold me to is not the three — it is whether time-to-resolution per variance falls at all, which is what I would instrument first.

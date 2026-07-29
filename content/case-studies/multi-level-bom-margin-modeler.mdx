@@ -53,6 +53,27 @@ The 2D alternative used a horizontal breadcrumb trail for BOM navigation (Platfo
 
 I discard the 3D direction and accept the perception cost that comes with it. The accepted cost was real: the visible, demo-friendly artefact disappears, and the project's success metrics have to be reframed around user outcomes rather than visual innovation. The benefit was a 10-week MVP timeline instead of a 24-week timeline, and a user-tested interaction model that product managers could adopt immediately.
 
+<DirectionComparison
+  label="Visualisation"
+  takenTitle="Breadcrumb-anchored flat tree"
+  takenBlocks={[
+    { h: 2, label: "Engine > Head > Valve", key: true },
+    { h: 3, cols: 2 },
+    { h: 6, label: "isolated sub-assembly" },
+    { h: 3, label: "margin cascade" }
+  ]}
+  takenNote="Depth is carried by the breadcrumb, not by space. Scales to ten thousand line items because nothing is rendered that is not in focus."
+  discardedTitle="Interactive 3D BOM in Three.js"
+  discardedBlocks={[
+    { h: 10, label: "3D exploded assembly" },
+    { h: 2, cols: 3 },
+    { h: 2, label: "orbit / zoom controls" }
+  ]}
+  discardedNote="It demos beautifully and collapses at ten thousand line items — and the answer people needed was a number, not a rotation."
+  criterion="Task success at real BOM scale, tested before commitment rather than after."
+  cost="Losing the demo-friendly artefact, and the internal support that came with it."
+/>
+
 ## Outcome
 
 The BOM margin modeler launched in September 2023. Within the first quarter, product managers self-served 87% of what-if requests that previously went to the analyst queue. The three cost analysts were redeployed to strategic projects: standard-cost updates, make-vs-buy analysis, and long-range margin planning.

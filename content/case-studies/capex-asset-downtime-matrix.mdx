@@ -59,6 +59,27 @@ The success criterion for this stage: the same six participants showing measurab
 
 The cost we accepted was real complexity: twice the UI surface to design, test, and maintain. Every new feature had to be designed twice. The engineering team estimated a 60% increase in front-end development time. We also accepted a steeper onboarding curve for users who needed to work in both modes (primarily the VPs and directors who approved requests from both lenses).
 
+<DirectionComparison
+  label="Information architecture"
+  takenTitle="Dual lens over one ranked dataset"
+  takenBlocks={[
+    { h: 2, label: "finance | operations", key: true },
+    { h: 5, label: "shared ranking" },
+    { h: 4, cols: 2 },
+    { h: 2, label: "same data, two orderings" }
+  ]}
+  takenNote="One dataset, two entry points. Neither group has to adopt the other's mental model to see the other's ranking."
+  discardedTitle="Single unified view"
+  discardedBlocks={[
+    { h: 3, label: "one merged ranking" },
+    { h: 8, label: "combined matrix" },
+    { h: 2, label: "one agreed order" }
+  ]}
+  discardedNote="Simpler, and it forces a single ordering — which is the disagreement, not a resolution of it."
+  criterion="The conflict is structural: each side's ranking was invisible to the other, not wrong."
+  cost="Two views to maintain, and no single number anyone can point at as the answer."
+/>
+
 ## Outcome
 
 The CapEx-Downtime Matrix launched in April 2024. Within the first quarter, the system identified $2.3M in duplicate or conflicting requests before they were submitted for approval—requests that would have previously passed through the siloed workflows undetected.
