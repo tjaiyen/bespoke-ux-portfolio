@@ -20,7 +20,10 @@ export default function SiteHeader() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="border-b border-border-subtle bg-bg-app/90 backdrop-blur">
+    // Fully opaque, not bg-bg-app/90. On the routes that carry the WebGL stage a 10%
+    // translucent header composites nav text over a moving canvas — a contrast failure
+    // the audit could never see, because it computes from flat token values.
+    <header className="border-b border-border-subtle bg-bg-app">
       <div className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
         <Link
           href="/"

@@ -4,6 +4,8 @@ import { listRealCaseStudies, listConceptCaseStudies } from "@/lib/mdxLoader";
 import { evidenceStrip } from "@/lib/evidence";
 import { site } from "@/lib/site";
 import { ConceptBadge } from "@/components/site/ProjectTypeNotice";
+import { Act, Interlude } from "@/components/site/Act";
+import VarianceStage from "@/components/stage/VarianceStage";
 
 const APPROACH = [
   {
@@ -20,55 +22,71 @@ const APPROACH = [
   },
 ];
 
+/**
+ * The home page is a journey in five acts over a fixed WebGL stage.
+ *
+ * The stage renders "variance settling" — a bundle of drifting traces that converge into
+ * one signal as you scroll — which is the portfolio's own subject as its backdrop. The
+ * acts are opaque panels floating above it, and the interlude bands between them carry no
+ * text at all, so the scene has stretches of the page it owns outright. That division is
+ * not decoration: it is what lets a contrast audit computed from flat token values stay
+ * valid with a canvas underneath.
+ */
 export default function Home() {
   const real = listRealCaseStudies();
   const concepts = listConceptCaseStudies();
   const evidence = evidenceStrip();
 
   return (
-    <main id="main-content">
-      {/* ---- Hero: domain and positioning, no imagery ------------------------
-          Deliberately typographic. The hero images are generated placeholders,
-          and putting them in the first viewport would amplify the portfolio's
-          weakest asset (plan stress-test P3). It would also add an above-fold
-          image to the LCP path, which is already the binding perf constraint. */}
-      <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-10">
-        <h1 className="max-w-3xl font-serif text-4xl leading-[1.15] text-text-main sm:text-5xl">
-          Product design for enterprise operations
-        </h1>
-        <p className="mt-5 max-w-2xl font-sans text-lg leading-relaxed text-text-muted">
-          {site.tagline}
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/case-studies"
-            className="inline-flex min-h-11 items-center rounded-md bg-accent-brand px-6 font-sans text-bg-surface focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-          >
-            View work
-          </Link>
-          <Link
-            href="/about"
-            className="inline-flex min-h-11 items-center rounded-md border border-border-subtle px-6 font-sans text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-          >
-            About
-          </Link>
-        </div>
-      </section>
+    <>
+      <VarianceStage />
+      {/* Reading progress. Purely decorative and CSS-only; renders nothing at all in a
+          browser without scroll-driven animations. */}
+      <div aria-hidden="true" className="scroll-rail" />
 
-      {/* ---- Built work band: the verifiable half, above the modelled figures ---- */}
-      {real.length > 0 && (
-        <section
-          aria-labelledby="built-heading"
-          className="border-y border-border-subtle bg-bg-surface"
+      <main
+        id="main-content"
+        className="flex flex-col gap-12 py-10 sm:gap-20 sm:py-16"
+      >
+        <Act
+          numeral="I"
+          kicker="Where I work"
+          title="Product design for enterprise operations"
+          id="act-brief"
+          heading="h1"
+          reveal={false}
         >
-          <div className="mx-auto w-full max-w-4xl px-6 py-8">
-            <h2
-              id="built-heading"
-              className="font-mono text-[11px] tracking-widest text-status-positive uppercase"
+          <p className="measure font-sans text-lg leading-relaxed text-text-muted">
+            {site.tagline}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/case-studies"
+              className="inline-flex min-h-11 items-center rounded-md bg-accent-brand px-6 font-sans text-bg-surface focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
             >
-              Built and shipped
-            </h2>
-            <ul className="mt-5 space-y-4">
+              View work
+            </Link>
+            <Link
+              href="/about"
+              className="inline-flex min-h-11 items-center rounded-md border border-border-subtle px-6 font-sans text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+            >
+              About
+            </Link>
+          </div>
+        </Act>
+
+        <Interlude />
+
+        {/* The verifiable half, ahead of the modelled figures. */}
+        {real.length > 0 && (
+          <Act
+            numeral="II"
+            kicker="Built and shipped"
+            title="Work you can run yourself"
+            id="act-built"
+            tone="surface"
+          >
+            <ul className="space-y-5">
               {real.map((study) => (
                 <li key={study.slug}>
                   <Link
@@ -78,14 +96,14 @@ export default function Home() {
                     <span className="block font-serif text-xl text-text-main group-hover:underline group-hover:underline-offset-4">
                       {study.title}
                     </span>
-                    <span className="mt-1 block font-sans text-sm text-text-muted">
+                    <span className="measure mt-1 block font-sans text-sm text-text-muted">
                       {study.subtitle}
                     </span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="mt-5 font-sans text-sm text-text-muted">
+            <p className="measure mt-6 font-sans text-sm text-text-muted">
               Twelve of the generated sites are published here with their conformance
               reports —{" "}
               <Link
@@ -96,33 +114,24 @@ export default function Home() {
               </Link>{" "}
               and check the receipts yourself.
             </p>
-          </div>
-        </section>
-      )}
+          </Act>
+        )}
 
-      {/* ---- Evidence strip --------------------------------------------------
-          Answers the core problem: the entry page previously made a claim and
-          showed no evidence for it. Every figure here states its own before and
-          after, so the baseline travels with the claim (selection rule in
-          src/lib/evidence.ts). Each links to the study it came from. */}
-      {evidence.length > 0 && (
-        <section
-          aria-labelledby="evidence-heading"
-          className="border-y border-border-subtle bg-bg-surface"
-        >
-          <div className="mx-auto w-full max-w-4xl px-6 py-8">
-            <h2
-              id="evidence-heading"
-              className="font-mono text-[11px] tracking-widest text-text-muted uppercase"
-            >
-              From the concept explorations
-            </h2>
-            <p className="mt-2 font-sans text-sm text-text-muted">
+        {/* Every figure states its own before and after, so the baseline travels with the
+            claim (selection rule in src/lib/evidence.ts). */}
+        {evidence.length > 0 && (
+          <Act
+            numeral="III"
+            kicker="Modelled, not measured"
+            title="What the concept work projects"
+            id="act-evidence"
+          >
+            <p className="measure font-sans text-sm text-text-muted">
               These three are <strong>modelled</strong> from stated assumptions, not
               measured. The built work above carries measured figures — the distinction is
               deliberate and is marked on every card.
             </p>
-            <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
               {evidence.map((e) => (
                 <li key={e.slug}>
                   <Link
@@ -145,77 +154,62 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-      )}
+          </Act>
+        )}
 
-      {/* ---- Selected work (below the fold by design) ----------------------- */}
-      <section
-        aria-labelledby="work-heading"
-        className="mx-auto w-full max-w-4xl px-6 py-16"
-      >
-        <div className="flex items-baseline justify-between gap-4">
-          <h2
-            id="work-heading"
-            className="font-serif text-3xl text-text-main"
-          >
-            Selected work
-          </h2>
-          <Link
-            href="/case-studies"
-            className="inline-flex min-h-11 items-center font-sans text-sm text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-          >
-            All work →
-          </Link>
-        </div>
+        <Interlude />
 
-        <ul className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {[...real, ...concepts].map((study) => (
-            <li key={study.slug}>
-              <Link
-                href={`/case-studies/${study.slug}`}
-                className="group flex h-full flex-col rounded-lg border border-border-subtle bg-bg-surface focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
-              >
-                <Image
-                  src={study.heroImage}
-                  alt=""
-                  width={1600}
-                  height={900}
-                  className="h-36 w-full rounded-t-lg object-cover"
-                />
-                <span className="flex flex-1 flex-col p-5">
-                  <span className="mb-2 block">
-                    <ConceptBadge projectType={study.projectType} />
+        <Act
+          numeral="IV"
+          kicker="The full set"
+          title="Selected work"
+          id="act-work"
+          tone="surface"
+        >
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {[...real, ...concepts].map((study) => (
+              <li key={study.slug}>
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="group flex h-full flex-col rounded-lg border border-border-subtle bg-bg-app focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+                >
+                  <Image
+                    src={study.heroImage}
+                    alt=""
+                    width={1600}
+                    height={900}
+                    className="h-36 w-full rounded-t-lg object-cover"
+                  />
+                  <span className="flex flex-1 flex-col p-5">
+                    <span className="mb-2 block">
+                      <ConceptBadge projectType={study.projectType} />
+                    </span>
+                    <span className="font-serif text-lg leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
+                      {study.title}
+                    </span>
+                    <span className="mt-2 font-sans text-sm text-text-muted">
+                      {study.subtitle}
+                    </span>
+                    <span className="mt-auto pt-4 font-mono text-xs text-text-muted">
+                      {study.timeline}
+                    </span>
                   </span>
-                  <span className="font-serif text-lg leading-snug text-text-main group-hover:underline group-hover:underline-offset-4">
-                    {study.title}
-                  </span>
-                  <span className="mt-2 font-sans text-sm text-text-muted">
-                    {study.subtitle}
-                  </span>
-                  <span className="mt-auto pt-4 font-mono text-xs text-text-muted">
-                    {study.timeline}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8">
+            <Link
+              href="/case-studies"
+              className="inline-flex min-h-11 items-center font-sans text-sm text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+            >
+              All work →
+            </Link>
+          </p>
+        </Act>
 
-      {/* ---- Approach ------------------------------------------------------- */}
-      <section
-        aria-labelledby="approach-heading"
-        className="border-t border-border-subtle"
-      >
-        <div className="mx-auto w-full max-w-4xl px-6 py-16">
-          <h2
-            id="approach-heading"
-            className="font-serif text-3xl text-text-main"
-          >
-            How I work
-          </h2>
-          <dl className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <Act numeral="V" kicker="Method" title="How I work" id="act-approach">
+          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {APPROACH.map((a) => (
               <div key={a.title}>
                 <dt className="font-serif text-lg text-text-main">{a.title}</dt>
@@ -225,8 +219,13 @@ export default function Home() {
               </div>
             ))}
           </dl>
-        </div>
-      </section>
-    </main>
+        </Act>
+
+        {/* The finale. The scene has been converging for the whole page; this is the
+            band where it is fully settled and has the canvas to itself. Without it the
+            payoff lands behind the footer, which is the one place nobody looks. */}
+        <Interlude />
+      </main>
+    </>
   );
 }

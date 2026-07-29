@@ -14,6 +14,12 @@
  *   2.5.5  interactive targets are >= 44x44 CSS px
  *   4.1.2  interactive elements expose an accessible name
  *   S7     no horizontal overflow at any viewport
+ *   S8     the decorative WebGL stage stays inert (aria-hidden, no tabindex/role,
+ *          pointer-events: none) — three attributes on one element, any of which an
+ *          edit can drop without another check noticing
+ *   S9     every scroll-revealed block is genuinely visible once centred, so a broken
+ *          animation-range cannot leave content at opacity 0 while pa11y and every
+ *          text assertion still pass
  *
  * Usage: PA11Y_CHROME_PATH=<chrome> node scripts/a11y-keyboard-audit.mjs [baseUrl]
  * Exit 0 = all checks pass; 1 = at least one failure. Read the report either way.
@@ -181,6 +187,69 @@ for (const route of ROUTES) {
     console.log(
       `    ${controls.length} controls (${expected} tab stops), ${seen.size} reached, overflow ${overflow}px`,
     );
+    // ---- S8: the decorative WebGL stage stays decorative ---------------------------
+    // The backdrop on / and /about is a <canvas>. It is only safe because it is inert:
+    // hidden from assistive tech, out of the tab order, and out of hit-testing. Those
+    // are three separate attributes on one element and any of them can be dropped in an
+    // edit without a single existing check noticing.
+    const canvases = await page.evaluate(() =>
+      [...document.querySelectorAll("canvas")].map((c) => ({
+        ariaHidden: c.getAttribute("aria-hidden"),
+        tabindex: c.getAttribute("tabindex"),
+        role: c.getAttribute("role"),
+        pointerEvents: getComputedStyle(c).pointerEvents,
+      })),
+    );
+    for (const c of canvases) {
+      if (c.ariaHidden !== "true")
+        fail(route, vp.name, "S8", `canvas is not aria-hidden (got ${c.ariaHidden})`);
+      if (c.tabindex !== null)
+        fail(route, vp.name, "S8", `canvas carries tabindex="${c.tabindex}"`);
+      if (c.role !== null) fail(route, vp.name, "S8", `canvas carries role="${c.role}"`);
+      if (c.pointerEvents !== "none")
+        fail(route, vp.name, "S8", `canvas pointer-events is ${c.pointerEvents}, not none`);
+    }
+
+    // ---- S9: every revealed block is actually visible once scrolled to --------------
+    // The act panels reveal via scroll-driven CSS animation. If a rule ever escapes its
+    // @supports/prefers-reduced-motion guard, or the animation-range stops matching, the
+    // failure mode is content stuck at opacity 0 — invisible to a sighted visitor while
+    // still present in the DOM, so pa11y and every text assertion pass regardless.
+    //
+    // Checked by scrolling each block into view, NOT by reading opacity where it sits:
+    // a block below the fold is legitimately transparent, and asserting on that would
+    // fail the pattern working exactly as designed.
+    const revealCount = await page.evaluate(
+      () => document.querySelectorAll(".reveal").length,
+    );
+    for (let i = 0; i < revealCount; i++) {
+      const state = await page.evaluate((idx) => {
+        const el = document.querySelectorAll(".reveal")[idx];
+        el.scrollIntoView({ block: "center", behavior: "instant" });
+        return null;
+      }, i);
+      void state;
+      // Two frames: one for the scroll to commit, one for the timeline to resolve.
+      await new Promise((r) => setTimeout(r, 120));
+      const seen = await page.evaluate((idx) => {
+        const el = document.querySelectorAll(".reveal")[idx];
+        const cs = getComputedStyle(el);
+        return {
+          opacity: Number(cs.opacity),
+          visibility: cs.visibility,
+          name: el.querySelector("h1,h2")?.textContent?.trim() || "(unnamed)",
+        };
+      }, i);
+      if (seen.opacity < 0.9 || seen.visibility === "hidden")
+        fail(
+          route,
+          vp.name,
+          "S9",
+          `"${seen.name}" is still invisible when centred (opacity ${seen.opacity})`,
+        );
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+
     await page.close();
   }
 }

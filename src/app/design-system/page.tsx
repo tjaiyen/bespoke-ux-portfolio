@@ -118,6 +118,64 @@ export default function DesignSystemPage() {
         </h2>
         <DesignTokenInspector />
       </section>
+
+      <section aria-labelledby="ds-stage" className="mt-12">
+        <h2 id="ds-stage" className="font-serif text-2xl text-text-main">
+          VarianceStage
+        </h2>
+        <div className="prose-case mt-4">
+          <p>
+            The backdrop on the <Link href="/">home</Link> and{" "}
+            <Link href="/about">about</Link> pages is a fixed full-viewport WebGL
+            canvas. It renders a bundle of drifting traces that converge into one
+            settled signal as you scroll — the portfolio&rsquo;s own subject as its
+            backdrop, and the reason the home page is paced as five acts with open
+            interlude bands between them. Scroll position is the timeline, so the
+            visitor resolves the scene rather than watching it loop.
+          </p>
+          <p>
+            It is a raw WebGL fragment shader with no 3D library and no new
+            dependency. Every colour is read at runtime from the tokens above, so the
+            scene inherits the contrast-verified palette and follows the light/dark
+            switch without a second definition to keep in sync.
+          </p>
+          <p>
+            The constraints it runs under are the interesting part, because a
+            decorative canvas on a portfolio that argues for accessibility has to earn
+            its place:
+          </p>
+          <ul>
+            <li>
+              <strong>No text ever sits on it.</strong> Content lives in opaque panels
+              above; the interlude bands carry no prose. That is what keeps the 32-pair
+              contrast audit — which computes from flat token values — true with a
+              canvas underneath.
+            </li>
+            <li>
+              <strong>It is inert.</strong> <code>aria-hidden</code>, no{" "}
+              <code>tabindex</code>, <code>pointer-events: none</code>. It contributes
+              nothing to the accessibility tree and cannot enter the tab order. Checks
+              S8 and S9 in the tier-2 audit assert all of that on every route and
+              viewport, and both were verified by being made to fail first.
+            </li>
+            <li>
+              <strong>Reduced motion draws one frame, not none.</strong> Someone who
+              asks for less motion still gets the settled image the scene exists to
+              arrive at — measured at exactly one draw call.
+            </li>
+            <li>
+              <strong>It is out of the critical path.</strong> Device pixel ratio is
+              clamped to 2, rendering pauses when the tab is hidden, and the context is
+              only created once the browser goes idle. Layout shift is structurally
+              zero: the canvas is fixed and out of flow.
+            </li>
+            <li>
+              <strong>It degrades to nothing.</strong> No WebGL, or a lost context, and
+              the page renders exactly as it would have without it.
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
   );
 }

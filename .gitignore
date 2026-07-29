@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Lighthouse CI local reports
 .lighthouseci/
+# Any Lighthouse output dir. Reports embed a DOM snapshot of every audited page (R20),
+# so they are never committed — not to a private repo that may later go public.
+.lighthouseci*/

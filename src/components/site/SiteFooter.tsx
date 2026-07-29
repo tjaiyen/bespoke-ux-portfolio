@@ -13,7 +13,9 @@ export default function SiteFooter() {
   const year = 2026;
 
   return (
-    <footer className="mt-24 border-t border-border-subtle">
+    // bg-bg-app is load-bearing, not cosmetic: with no background the footer would sit
+    // transparently over the WebGL stage on the routes that carry it.
+    <footer className="mt-24 border-t border-border-subtle bg-bg-app">
       <div className="mx-auto w-full max-w-4xl px-6 py-12">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-sm">
