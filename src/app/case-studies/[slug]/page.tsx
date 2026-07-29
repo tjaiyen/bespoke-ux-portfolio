@@ -10,6 +10,8 @@ import { evidenceFor } from "@/lib/evidence";
 import CaseStudyHero from "@/components/site/CaseStudyHero";
 import CaseStudyToc from "@/components/site/CaseStudyToc";
 import ProjectTypeNotice from "@/components/site/ProjectTypeNotice";
+import { CaseStudyJsonLd } from "@/components/site/JsonLd";
+import ContactCta from "@/components/site/ContactCta";
 
 // Static params come from published, schema-valid slugs only. A study with
 // published: false is never routed; a study with invalid frontmatter fails the
@@ -49,6 +51,13 @@ export default async function CaseStudyPage({
 
   return (
     <main id="main-content" className="mx-auto w-full max-w-3xl px-6 py-12 xl:max-w-6xl">
+      <CaseStudyJsonLd
+        title={frontmatter.title}
+        subtitle={frontmatter.subtitle}
+        slug={slug}
+        projectType={frontmatter.projectType}
+        metricsBasis={frontmatter.metricsBasis}
+      />
       <Link
         href="/case-studies"
         className="inline-flex min-h-11 items-center font-mono text-sm text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
@@ -110,6 +119,8 @@ export default async function CaseStudyPage({
           <CaseStudyToc headings={headings} />
         </aside>
       </div>
+
+      <ContactCta />
 
       <nav
         aria-label="More case studies"

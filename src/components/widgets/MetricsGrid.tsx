@@ -1,6 +1,6 @@
 "use client";
 
-import type { CaseStudyMetricValue } from "@/lib/caseStudySchema";
+import { metricTrend, type CaseStudyMetricValue } from "@/lib/caseStudySchema";
 
 interface MetricsGridProps {
   metrics: CaseStudyMetricValue[];
@@ -37,7 +37,18 @@ export default function MetricsGrid({
               {metric.value}
             </span>
             <span className="mt-1 flex items-center gap-1 font-sans text-sm text-text-muted">
-              <span aria-hidden="true">{metric.isPositive ? "▲" : "▼"}</span>
+              {/* Glyph = DIRECTION (from trend). Colour + spoken qualifier = GOODNESS
+                  (from isPositive). Conflating them made a -79% improvement point up. */}
+              <span
+                aria-hidden="true"
+                className={
+                  metric.isPositive
+                    ? "text-status-positive"
+                    : "text-status-negative"
+                }
+              >
+                {{ up: "▲", down: "▼", flat: "→" }[metricTrend(metric)]}
+              </span>
               <span>
                 {metric.change}
                 <span className="sr-only">

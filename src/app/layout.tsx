@@ -3,6 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/g
 import "./globals.css";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import { PersonJsonLd } from "@/components/site/JsonLd";
 
 // Binary typography constraint (CLAUDE.md): NEVER Inter, Arial, or system sans-serif.
 // Playfair Display headers / Plus Jakarta Sans body / JetBrains Mono for data + design tokens.
@@ -73,6 +74,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <PersonJsonLd />
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />

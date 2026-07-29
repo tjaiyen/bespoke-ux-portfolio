@@ -4,8 +4,34 @@ export const CaseStudyMetric = z.object({
   label: z.string().min(1),
   value: z.string().min(1),
   change: z.string().min(1),
+  /**
+   * DIRECTION and GOODNESS are separate facts and must not share one field.
+   *
+   * `isPositive` alone drove the arrow glyph, so "-79% monthly close time" rendered an ▲
+   * next to a negative number — six such conflicts shipped live. A reduction that is good
+   * news still points DOWN. Screen-reader users were fine (the sr-only text said
+   * "improvement"); sighted readers saw a contradiction on the most-scanned element in the
+   * portfolio.
+   *
+   * `trend` is the arrow. `isPositive` is the colour and the spoken qualifier. Optional so
+   * the field is additive rather than a breaking change; when absent it is inferred from
+   * the sign of `value`, which is right for every metric currently written.
+   */
+  trend: z.enum(["up", "down", "flat"]).optional(),
   isPositive: z.boolean(),
 });
+
+/** Arrow direction: explicit `trend` if set, otherwise inferred from the value's sign. */
+export function metricTrend(m: {
+  value: string;
+  trend?: "up" | "down" | "flat";
+}): "up" | "down" | "flat" {
+  if (m.trend) return m.trend;
+  const v = m.value.trim();
+  if (v.startsWith("-") || v.startsWith("\u2212")) return "down";
+  if (v.startsWith("+")) return "up";
+  return "flat";
+}
 
 /**
  * PROJECT TYPE IS REQUIRED AND HAS NO DEFAULT — deliberately.

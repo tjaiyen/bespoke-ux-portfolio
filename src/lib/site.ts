@@ -19,7 +19,9 @@ export const site = {
   email: null as string | null, // e.g. "you@example.com"
   linkedin: null as string | null, // e.g. "https://www.linkedin.com/in/…"
   github: null as string | null,
-  resumeHref: null as string | null, // e.g. "/resume.pdf"
+  // Drop the PDF at public/resume.pdf and set this to "/resume.pdf". The link then
+  // appears in the footer and on About automatically — nothing else to wire.
+  resumeHref: null as string | null,
   // --------------------------------------------------------------------------
 } as const;
 
