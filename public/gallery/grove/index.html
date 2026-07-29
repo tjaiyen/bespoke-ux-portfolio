@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Grove — growing forests with data</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Grove
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">How it works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Reforestation, measured</p>
+          <h1 id="hero-title">Growing forests with data.</h1>
+          <p class="sub">Grove measures what actually survives — species by species, season by season — so a planting commitment becomes a forest that is still standing in twenty years.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">See the impact</a>
+            <a class="cta cta-secondary" href="#features">How it works</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll through the years</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Year one — a seedling and a survival curve</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Measured, not promised</h2>
+          <p class="section-lead">Every claim traces back to a plot someone actually walked.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Species-level survival</h3>
+              <p>Survival is tracked per species per plot, because a headline survival rate hides the three species doing all the dying.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Canopy from orbit</h3>
+              <p>Multispectral passes measure closure against a control plot, so growth is compared to what the land would have done anyway.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Soil carbon sampling</h3>
+              <p>Physical cores on a fixed grid, because below-ground carbon is most of the story and the least often measured.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Twenty-year ledger</h3>
+              <p>Each planting keeps an append-only record — what was planted, what died, what was replanted, and what it cost.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Year twenty — canopy closure, measured not modelled</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">See the impact</h2>
+          <p class="section-lead">Tell us about your programme and we will show you what measurement would reveal.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Programme or region</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request the numbers</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Grove Reforestation. Count what survives.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

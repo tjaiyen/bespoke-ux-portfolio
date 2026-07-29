@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Chain — lot traceability that survives a records request</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Chain
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">How it works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">FSMA 204 traceability</p>
+          <h1 id="hero-title">You have 24 hours to produce the chain. It is either there or it is not.</h1>
+          <p class="sub">Chain checks every lot for the 5 Critical Tracking Events the rule requires, with complete key data at each one. Across this plant's frozen book of 220 tracking events, 20 were missing outright, leaving 200 of 220 complete — and 1 lot in 44 was missing all 5, so it would not have survived an FDA records request at any price.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Check a lot book</a>
+            <a class="cta cta-secondary" href="#features">How it works</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the chain</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Receiving — the first link, if it was captured</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Recall readiness, checked nightly</h2>
+          <p class="section-lead">A traceability failure is not found during an audit. It is found during a recall, which is far too late.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>All five events, or none</h3>
+              <p>Growing, receiving, transforming, creating and shipping each have to be present with their key data elements; four out of five is a broken chain, not an 80% score.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Key data completeness</h3>
+              <p>An event with a missing lot code or date is an event that cannot be followed, so completeness is checked field by field rather than by counting rows.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Both directions</h3>
+              <p>A recall runs backwards to the source and forwards to every customer who received it, and a chain that only resolves one way fails the half that matters.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Nightly, not annually</h3>
+              <p>Gaps are surfaced the day they appear, when the paperwork can still be reconstructed from people's memory rather than from nothing.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Shipping — and every gap now visible</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Check a lot book</h2>
+          <p class="section-lead">Send a season of lot records and we will return the gaps before an inspector finds them.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Commodity or facility</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a check</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Chain. Every link, or it is not a chain.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

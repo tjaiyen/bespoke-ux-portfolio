@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/case-studies`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/about`, changeFrequency: "yearly", priority: 0.6 },
     { url: `${base}/design-system`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/gallery`, changeFrequency: "monthly", priority: 0.7 },
     ...studies.map((s) => ({
       url: `${base}/case-studies/${s.slug}`,
       changeFrequency: "yearly" as const,

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Halcyon — Boutique Hardware Synthesizer</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">HALCYON</a>
+      <nav aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#specs">Specs</a>
+        <a href="#preorder">Pre-order</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Boutique Hardware Synthesizer</p>
+        <h1 id="hero-title">Sound with<br /><span class="glow-magenta">gravity</span> and <span class="glow-cyan">grace</span>.</h1>
+        <p class="sub">Halcyon is a hand-built analog-hybrid synth module for electronic musicians who chase the cinematic. Deep, chrome-warm oscillators. Neon-clean modulation. Built to be lived with.</p>
+        <div class="hero-actions">
+          <a class="cta cta-primary" href="#preorder">Reserve yours</a>
+          <a class="cta cta-ghost" href="#features">Explore the module</a>
+        </div>
+      </section>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <h2 id="features-title">Three signatures</h2>
+        <p class="section-lead">Everything Halcyon does, it does with restraint — three deliberate capabilities, tuned for depth rather than sprawl.</p>
+        <ul class="feature-grid">
+          <li class="feature-card">
+            <span class="feature-index" aria-hidden="true">01</span>
+            <h3 class="glow-magenta">Chrome-warm oscillators</h3>
+            <p>Twin analog cores with a discrete drift engine give every patch a living, cinematic body — from glassy pads to bass you feel in your chest.</p>
+          </li>
+          <li class="feature-card">
+            <span class="feature-index" aria-hidden="true">02</span>
+            <h3 class="glow-cyan">Neon modulation matrix</h3>
+            <p>A luminous, freely routable matrix. Assign anything to anything, save it, recall it — expressive movement without the menu-diving.</p>
+          </li>
+          <li class="feature-card">
+            <span class="feature-index" aria-hidden="true">03</span>
+            <h3 class="glow-magenta">Retrofuturist interface</h3>
+            <p>Backlit chrome controls and a starfield display. Tactile, legible, and calm — an instrument that invites you to slow down and listen.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="specs" class="specs" aria-labelledby="specs-title">
+        <h2 id="specs-title">Specs at a glance</h2>
+        <dl class="specs-strip">
+          <div class="spec">
+            <dt>Voices</dt>
+            <dd>8-voice polyphony</dd>
+          </div>
+          <div class="spec">
+            <dt>Oscillators</dt>
+            <dd>2 analog + 1 wavetable</dd>
+          </div>
+          <div class="spec">
+            <dt>Filter</dt>
+            <dd>Dual multimode, 24 dB</dd>
+          </div>
+          <div class="spec">
+            <dt>Connectivity</dt>
+            <dd>USB-C · MIDI · CV/Gate</dd>
+          </div>
+          <div class="spec">
+            <dt>Build</dt>
+            <dd>Anodized chrome chassis</dd>
+          </div>
+          <div class="spec">
+            <dt>Format</dt>
+            <dd>Desktop &amp; Eurorack</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="preorder" class="preorder" aria-labelledby="preorder-title">
+        <p class="eyebrow">Limited first run</p>
+        <h2 id="preorder-title" class="glow-cyan">Pre-order Halcyon</h2>
+        <p class="section-lead">The first batch is hand-assembled in limited numbers. Reserve your unit and we'll email you the moment your build begins.</p>
+        <form class="preorder-form" action="#preorder" method="post">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@studio.com" required />
+          </div>
+          <div class="field">
+            <label for="format">Preferred format</label>
+            <select id="format" name="format">
+              <option value="desktop">Desktop module</option>
+              <option value="eurorack">Eurorack</option>
+              <option value="undecided">Undecided</option>
+            </select>
+          </div>
+          <button class="cta cta-primary" type="submit">Reserve my unit</button>
+        </form>
+        <p class="fine-print">No charge today. A refundable deposit secures your place in the queue.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Halcyon Instruments. Hand-built for the patient.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

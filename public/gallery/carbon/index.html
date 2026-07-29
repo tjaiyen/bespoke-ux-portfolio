@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Carbon — margin and emissions on the same chart</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Carbon
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The method</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Product mix &amp; emissions</p>
+          <h1 id="hero-title">Your best-margin product is not your best product.</h1>
+          <p class="sub">Carbon plots every SKU on margin against emissions per unit, with the bubble sized by volume. The mix that maximises margin and the mix that minimises carbon are rarely the same, and this plant's highest-margin line carries 2.4 kg CO₂e per case against a 0.9 kg portfolio median.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Plot your mix</a>
+            <a class="cta cta-secondary" href="#features">See the method</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the portfolio</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Margin alone — the usual view</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Two axes, one decision</h2>
+          <p class="section-lead">Reporting emissions is a compliance exercise. Putting them next to margin is a management one.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Per unit, not per site</h3>
+              <p>A site total moves with volume and tells you nothing about mix, so intensity is computed per case and held against that case's own contribution margin.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Allocated like overhead</h3>
+              <p>Shared energy and refrigeration load are allocated to products on a defensible driver, using the same discipline a cost accountant already applies to indirect cost.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Volume is the third axis</h3>
+              <p>A high-intensity product at trivial volume is a rounding error, and a modest-intensity product at scale is the whole footprint, so bubble area carries the volume.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Auditable inputs</h3>
+              <p>Emission factors are versioned and sourced, because a number that cannot be re-derived next year is a number that cannot be reported against a target.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Margin against carbon, sized by volume</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Plot your mix</h2>
+          <p class="section-lead">Send a product-level margin file and your energy data and we will plot the portfolio.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Product lines</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request a plot</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Carbon. Margin and intensity, on one chart.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

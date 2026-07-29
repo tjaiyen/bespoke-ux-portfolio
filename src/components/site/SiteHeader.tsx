@@ -21,7 +21,7 @@ export default function SiteHeader() {
 
   return (
     <header className="border-b border-border-subtle bg-bg-app/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-4 px-6 py-4">
+      <div className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
         <Link
           href="/"
           className="group flex min-h-11 flex-col justify-center focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
@@ -36,13 +36,13 @@ export default function SiteHeader() {
         </Link>
 
         <nav aria-label="Main">
-          <ul className="flex items-center gap-1">
+          <ul className="flex flex-wrap items-center gap-x-1">
             {NAV.filter((item) => item.href !== "/").map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className={`flex min-h-11 items-center rounded px-3 font-sans text-sm focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
+                  className={`flex min-h-11 items-center rounded px-2 font-sans text-sm sm:px-3 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
                     isActive(item.href)
                       ? "text-text-main underline decoration-accent-brand decoration-2 underline-offset-8"
                       : "text-text-muted hover:text-text-main"

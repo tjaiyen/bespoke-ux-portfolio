@@ -1,0 +1,130 @@
+:root {
+  --bg: #edece8;        /* warm paper */
+  --surface: #f6f5f2;   /* card */
+  --ink: #17171a;       /* near-black text */
+  --muted: #575752;     /* AA on surface */
+  --line: #d6d4cd;
+  --accent: #17171a;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full-bleed decorative 3D backdrop; opaque content cards sit over it. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* Editorial display headline via clamped serif; clean sans for body. */
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.28em; font-size: 12px;
+  color: var(--muted); margin: 0 0 20px; font-weight: 600;
+}
+
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px clamp(20px, 6vw, 72px);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  color: var(--ink); font-weight: 600; text-decoration: none;
+  font-size: 20px; letter-spacing: 0.14em; text-transform: uppercase;
+}
+nav a {
+  color: var(--muted); text-decoration: none; margin-left: 28px;
+  font-size: 14px; letter-spacing: 0.06em;
+}
+nav a:hover, nav a:focus-visible { color: var(--ink); }
+
+/* Transparent column: the decorative 3D concrete form shows around the
+   opaque cards. All text lives on opaque surfaces, so contrast is verifiable. */
+main { padding: clamp(48px, 10vh, 120px) clamp(20px, 6vw, 72px); }
+
+section { max-width: 940px; margin: 0 auto; }
+section + section { margin-top: clamp(72px, 14vh, 160px); }
+
+.section-head { margin-bottom: clamp(32px, 5vw, 56px); }
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", "Iowan Old Style", serif;
+  font-weight: 400; letter-spacing: -0.01em; color: var(--ink);
+}
+h1 { font-size: clamp(44px, 9vw, 104px); line-height: 1.02; margin: 0 0 28px; }
+h2 { font-size: clamp(30px, 4.5vw, 46px); line-height: 1.08; margin: 0; }
+h3 { font-size: 23px; line-height: 1.2; margin: 0 0 12px; }
+
+/* Hero — an opaque gallery frame, offset left so the slowly-rotating concrete
+   form breathes in the whitespace to its right. */
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: clamp(48px, 8vw, 104px);
+  text-align: left;
+  max-width: 620px; margin: 0 auto 0 0;
+  min-height: min(70vh, 560px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero .sub {
+  font-size: clamp(18px, 2.2vw, 22px); color: var(--muted);
+  max-width: 40ch; margin: 0 0 40px;
+}
+.cta {
+  display: inline-block; background: var(--accent); color: #f6f5f2;
+  padding: 15px 34px; text-decoration: none; font-size: 14px;
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+  border: 1px solid var(--accent); cursor: pointer;
+}
+.cta:hover, .cta:focus-visible { background: #f6f5f2; color: var(--ink); }
+
+/* Work cards — text on opaque surfaces. */
+.cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  padding: clamp(32px, 4vw, 48px);
+}
+.card-meta {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 12px;
+  color: var(--muted); margin: 0 0 16px;
+}
+.card h3 { margin-bottom: 14px; }
+.card p:last-child { color: var(--muted); margin: 0; max-width: 60ch; }
+
+/* Ethos */
+.ethos { background: var(--surface); border: 1px solid var(--line); padding: clamp(40px, 6vw, 80px); }
+.ethos-lede {
+  font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5;
+  max-width: 54ch; margin: 0 0 clamp(40px, 6vw, 64px); color: var(--ink);
+}
+.ethos-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.ethos-list p { color: var(--muted); margin: 0; }
+
+/* Contact */
+.contact { background: var(--surface); border: 1px solid var(--line); padding: clamp(40px, 6vw, 80px); }
+.contact-lede { font-size: 19px; color: var(--muted); max-width: 48ch; margin: 0 0 40px; }
+.contact-form { display: grid; gap: 22px; max-width: 520px; margin: 0 0 48px; }
+.field { display: grid; gap: 8px; }
+.field label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.field input {
+  font: inherit; color: #17171a; background-color: #ffffff;
+  border: 1px solid var(--line); padding: 12px 14px; border-radius: 0;
+}
+.field input:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+.contact-form .cta { justify-self: start; }
+.contact-details { font-style: normal; color: var(--muted); border-top: 1px solid var(--line); padding-top: 28px; }
+.contact-details p { margin: 0 0 6px; }
+.contact-details a { color: var(--ink); }
+
+.site-footer {
+  text-align: center; padding: 40px; color: var(--muted);
+  background: var(--bg); border-top: 1px solid var(--line);
+  font-size: 14px; letter-spacing: 0.04em;
+}
+
+a:focus-visible, .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }

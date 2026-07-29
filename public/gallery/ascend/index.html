@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Ascend — turn daily streaks into a game</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D summit. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Ascend</a>
+      <nav aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#showcase">Badges</a>
+        <a href="#download">Download</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Habit-building, gamified</p>
+          <h1>Turn every streak into a climb worth winning</h1>
+          <p class="sub">Ascend makes your daily habits feel like a game. Build streaks, earn achievement badges, and watch your progress ring fill as you climb toward the summit.</p>
+          <div class="hero-actions">
+            <a class="cta" href="#download">Start climbing free</a>
+            <a class="cta cta-ghost" href="#how">See how it works</a>
+          </div>
+          <dl class="hero-stats">
+            <div class="stat">
+              <dt>Longest streak</dt>
+              <dd>128 <span class="stat-unit">days</span></dd>
+            </div>
+            <div class="stat">
+              <dt>Badges earned</dt>
+              <dd>24</dd>
+            </div>
+            <div class="stat">
+              <dt>Habits leveled up</dt>
+              <dd>7</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-ring" role="img" aria-label="Today's progress: 78 percent of your daily goals complete.">
+          <div class="ring" style="--pct: 78">
+            <div class="ring-center">
+              <span class="ring-pct">78%</span>
+              <span class="ring-label">Today</span>
+            </div>
+          </div>
+          <p class="ring-caption"><span class="flame" aria-hidden="true">🔥</span> 12-day streak — keep it alive!</p>
+        </div>
+      </section>
+
+      <section id="how" class="how">
+        <h2>How the game works</h2>
+        <p class="section-sub">Three simple moves take you from day one to the summit.</p>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Set your daily quest</h3>
+            <p>Pick the habits you want to build. Each one becomes a quest with its own goal, difficulty, and reward.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Check in to build a streak</h3>
+            <p>Complete a quest each day to grow your streak. Miss a day and you slide — momentum is the whole game.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Level up &amp; reach the summit</h3>
+            <p>Streaks unlock badges, boost your rank, and inch you closer to the peak. Every climb has a summit to conquer.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="showcase" class="showcase">
+        <h2>Badges &amp; streaks</h2>
+        <p class="section-sub">Collect achievements that prove how far you've climbed.</p>
+
+        <div class="showcase-grid">
+          <ul class="badges" aria-label="Achievement badges">
+            <li class="badge badge-fire">
+              <span class="badge-icon" aria-hidden="true">🔥</span>
+              <span class="badge-name">Trailblazer</span>
+              <span class="badge-desc">7-day streak</span>
+            </li>
+            <li class="badge badge-gold">
+              <span class="badge-icon" aria-hidden="true">🏔️</span>
+              <span class="badge-name">Summit Seeker</span>
+              <span class="badge-desc">30-day streak</span>
+            </li>
+            <li class="badge badge-teal">
+              <span class="badge-icon" aria-hidden="true">⚡</span>
+              <span class="badge-name">Momentum</span>
+              <span class="badge-desc">3 habits at once</span>
+            </li>
+            <li class="badge badge-locked">
+              <span class="badge-icon" aria-hidden="true">🔒</span>
+              <span class="badge-name">Legend</span>
+              <span class="badge-desc">Locked · 100 days</span>
+            </li>
+          </ul>
+
+          <div class="streaks-panel">
+            <h3>This week's streaks</h3>
+            <ul class="streak-list">
+              <li class="streak-row">
+                <span class="streak-title">Morning workout</span>
+                <span class="streak-bar" aria-hidden="true"><span class="streak-fill" style="--w: 92%"></span></span>
+                <span class="streak-count">46🔥</span>
+              </li>
+              <li class="streak-row">
+                <span class="streak-title">Read 20 minutes</span>
+                <span class="streak-bar" aria-hidden="true"><span class="streak-fill" style="--w: 74%"></span></span>
+                <span class="streak-count">31🔥</span>
+              </li>
+              <li class="streak-row">
+                <span class="streak-title">Drink water</span>
+                <span class="streak-bar" aria-hidden="true"><span class="streak-fill" style="--w: 60%"></span></span>
+                <span class="streak-count">18🔥</span>
+              </li>
+              <li class="streak-row">
+                <span class="streak-title">Meditate</span>
+                <span class="streak-bar" aria-hidden="true"><span class="streak-fill" style="--w: 40%"></span></span>
+                <span class="streak-count">9🔥</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="download" class="download">
+        <h2>Ready to start your climb?</h2>
+        <p class="section-sub">Ascend is free to start. Build your first streak today and see how far you can go.</p>
+        <div class="download-actions">
+          <a class="cta" href="#top">Get Ascend for iOS</a>
+          <a class="cta cta-ghost" href="#top">Get Ascend for Android</a>
+        </div>
+        <p class="download-note">No account required to try. Your streaks stay on your device.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Ascend. Every day is a step up.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

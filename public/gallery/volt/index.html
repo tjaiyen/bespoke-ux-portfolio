@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>VOLT — Three Days of Electronic Music · Aug 14–16</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D energy orb. aria-hidden + never the sole content. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">VOLT</a>
+      <nav aria-label="Primary">
+        <a href="#lineup">Lineup</a>
+        <a href="#days">Days</a>
+        <a href="#tickets">Tickets</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Aug 14 – 16 · Pier 9 Arena</p>
+        <h1 id="hero-title">
+          <span class="stack stack-a">VOLT</span>
+          <span class="stack stack-b">2026</span>
+          <span class="stack stack-c">OVERDRIVE</span>
+        </h1>
+        <p class="sub">Three days. One current. A maximal electronic music festival that runs until the sun burns the sky pink.</p>
+        <p class="hero-cta-row">
+          <a class="cta cta-primary" href="#tickets">Grab tickets</a>
+          <a class="cta cta-ghost" href="#lineup">See the lineup</a>
+        </p>
+        <ul class="hero-stats">
+          <li><span class="stat-num">3</span><span class="stat-label">days</span></li>
+          <li><span class="stat-num">40+</span><span class="stat-label">artists</span></li>
+          <li><span class="stat-num">4</span><span class="stat-label">stages</span></li>
+        </ul>
+      </section>
+
+      <section id="lineup" class="lineup" aria-labelledby="lineup-title">
+        <p class="section-tag">The lineup</p>
+        <h2 id="lineup-title">Who's plugging in</h2>
+        <ol class="headliners">
+          <li class="headliner hl-a">
+            <span class="hl-rank">01</span>
+            <span class="hl-name">NOVA PULSE</span>
+            <span class="hl-note">Friday headliner · Main Stage</span>
+          </li>
+          <li class="headliner hl-b">
+            <span class="hl-rank">02</span>
+            <span class="hl-name">ACID BLOOM</span>
+            <span class="hl-note">Saturday headliner · Main Stage</span>
+          </li>
+          <li class="headliner hl-c">
+            <span class="hl-rank">03</span>
+            <span class="hl-name">HYPERDRIVE</span>
+            <span class="hl-note">Sunday headliner · Main Stage</span>
+          </li>
+        </ol>
+        <p class="support">Plus KILOWATT · Static Sun · MODEM · Cherry Voltage · Deep Static · NEON GHOST · Subroutine · Glass Circuit · and 25 more across four stages.</p>
+      </section>
+
+      <section id="days" class="days" aria-labelledby="days-title">
+        <p class="section-tag">The three days</p>
+        <h2 id="days-title">One weekend, three modes</h2>
+        <div class="day-grid">
+          <article class="day day-1">
+            <h3>Day 01 — Ignition</h3>
+            <p class="day-date">Friday, Aug 14</p>
+            <p>The current switches on. Deep house rolls into peak-time techno as NOVA PULSE closes the first night in a wall of electric blue.</p>
+          </article>
+          <article class="day day-2">
+            <h3>Day 02 — Overload</h3>
+            <p class="day-date">Saturday, Aug 15</p>
+            <p>Full saturation. Bass, breaks and acid lines across every stage, topped by ACID BLOOM under an acid-yellow sky.</p>
+          </article>
+          <article class="day day-3">
+            <h3>Day 03 — Afterglow</h3>
+            <p class="day-date">Sunday, Aug 16</p>
+            <p>The magenta send-off. Euphoric melodic sets build all day until HYPERDRIVE takes the current home.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tickets" class="tickets" aria-labelledby="tickets-title">
+        <p class="section-tag">Tickets</p>
+        <h2 id="tickets-title">Get on the grid</h2>
+        <div class="tier-grid">
+          <article class="tier">
+            <h3>Day Pass</h3>
+            <p class="tier-price">$89</p>
+            <ul>
+              <li>Entry for one day</li>
+              <li>All four stages</li>
+              <li>Re-entry until 6pm</li>
+            </ul>
+          </article>
+          <article class="tier tier-featured">
+            <p class="tier-flag">Best value</p>
+            <h3>3-Day Pass</h3>
+            <p class="tier-price">$219</p>
+            <ul>
+              <li>All three days</li>
+              <li>All four stages</li>
+              <li>Priority entry lanes</li>
+            </ul>
+          </article>
+          <article class="tier">
+            <h3>Overdrive VIP</h3>
+            <p class="tier-price">$479</p>
+            <ul>
+              <li>3-day access</li>
+              <li>Raised viewing decks</li>
+              <li>Artist lounge + fast bars</li>
+            </ul>
+          </article>
+        </div>
+        <p class="tickets-cta-row">
+          <a class="cta cta-primary" href="#top">Buy passes now</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 VOLT Festival · Pier 9 Arena · Aug 14–16. Stay charged.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

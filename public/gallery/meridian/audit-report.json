@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "critical": 0,
+  "serious": 0,
+  "violations": [],
+  "structural": [],
+  "externalRequests": [],
+  "pages": [
+    {
+      "path": "index.html",
+      "ok": true,
+      "critical": 0,
+      "serious": 0,
+      "violations": [],
+      "structural": [],
+      "externalRequests": [],
+      "contrastIncomplete": 0
+    }
+  ]
+}

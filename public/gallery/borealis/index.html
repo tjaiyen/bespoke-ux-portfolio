@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Borealis — sleep and circadian recovery</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Borealis
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">The practice</a>
+        <a href="#contact">Begin</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Sleep &amp; circadian recovery</p>
+          <h1 id="hero-title">Your night has a shape. Most advice ignores it.</h1>
+          <p class="sub">Borealis works with the rhythm you already have rather than against it — light, timing and wind-down tuned to your own circadian phase, not to a number someone decided everyone should hit.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Begin the programme</a>
+            <a class="cta cta-secondary" href="#features">How it works</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll into the night</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> A quiet sky — the wind has not yet arrived</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Rhythm, not rules</h2>
+          <p class="section-lead">Sleep advice fails when it prescribes a clock time to a body running on a different one.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Phase before schedule</h3>
+              <p>We estimate your circadian phase first and set timings from it, because telling a late chronotype to sleep at ten is prescribing insomnia and calling it discipline.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Light as the lever</h3>
+              <p>Timed light exposure shifts a rhythm far more reliably than willpower does, so the programme is built around when you see light rather than when you lie down.</p>
+            </li>
+            <li class="feature-card">
+              <h3>No sleep score</h3>
+              <p>You are not shown a nightly grade. Scoring sleep reliably makes it worse — the anxiety about the number becomes the thing keeping you awake.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Clinician escalation</h3>
+              <p>Signals that look like apnoea or a circadian disorder are routed to a clinician rather than coached around, because an app is the wrong place for those to be managed.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The curtain: light finds the field lines and moves</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Begin the programme</h2>
+          <p class="section-lead">Tell us roughly how your nights run and we will send the first week's plan.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Your usual bedtime</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Send the first week</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Borealis. Working with the rhythm you have.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

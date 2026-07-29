@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. The audit blocks + fails on any off-origin fetch. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Pomelo — Small-Batch Citrus Soda</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D bubbles. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-dot" aria-hidden="true"></span> Pomelo
+      </a>
+      <nav aria-label="Primary">
+        <a href="#flavors">Flavors</a>
+        <a href="#story">Story</a>
+        <a href="#buy">Buy</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-card">
+          <p class="eyebrow">Small-batch citrus soda</p>
+          <h1 id="hero-title">Fizz that tastes like <span class="pop pop-orange">sun</span><span class="pop pop-pink">shine</span>.</h1>
+          <p class="sub">Real cold-pressed citrus, bubbly to the last drop, and nothing artificial hiding in the fine print. Pop the cap on a brighter afternoon.</p>
+          <div class="hero-actions">
+            <a class="cta cta-primary" href="#buy">Find a can</a>
+            <a class="cta cta-ghost" href="#flavors">Meet the flavors</a>
+          </div>
+          <ul class="hero-tags">
+            <li>Cane-sugar sweet</li>
+            <li>70 calories</li>
+            <li>Never from concentrate</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="flavors" class="flavors" aria-labelledby="flavors-title">
+        <div class="section-head">
+          <h2 id="flavors-title">Three flavors, zero dull moments</h2>
+          <p class="section-sub">Each one squeezed, carbonated, and canned in batches small enough to taste the difference.</p>
+        </div>
+        <ul class="flavor-grid">
+          <li class="flavor-card flavor-orange">
+            <p class="flavor-kicker">No. 01</p>
+            <h3>Sunset Orange</h3>
+            <p>Blood orange and a whisper of mandarin — mellow, glowy, and impossibly smooth over ice.</p>
+            <p class="flavor-note">Pairs with: lazy Sunday mornings</p>
+          </li>
+          <li class="flavor-card flavor-pink">
+            <p class="flavor-kicker">No. 02</p>
+            <h3>Hot Pink Grapefruit</h3>
+            <p>Ruby grapefruit with a snappy, tart finish and a punch of real pith-forward bitterness.</p>
+            <p class="flavor-note">Pairs with: rooftop parties</p>
+          </li>
+          <li class="flavor-card flavor-lime">
+            <p class="flavor-kicker">No. 03</p>
+            <h3>Zesty Lime</h3>
+            <p>Bright key lime zip with a cool herbal edge. The most electric can in the fridge, guaranteed.</p>
+            <p class="flavor-note">Pairs with: post-run reward</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="story" class="story" aria-labelledby="story-title">
+        <div class="story-card">
+          <h2 id="story-title">The story behind the fizz</h2>
+          <p>Pomelo started in a tiny kitchen with a soda siphon, a crate of ugly-but-delicious citrus a farmer couldn't sell, and a stubborn belief that soda didn't have to be a guilty secret.</p>
+          <p>We still make it the slow way: press the fruit that day, sweeten it gently with cane sugar, and carbonate in batches you could count on two hands. No concentrates, no mystery flavor codes, no neon dye — just fruit that had a very good week.</p>
+          <p>Bright color, honest labels, and a fizz loud enough to hear across the room. That's the whole plan.</p>
+        </div>
+        <ul class="story-stats" aria-label="What goes into every batch">
+          <li class="stat stat-lime"><span class="stat-num">100%</span><span class="stat-label">real citrus juice</span></li>
+          <li class="stat stat-orange"><span class="stat-num">48</span><span class="stat-label">cans per hand-packed batch</span></li>
+          <li class="stat stat-pink"><span class="stat-num">0</span><span class="stat-label">artificial dyes or flavors</span></li>
+        </ul>
+      </section>
+
+      <section id="buy" class="buy" aria-labelledby="buy-title">
+        <div class="buy-card">
+          <h2 id="buy-title">Where to buy</h2>
+          <p class="section-sub">Fresh batches drop weekly. Grab a mixed 12-pack online or find us chilling at a shop near you.</p>
+          <ul class="buy-options">
+            <li>
+              <h3>Ship a pack</h3>
+              <p>Build your own 12-pack and we'll cold-chain it to your door in two days.</p>
+              <a class="cta cta-primary" href="#top">Order online</a>
+            </li>
+            <li>
+              <h3>Find a stockist</h3>
+              <p>Now pouring at 40+ indie grocers and cafés across the coast.</p>
+              <a class="cta cta-ghost" href="#top">Store locator</a>
+            </li>
+          </ul>
+          <form class="signup" action="#buy" aria-labelledby="signup-title">
+            <h3 id="signup-title">Get the drop alert</h3>
+            <p class="signup-copy">We'll email you the moment a new small batch is ready.</p>
+            <div class="signup-row">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              <button type="submit">Notify me</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Pomelo Soda Co. — squeezed fresh, made small.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

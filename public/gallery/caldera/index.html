@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Caldera — geothermal power from volcanic fields</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Caldera
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Capability</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Baseload geothermal</p>
+          <h1 id="hero-title">The heat was always there. We built the pipe.</h1>
+          <p class="sub">Caldera develops geothermal fields on active volcanic margins — drilling into rock that is still cooling from the eruption that made it, and running it as firm, weather-independent power.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to the team</a>
+            <a class="cta cta-secondary" href="#features">See our capability</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll to cool</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Melt — basalt still liquid at depth</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Firm power from a cooling rock</h2>
+          <p class="section-lead">Geothermal's advantage is not that it is renewable. It is that it does not care what the weather is doing.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Resource proving</h3>
+              <p>We drill slim-hole exploration wells before committing to a field, because a reservoir that models well and flows badly has bankrupted better developers than us.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Binary-cycle plant</h3>
+              <p>Working fluid takes the heat and the brine goes straight back down the injection well, which keeps the reservoir pressurised and the dissolved minerals underground.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Induced-seismicity limits</h3>
+              <p>Injection pressure is bounded by a traffic-light protocol agreed with the regulator before the first well, not renegotiated after the first tremor.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Ninety-plus capacity factor</h3>
+              <p>A field runs at over ninety percent availability year-round, which is the number that actually lets a grid retire a gas peaker rather than idle one.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> Columns: the rock locks into hexagons as it cools</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to the team</h2>
+          <p class="section-lead">Tell us about the resource or the offtake and we will tell you honestly whether it is drillable.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Field or region</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Start a conversation</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Caldera Energy. Heat that does not depend on the weather.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "product": "pomelo",
+    "date": "2026-07-29",
+    "tool": "Blocksmith accessibility gate (real axe-core over the rendered DOM, headless Chrome)",
+    "axeVersion": "4.10.2"
+  },
+  "pass": true,
+  "pagesAudited": 1,
+  "criteria": [
+    {
+      "sc": "1.1.1",
+      "name": "Non-text Content",
+      "level": "A",
+      "status": "Partially Supports",
+      "notes": "No violations in the rendered DOM, but 1 <canvas> element(s) are aria-hidden by this gate's structural requirement — anything drawn inside them (including readable text or data) is outside automated scope and needs a manual text alternative."
+    },
+    {
+      "sc": "1.3.1",
+      "name": "Info and Relationships",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    },
+    {
+      "sc": "1.4.3",
+      "name": "Contrast (Minimum)",
+      "level": "AA",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    },
+    {
+      "sc": "2.4.2",
+      "name": "Page Titled",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    },
+    {
+      "sc": "2.4.4",
+      "name": "Link Purpose (In Context)",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    },
+    {
+      "sc": "3.1.1",
+      "name": "Language of Page",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    },
+    {
+      "sc": "3.3.2",
+      "name": "Labels or Instructions",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated check passed (axe covers only the multiple-labels case (form-field-multiple-labels); missing labels/instructions require manual review)."
+    },
+    {
+      "sc": "4.1.2",
+      "name": "Name, Role, Value",
+      "level": "A",
+      "status": "Supports",
+      "notes": "Automated verification passed; no violations."
+    }
+  ],
+  "structuralInvariants": [
+    {
+      "name": "Exactly one <h1> per page",
+      "status": "pass"
+    },
+    {
+      "name": "A <main> landmark, not hidden",
+      "status": "pass"
+    },
+    {
+      "name": "Self-contained CSP (no external origins)",
+      "status": "pass"
+    },
+    {
+      "name": "Real visible content (anti-gaming floor)",
+      "status": "pass"
+    },
+    {
+      "name": "Decorative <canvas> is aria-hidden",
+      "status": "pass"
+    },
+    {
+      "name": "Static under prefers-reduced-motion (WCAG 2.2.2 aspect)",
+      "status": "pass"
+    }
+  ],
+  "notEvaluated": [
+    {
+      "sc": "1.3.5",
+      "name": "Identify Input Purpose",
+      "level": "AA",
+      "notes": "axe-core has no automated rule for this (autocomplete tokens on inputs) — requires manual review."
+    },
+    {
+      "sc": "1.4.10",
+      "name": "Reflow",
+      "level": "AA"
+    },
+    {
+      "sc": "2.1.1",
+      "name": "Keyboard",
+      "level": "A"
+    },
+    {
+      "sc": "2.2.2",
+      "name": "Pause, Stop, Hide",
+      "level": "A",
+      "notes": "The prefers-reduced-motion aspect IS verified (see structural invariants — static under reduced motion). Pause/stop/hide controls for other auto-updating content require manual review."
+    },
+    {
+      "sc": "2.4.3",
+      "name": "Focus Order",
+      "level": "A"
+    },
+    {
+      "sc": "2.4.7",
+      "name": "Focus Visible",
+      "level": "AA"
+    },
+    {
+      "sc": "3.2.3",
+      "name": "Consistent Navigation",
+      "level": "AA"
+    }
+  ],
+  "generatedBy": "@blocksmith/audit",
+  "failedWcagTags": []
+}

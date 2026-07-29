@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Meridian — Architecture &amp; Spatial Design Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 3D. aria-hidden + never the sole content: all meaning is in the DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Meridian</a>
+      <nav aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#ethos">Ethos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-heading">
+        <p class="eyebrow">Architecture &amp; Spatial Design</p>
+        <h1 id="hero-heading">Space, made quiet.</h1>
+        <p class="sub">Meridian is a studio for measured, enduring architecture — buildings and interiors shaped by light, proportion, and material honesty.</p>
+        <a class="cta" href="#work">View selected work</a>
+      </section>
+
+      <section id="work" class="work" aria-labelledby="work-heading">
+        <div class="section-head">
+          <p class="eyebrow">Selected Work</p>
+          <h2 id="work-heading">A few things we've built.</h2>
+        </div>
+        <ul class="cards">
+          <li class="card">
+            <p class="card-meta">Residence · 2024 · Coastal</p>
+            <h3>House on the Terrace</h3>
+            <p>A concrete pavilion cut into a hillside, opening to the sea through a single unbroken aperture. Interior volumes follow the slope, so the horizon is always level with the eye.</p>
+          </li>
+          <li class="card">
+            <p class="card-meta">Cultural · 2023 · Civic</p>
+            <h3>The Quiet Gallery</h3>
+            <p>A small municipal gallery organised around a top-lit central void. Circulation is a slow spiral; daylight is the only ornament, moving across raw plaster through the day.</p>
+          </li>
+          <li class="card">
+            <p class="card-meta">Interior · 2022 · Workspace</p>
+            <h3>Meridian Studio Fit-out</h3>
+            <p>Our own workspace: a single long room, one material palette, and furniture reduced to the essential. A working proof that restraint is a form of generosity.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="ethos" class="ethos" aria-labelledby="ethos-heading">
+        <div class="section-head">
+          <p class="eyebrow">Studio Ethos</p>
+          <h2 id="ethos-heading">We design by subtraction.</h2>
+        </div>
+        <p class="ethos-lede">Good space asks for little and gives a great deal. We work slowly, in close collaboration with clients and makers, removing everything that does not serve light, use, and calm.</p>
+        <ul class="ethos-list">
+          <li>
+            <h3>Material honesty</h3>
+            <p>Concrete, stone, timber and glass, left to be themselves. No finish that pretends to be another.</p>
+          </li>
+          <li>
+            <h3>Proportion first</h3>
+            <p>Rooms are sized to the body and the light before they are sized to the brief. Scale is where feeling begins.</p>
+          </li>
+          <li>
+            <h3>Built to last</h3>
+            <p>We design for decades, not seasons — details that age gracefully and repair without waste.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="contact" class="contact" aria-labelledby="contact-heading">
+        <div class="section-head">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-heading">Begin a conversation.</h2>
+        </div>
+        <p class="contact-lede">We take on a small number of projects each year. Tell us a little about yours.</p>
+        <form class="contact-form" action="#contact" method="post" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="project">About the project</label>
+            <input id="project" name="project" type="text" />
+          </div>
+          <button type="submit" class="cta">Send enquiry</button>
+        </form>
+        <address class="contact-details">
+          <p>Studio Meridian<br />14 Lower Wharf, London</p>
+          <p><a href="mailto:studio@meridian.example">studio@meridian.example</a></p>
+        </address>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Meridian Studio. Architecture &amp; spatial design.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

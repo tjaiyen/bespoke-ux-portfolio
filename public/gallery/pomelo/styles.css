@@ -1,0 +1,192 @@
+:root {
+  --bg: #fff6ea;        /* warm cream light theme */
+  --ink: #2a1608;       /* deep espresso-brown text, high contrast */
+  --ink-soft: #5b4327;  /* softened body text (still AA on cream/white) */
+  --surface: #ffffff;   /* opaque card surface */
+  --orange: #ff6a1f;
+  --orange-deep: #c73c00;
+  --pink: #ff3d8b;
+  --pink-deep: #c40057;
+  --lime: #7bd320;
+  --lime-deep: #3f7a00;
+  --line: rgba(42, 22, 8, 0.14);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.55;
+}
+
+/* Full-bleed decorative 3D backdrop. Content cards below are OPAQUE and float
+   over it, so bubbles show around them AND text contrast stays verifiable. */
+#bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* ---- Header ---- */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  padding: 16px clamp(18px, 5vw, 60px);
+  background: var(--surface);
+  border-bottom: 3px solid var(--ink);
+}
+.brand {
+  color: var(--ink); font-weight: 800; text-decoration: none;
+  font-size: 24px; letter-spacing: -0.02em;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+/* Decorative colour swatch — no text, purely visual. */
+.brand-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--orange); border: 2px solid var(--ink);
+  display: inline-block;
+}
+nav a {
+  color: var(--ink); text-decoration: none; margin-left: 22px;
+  font-weight: 700; font-size: 15px; padding: 4px 2px;
+  border-bottom: 3px solid transparent;
+}
+nav a:hover, nav a:focus-visible { border-bottom-color: var(--pink); }
+
+main { padding: clamp(28px, 6vw, 60px) clamp(16px, 4vw, 40px) 0; }
+section { max-width: 980px; margin: 0 auto clamp(40px, 7vw, 80px); }
+
+/* Shared card styling — bold rounded blocks, thick playful outline */
+.hero-card, .story-card, .buy-card, .flavor-card, .stat, .section-head {
+  background: var(--surface);
+  border: 3px solid var(--ink);
+  border-radius: 28px;
+  box-shadow: 8px 8px 0 rgba(42, 22, 8, 0.9);
+}
+
+/* ---- Hero ---- */
+.hero { text-align: center; }
+.hero-card { padding: clamp(34px, 6vw, 68px); }
+.eyebrow {
+  display: inline-block; text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: 13px; font-weight: 800; margin: 0 0 18px;
+  color: #ffffff; background: var(--pink-deep);
+  padding: 7px 16px; border-radius: 999px;
+}
+h1 {
+  font-size: clamp(40px, 8vw, 76px); line-height: 1.02; margin: 0 0 22px;
+  letter-spacing: -0.03em; font-weight: 800; color: var(--ink);
+}
+.pop { display: inline-block; }
+.pop-orange { color: var(--orange-deep); }
+.pop-pink { color: var(--pink-deep); }
+.sub {
+  font-size: clamp(17px, 2.4vw, 21px); color: var(--ink-soft);
+  max-width: 54ch; margin: 0 auto 30px;
+}
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+
+.cta {
+  display: inline-block; text-decoration: none; font-weight: 800; font-size: 16px;
+  padding: 14px 30px; border-radius: 999px; border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.cta:hover, .cta:focus-visible { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.cta-primary { background: var(--orange); color: #2a1608; }
+.cta-ghost { background: var(--surface); color: var(--ink); }
+
+.hero-tags {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.hero-tags li {
+  font-size: 14px; font-weight: 700; color: var(--lime-deep);
+  background: #f2ffe0; border: 2px solid var(--lime-deep);
+  padding: 6px 14px; border-radius: 999px;
+}
+
+/* ---- Section heads (opaque panel so text contrast is verifiable) ---- */
+.section-head { text-align: center; margin-bottom: clamp(24px, 4vw, 40px); padding: clamp(26px, 4vw, 40px); }
+h2 { font-size: clamp(28px, 5vw, 44px); margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+.section-sub { font-size: 18px; color: var(--ink-soft); max-width: 56ch; margin: 0 auto; }
+
+/* ---- Flavors ---- */
+.flavor-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.flavor-card { padding: 28px; }
+.flavor-kicker { font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 10px; }
+.flavor-card h3 { font-size: 24px; margin: 0 0 12px; font-weight: 800; color: var(--ink); }
+.flavor-card p { color: var(--ink-soft); margin: 0 0 12px; }
+.flavor-note { font-size: 14px; font-weight: 700; margin: 0 !important; }
+/* Colored top bar accent per flavor via a thick border-top */
+.flavor-orange { border-top: 14px solid var(--orange); }
+.flavor-orange .flavor-kicker, .flavor-orange .flavor-note { color: var(--orange-deep); }
+.flavor-pink { border-top: 14px solid var(--pink); }
+.flavor-pink .flavor-kicker, .flavor-pink .flavor-note { color: var(--pink-deep); }
+.flavor-lime { border-top: 14px solid var(--lime); }
+.flavor-lime .flavor-kicker, .flavor-lime .flavor-note { color: var(--lime-deep); }
+
+/* ---- Story ---- */
+.story-card { padding: clamp(30px, 5vw, 56px); }
+.story-card h2 { text-align: center; }
+.story-card p { color: var(--ink-soft); font-size: 18px; margin: 0 0 18px; }
+.story-card p:last-child { margin-bottom: 0; }
+.story-stats {
+  list-style: none; padding: 0; margin: 26px 0 0;
+  display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.stat { padding: 24px; text-align: center; }
+.stat-num { display: block; font-size: 40px; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+.stat-label { display: block; font-size: 15px; font-weight: 700; color: var(--ink-soft); }
+.stat-lime .stat-num { color: var(--lime-deep); }
+.stat-orange .stat-num { color: var(--orange-deep); }
+.stat-pink .stat-num { color: var(--pink-deep); }
+
+/* ---- Buy ---- */
+.buy-card { padding: clamp(30px, 5vw, 56px); }
+.buy-card h2 { text-align: center; }
+.buy-card > .section-sub { margin-bottom: 30px; }
+.buy-options {
+  list-style: none; padding: 0; margin: 0 0 30px;
+  display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.buy-options li {
+  background: var(--bg); border: 3px solid var(--ink); border-radius: 20px; padding: 24px;
+}
+.buy-options h3 { font-size: 21px; margin: 0 0 10px; font-weight: 800; color: var(--ink); }
+.buy-options p { color: var(--ink-soft); margin: 0 0 18px; }
+
+/* ---- Signup form ---- */
+.signup {
+  background: var(--pink-deep); border: 3px solid var(--ink); border-radius: 20px;
+  padding: 26px; color: #fff;
+}
+.signup h3 { margin: 0 0 6px; font-size: 22px; font-weight: 800; color: #fff; }
+.signup-copy { margin: 0 0 18px; color: #ffe1ee; font-size: 16px; }
+.signup-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.signup-row label { flex-basis: 100%; font-weight: 700; font-size: 14px; color: #ffe1ee; }
+.signup input {
+  flex: 1 1 220px; min-width: 0; padding: 13px 16px; font-size: 16px;
+  border: 3px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink);
+}
+.signup input:focus-visible { outline: 3px solid #ffd400; outline-offset: 2px; }
+.signup button {
+  padding: 13px 26px; font-size: 16px; font-weight: 800; cursor: pointer;
+  background: #ffd400; color: #2a1608; border: 3px solid var(--ink); border-radius: 999px;
+}
+.signup button:hover, .signup button:focus-visible { transform: translate(-2px, -2px); }
+
+/* ---- Footer ---- */
+.site-footer {
+  text-align: center; padding: 30px; color: var(--ink);
+  background: var(--surface); border-top: 3px solid var(--ink); font-weight: 700;
+}
+.site-footer p { margin: 0; }
+
+/* Focus visibility everywhere */
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cta:hover, .cta:focus-visible, .signup button:hover, .signup button:focus-visible { transform: none; }
+}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Self-contained: no external origins. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'" />
+    <title>Baseline — earned-value program control</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Decorative 4D stage: aria-hidden and never the sole content. Scroll is the
+         timeline; all meaning lives in the semantic DOM below. -->
+    <canvas id="bg" data-webgl aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Baseline
+      </a>
+      <nav aria-label="Primary">
+        <a href="#features">Capability</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="panel hero-panel">
+          <p class="eyebrow">Earned-value program control</p>
+          <h1 id="hero-title">The overrun was visible in month four. Nobody was looking.</h1>
+          <p class="sub">Baseline tracks planned, earned and actual value against the performance measurement baseline every month of a 36-month programme. At a CPI of 0.92 and an SPI of 0.96, the independent estimate at completion is already about 1.09 times the budget — and that is knowable long before anyone briefs it.</p>
+          <div class="cta-row">
+            <a class="cta cta-primary" href="#contact">Talk to us</a>
+            <a class="cta cta-secondary" href="#features">See the capability</a>
+          </div>
+        </div>
+        <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint-line"></span>Scroll the programme</p>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip"><span class="act-num">01</span> Month one — planned, earned and actual still one line</p>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="panel">
+          <h2 id="features-title">Variance you can act on</h2>
+          <p class="section-lead">A red indicator at the end of a programme is not control. It is a post-mortem.</p>
+          <ul class="feature-grid">
+            <li class="feature-card">
+              <h3>Earned value, honestly claimed</h3>
+              <p>Percent complete is taken from objective work-package milestones rather than from an engineer's estimate, because the alternative is a schedule that stays at 90% for a year.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Independent EAC</h3>
+              <p>The estimate at completion is recomputed from cumulative CPI as well as from the control account manager's forecast, and the two are shown side by side when they disagree.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Variance thresholds that fire</h3>
+              <p>Cost and schedule variance breaches raise a control-account explanation with an owner and a date, rather than a colour on a chart nobody has to answer for.</p>
+            </li>
+            <li class="feature-card">
+              <h3>Traceable to the WBS</h3>
+              <p>Every dollar of variance walks back to a work package, a control account and a charge number, which is what makes the analysis survive a customer review.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stage" aria-hidden="true">
+        <p class="act-chip act-chip-right"><span class="act-num">02</span> The fork: actuals leave the baseline, and the EAC opens</p>
+      </div>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="panel">
+          <h2 id="contact-title">Talk to us</h2>
+          <p class="section-lead">Send a programme's cost and schedule extract and we will show you what it was signalling.</p>
+          <form class="contact-form" action="#contact" method="post" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="use">Programme or contract</label>
+              <input id="use" name="use" type="text" autocomplete="off" />
+            </div>
+            <button class="cta cta-primary" type="submit">Request an assessment</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Baseline Program Control. Measured against the plan you agreed.</p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
