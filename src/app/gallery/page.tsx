@@ -138,7 +138,9 @@ export default function GalleryPage() {
                   </p>
                 )}
 
-                <dl className="mt-4 grid grid-cols-3 gap-2 font-mono text-xs">
+                {/* Two columns on phones. At 375px the third column left "Not evaluated" to
+                    break across three lines, which read as a layout bug rather than a stat. */}
+                <dl className="mt-4 grid grid-cols-2 gap-2 font-mono text-xs sm:grid-cols-3">
                   <div>
                     <dt className="text-text-muted">Criteria</dt>
                     <dd className="text-text-main tabular-nums">

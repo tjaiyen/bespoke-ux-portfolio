@@ -25,10 +25,14 @@ export default function SiteHeader() {
     // translucent header composites nav text over a moving canvas — a contrast failure
     // the audit could never see, because it computes from flat token values.
     <header className="border-b border-border-subtle bg-bg-app">
-      <div className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
+      {/* Two deliberate rows on phones, one row from `sm` up.
+          Left to wrap on its own the nav broke mid-list and the theme toggle floated
+          between the two lines, giving a 173px header — 21% of a 375x812 viewport, before
+          any content. Stacking on purpose is both shorter and legible as a decision. */}
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-y-1 px-5 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:px-6 sm:py-4">
         <Link
           href="/"
-          className="group flex min-h-11 flex-col justify-center focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
+          className="group flex min-h-11 flex-col justify-center py-0.5 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
           aria-label={`${site.name} — home`}
         >
           <span className="font-serif text-lg leading-tight text-text-main">
@@ -39,7 +43,7 @@ export default function SiteHeader() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-x-1">
+        <div className="flex w-full items-center justify-between sm:w-auto sm:justify-normal sm:gap-x-1">
           <nav aria-label="Main">
             <ul className="flex flex-wrap items-center gap-x-1">
               {NAV.filter((item) => item.href !== "/").map((item) => (
@@ -47,7 +51,7 @@ export default function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className={`flex min-h-11 items-center rounded px-2 font-sans text-sm sm:px-3 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
+                    className={`flex min-h-11 items-center rounded px-1.5 font-sans text-sm sm:px-3 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none ${
                       isActive(item.href)
                         ? "text-text-main underline decoration-accent-brand decoration-2 underline-offset-8"
                         : "text-text-muted hover:text-text-main"
