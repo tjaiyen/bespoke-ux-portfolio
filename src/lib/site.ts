@@ -15,11 +15,7 @@ export const site = {
     "A former manufacturing cost accountant who turns ERP and financial data into real-time operational visibility tools.",
 
   email: "tjaiyen.sterling@gmail.com" as string | null,
-  // ---- TJ: paste the URL and this appears everywhere contact does ----------
-  // Chosen alongside email on 2026-07-29; the URL itself is the one thing I could not
-  // supply. Set it to "https://www.linkedin.com/in/<handle>" and the footer, About page
-  // and every case-study CTA pick it up — nothing else to wire.
-  linkedin: null as string | null,
+  linkedin: "https://www.linkedin.com/in/jaiyentheerayut/" as string | null,
   github: null as string | null,
   // Drop the PDF at public/resume.pdf and set this to "/resume.pdf". The link then
   // appears in the footer and on About automatically — nothing else to wire.

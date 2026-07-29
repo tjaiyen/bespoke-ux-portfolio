@@ -96,6 +96,16 @@ Each receipt was regenerated against the copy that actually ships rather than in
 from an earlier claim. The source project's own documentation asserted persisted reports
 for 35 sites when only 9 existed on disk.
 
+The same templates also build to **single self-contained files** — body, stylesheet, and an
+esbuild bundle of the scene plus three.js in one inline classic script. No modules, no
+import maps, no external requests: nothing whose resolution could differ inside a sandboxed
+iframe under a CSP the page does not control.
+
+Those builds are **not** in the gallery. They carry no Content-Security-Policy of their own
+— the host that embeds them supplies one — so they do not pass the gate, and the gallery
+lists only what does. Publishing them anyway would have been the cheapest possible way to
+inflate the count, and it would have cost the one thing the gallery is for.
+
 The reports are deliberately narrow. Every one names **seven criteria it did not
 evaluate** — keyboard traversal, reflow, input purpose and others that axe has no
 automated rule for. A conformance report that lists its own blind spots is worth more than
