@@ -29,7 +29,7 @@ export default function SiteHeader() {
           Left to wrap on its own the nav broke mid-list and the theme toggle floated
           between the two lines, giving a 173px header — 21% of a 375x812 viewport, before
           any content. Stacking on purpose is both shorter and legible as a decision. */}
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-y-1 px-5 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:px-6 sm:py-4">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-y-1 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:px-6 sm:py-4">
         <Link
           href="/"
           className="group flex min-h-11 flex-col justify-center py-0.5 focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
@@ -45,7 +45,7 @@ export default function SiteHeader() {
 
         <div className="flex w-full items-center justify-between sm:w-auto sm:justify-normal sm:gap-x-1">
           <nav aria-label="Main">
-            <ul className="flex flex-wrap items-center gap-x-1">
+            <ul className="flex flex-wrap items-center gap-x-0 sm:gap-x-1">
               {NAV.filter((item) => item.href !== "/").map((item) => (
                 <li key={item.href}>
                   <Link
