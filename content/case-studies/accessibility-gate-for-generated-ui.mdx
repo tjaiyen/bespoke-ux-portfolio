@@ -7,7 +7,7 @@ role: "Sole designer and engineer — research, interaction, design system, buil
 timeline: "2026"
 projectType: self-directed
 metricsBasis: measured
-basis: "All 47 generated sites are published in this portfolio's gallery, each with the machine-readable conformance report from its own gate run. Open any of them and read the receipt."
+basis: "All 47 sites are published in this portfolio's gallery — 12 produced by the engine under the gate, 35 hand-authored and independently re-audited — each with the machine-readable conformance report from a run against the exact copy published. Open any of them and read the receipt."
 userResearchSummary: >-
   The problem was observed, not surveyed. AI code generators optimise the render tree and have near-zero semantic fidelity, so generated interfaces are inaccessible by default — and the entire tooling ecosystem around them is advisory. Deque's own audit server, the community accessibility servers, PR-time scanners: an agent is free to ignore every one of them. Watching models work against an advisory checker showed the failure was structural, not a knowledge gap. They do not fail to know the rule; they satisfy the letter of the check and miss its purpose. That reframed the brief from "help the model write accessible code" to "make finishing conditional on proof".
 tradeOffAnalysis: >-
@@ -82,12 +82,19 @@ and the entire value of the gate is that it never emits one.
 
 ## Outcome
 
-All 47 generated sites are published in this portfolio's gallery. Each ships with
-the machine-readable conformance report from its own gate run, and each of those receipts
-was regenerated against the copy that actually ships rather than inherited from an earlier
-claim — the source project's own documentation asserted persisted reports for 35 sites
-when only 9 existed on disk, which is precisely the failure this work exists to argue
-against.
+All 47 sites are published in this portfolio's gallery, and the distinction between them
+is stated on every card rather than blurred: **12 came out of the engine**, where the audit
+*was* the gate and it could not finish until the page passed; **35 are hand-authored** on a
+shared scroll-story runtime, and their receipt is an independent re-audit of the shipping
+code rather than a gate the generator had to clear.
+
+Collapsing those two into one claim would have been easy and would have read better. It
+would also have been the precise failure this work exists to argue against — which is why
+provenance is derived from the artefact itself rather than asserted in prose.
+
+Each receipt was regenerated against the copy that actually ships rather than inherited
+from an earlier claim. The source project's own documentation asserted persisted reports
+for 35 sites when only 9 existed on disk.
 
 The reports are deliberately narrow. Every one names **seven criteria it did not
 evaluate** — keyboard traversal, reflow, input purpose and others that axe has no

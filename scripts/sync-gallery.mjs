@@ -152,6 +152,30 @@ function decodeEntities(s) {
     .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)));
 }
 
+/**
+ * Provenance, DERIVED from the artefact rather than transcribed.
+ *
+ * The two sets were built differently and only one supports the strong claim:
+ *
+ *   hand-authored — carries `src/stage.js`, the shared stage4d scroll-story runtime.
+ *     Blocksmith's own showcase README: *"The thirty-five 4D concepts were hand-authored
+ *     or hand-rewritten rather than shipped straight from the generator, so their receipt
+ *     is a post-hoc re-audit of the code that actually ships, not a gate the generator had
+ *     to clear."* The file check returns exactly 35, matching that count.
+ *
+ *   engine-generated — no stage.js. These came out of the generator, and for the six
+ *     prompt-built concepts the audit WAS the gate: the engine could not finish until it
+ *     passed (the README records the repair rounds each needed).
+ *
+ * This matters because the gallery previously advertised the gate-loop over all of them.
+ * Deriving it from a file means the split cannot drift as sites are added.
+ */
+function provenance(dir) {
+  return fs.existsSync(path.join(dir, "src", "stage.js"))
+    ? "hand-authored"
+    : "engine-generated";
+}
+
 /** A short descriptor taken from the site's OWN <title>, never invented. */
 function derivedNote(dir) {
   try {
@@ -217,6 +241,7 @@ for (const p of passed) {
 const receiptsDir = path.join(GALLERY, "_receipts");
 fs.mkdirSync(receiptsDir, { recursive: true });
 const notes = {};
+const origin = {};
 let fileCount = 0;
 
 for (const p of passed) {
@@ -241,6 +266,7 @@ for (const p of passed) {
     n = `${n} (variant ${i} of ${siblings.length})`;
   }
   if (n) notes[p.slug] = n;
+  origin[p.slug] = provenance(p.dir);
 }
 
 fs.writeFileSync(
@@ -248,8 +274,9 @@ fs.writeFileSync(
   JSON.stringify(
     {
       _comment:
-        "Descriptors taken from each generated site's own <title>/description. Editorial notes in src/lib/gallery.ts take precedence; this is the honest fallback for the rest, not invented copy.",
+        "Descriptors taken from each site's own <title>/description. Editorial notes in src/lib/gallery.ts take precedence; this is the honest fallback for the rest, not invented copy. `provenance` is DERIVED from the presence of src/stage.js — see provenance() in scripts/sync-gallery.mjs — and decides which sites the engine gate-loop claim may be made about.",
       notes,
+      provenance: origin,
     },
     null,
     2,

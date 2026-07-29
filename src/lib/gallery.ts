@@ -105,6 +105,67 @@ export function noteFor(slug: string): string | undefined {
   return NOTES[slug] ?? DERIVED[slug];
 }
 
+const PROVENANCE: Record<string, string> = (() => {
+  const f = path.join(GALLERY_DIR, "_notes.json");
+  if (!fs.existsSync(f)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(f, "utf8")).provenance ?? {};
+  } catch {
+    return {};
+  }
+})();
+
+/**
+ * How a site was built. Derived in `scripts/sync-gallery.mjs` from the presence of the
+ * stage4d runtime, never hand-listed.
+ *
+ * This distinction is load-bearing. The gallery used to advertise "an engine that refuses
+ * to finish until the page it generated passes a real audit" across everything shown —
+ * true of the generated sites, and NOT true of the 35 hand-authored ones, whose receipt is
+ * a post-hoc re-audit rather than a gate the generator had to clear. Publishing the strong
+ * claim over the whole set would have been the exact failure this gallery argues against.
+ */
+export function provenanceOf(slug: string): "hand-authored" | "engine-generated" | undefined {
+  const v = PROVENANCE[slug];
+  return v === "hand-authored" || v === "engine-generated" ? v : undefined;
+}
+
+/**
+ * The sites that render finance and manufacturing *instruments* rather than atmosphere —
+ * real axes, tick labels and figures a cost accountant would recognise.
+ *
+ * Transcribed from Blocksmith's own showcase README (the "command-center five" —
+ * aerospace and defence manufacturing cost accounting — and the "Bridge ten", the same
+ * posture applied to food-manufacturing finance), and confirmed by opening each one:
+ * an 85% Wright learning slope, BCWS/BCWP/ACWP computed from the earned-value identities,
+ * a 3.06x wrap rate, a [0/±45/90] layup at 350°F cure, a buy-to-fly ratio measured off the
+ * voxel lattice, borrowing-base carve-outs, three-way match, a price x quantity variance
+ * rectangle, a cash-conversion clock.
+ *
+ * This is the part of the gallery that is domain evidence rather than visual range, and it
+ * was going unclaimed.
+ */
+const INSTRUMENTS = new Set([
+  "slope", "baseline", "wrap", "ply", "swarf",
+  "eligible", "chain", "tripwire", "plausible", "conversion",
+  "yieldloss", "decompose", "maturity", "carbon", "closeday",
+]);
+
+export function isInstrument(slug: string): boolean {
+  return INSTRUMENTS.has(slug);
+}
+
+/** Counts for the gallery intro. Derived, so the prose cannot drift from the set. */
+export function galleryCounts() {
+  const all = listGallery();
+  return {
+    total: all.length,
+    handAuthored: all.filter((r) => provenanceOf(r.slug) === "hand-authored").length,
+    generated: all.filter((r) => provenanceOf(r.slug) === "engine-generated").length,
+    instruments: all.filter((r) => isInstrument(r.slug)).length,
+  };
+}
+
 /** True when the descriptor came from the site itself rather than being written here. */
 export function noteIsDerived(slug: string): boolean {
   return !NOTES[slug] && !!DERIVED[slug];

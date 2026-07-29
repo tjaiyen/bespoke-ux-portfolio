@@ -1,6 +1,13 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { listGallery, noteFor, receiptSummary } from "@/lib/gallery";
+import {
+  listGallery,
+  noteFor,
+  receiptSummary,
+  provenanceOf,
+  isInstrument,
+  galleryCounts,
+} from "@/lib/gallery";
 import { assetPath } from "@/lib/assetPath";
 
 export const metadata: Metadata = {
@@ -11,6 +18,7 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   const sites = listGallery();
+  const c = galleryCounts();
 
   return (
     <main id="main-content" className="mx-auto w-full max-w-4xl px-6 py-16">
@@ -18,9 +26,33 @@ export default function GalleryPage() {
         Gallery
       </h1>
       <p className="mt-4 max-w-2xl font-sans text-lg text-text-muted">
-        Output from an engine I built that refuses to finish until the page it
-        generated passes a real accessibility audit. Every site below is
-        self-contained and ships with the conformance report from its own gate run.
+        {c.total} self-contained 3D sites, each shipping the conformance report from a
+        real accessibility gate run against the exact copy published here.
+      </p>
+      <p className="mt-4 max-w-2xl font-sans text-text-muted">
+        <strong className="text-text-main">
+          {c.instruments} of them render finance and manufacturing instruments
+        </strong>{" "}
+        rather than atmosphere — an 85% Wright learning slope, earned value computed from
+        the BCWS/BCWP/ACWP identities, a 3.06× wrap rate, a{" "}
+        <span className="font-mono text-sm">[0/±45/90]</span> layup at a 350°F cure, a
+        buy-to-fly ratio measured off the geometry, borrowing-base carve-outs, three-way
+        match, a price × quantity variance rectangle. Real axes, real tick labels, figures
+        a cost accountant would recognise. That is the part of this set I care most about:
+        it is the domain I came from, drawn accurately.
+      </p>
+      {/* The provenance split is stated up front rather than buried. This page used to
+          claim the engine gate-loop over everything shown; it is true of the generated
+          sites and NOT of the hand-authored ones, whose receipt is a post-hoc re-audit.
+          Counts come from galleryCounts() so the prose cannot drift from the set. */}
+      <p className="mt-4 max-w-2xl font-sans text-text-muted">
+        Two kinds of work, and the difference matters.{" "}
+        <strong className="text-text-main">{c.handAuthored} are hand-authored</strong> —
+        built on a shared scroll-story runtime where scroll position is the timeline — and
+        their receipt is an independent re-audit of the shipping code.{" "}
+        <strong className="text-text-main">{c.generated} came out of the generator</strong>
+        , and for those the audit <em>was</em> the gate: it could not finish until the page
+        it produced passed. Every card says which it is.
       </p>
 
       {/* The scope statement is deliberately prominent and deliberately narrow.
@@ -70,6 +102,35 @@ export default function GalleryPage() {
                     Gate passed
                   </span>
                 </div>
+
+                {/* Provenance on every card, not just in the intro. "Gate passed" above
+                    is true of all 47 — verified by a fresh run against this copy — but
+                    only the generated ones had the gate standing between them and being
+                    finished, and a reader should not have to infer which is which. */}
+                <p className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[10px] tracking-widest uppercase">
+                  <span className="text-text-muted">
+                    {provenanceOf(site.slug) === "hand-authored"
+                      ? "Hand-authored"
+                      : "Engine-generated"}
+                  </span>
+                  {isInstrument(site.slug) && (
+                    <>
+                      {/* DRAWN, not typed. A "·" character in --border-subtle is text as
+                          far as axe is concerned, so it is judged against the 4.5:1 body
+                          floor rather than the 3:1 boundary floor that token is sized
+                          for — 3.08:1, failing on all 15 cards. A background-coloured box
+                          is a decorative graphic and carries no text-contrast duty. Same
+                          idiom as the rule in Act.tsx. */}
+                      <span
+                        aria-hidden="true"
+                        className="inline-block h-1 w-1 shrink-0 rounded-full bg-border-subtle"
+                      />
+                      <span className="text-accent-brand">
+                        Cost-accounting instrument
+                      </span>
+                    </>
+                  )}
+                </p>
 
                 {noteFor(site.slug) && (
                   <p className="mt-2 font-sans text-sm text-text-muted">
