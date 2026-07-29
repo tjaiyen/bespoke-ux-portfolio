@@ -1,0 +1,122 @@
+---
+slug: twenty-six-tools-one-surface
+title: "Twenty-six tools, one surface a human can actually operate"
+subtitle: "An operations dashboard over a real finance-automation engine, built from the engine's own transcribed CLI output — not a mockup of what it might say"
+client: "Self-directed — no commissioning client"
+role: "Sole designer and engineer — information architecture, interaction design, build"
+timeline: "2026"
+projectType: self-directed
+metricsBasis: measured
+basis: "Live at tjaiyen.github.io/tcf-finance-dashboard. Every figure on the page is transcribed from a real, deterministic run of the underlying tool against synthetic sample data — stated on the page itself, and checkable by opening it."
+userResearchSummary: >-
+  No study was commissioned. The problem showed up the moment the engine had more than a handful of tools: twenty-six deterministic components, each correct on its own, are not automatically a thing a person can operate. A wall of twenty-six dashboards is not an operations surface, it is twenty-six tabs nobody opens in order. The design question was not "how do I display this tool's output" twenty-six times — it was "what is the one surface that tells someone where to look first," which is an information-architecture problem, not a data-visualization one.
+tradeOffAnalysis: >-
+  The obvious build is one page per tool, which is what a naive port of twenty-six CLIs produces. I rejected it as the primary surface, because it answers "what does tool #14 say" and nobody arrives asking that — they arrive asking "what needs my attention." So the entry point is a cross-tool findings feed, worst-first, and the per-tool pages exist one click away rather than as the front door. The harder call was Interview Mode: collapsing 32 sections to 5 for a first-time or time-boxed viewer. I derived the 5-tool subset from the same sidebar data the full nav already renders, rather than hand-maintaining a second list — the exact failure this portfolio's own route audit caught four separate times, so I was not going to reintroduce it here.
+businessImpactMetrics:
+  - { label: "Tools surfaced on one findings feed", value: "26", change: "worst-first, click through to source", isPositive: true }
+  - { label: "Sections in Interview Mode vs full", value: "5 of 32", change: "derived from the sidebar, not a second list", isPositive: true }
+  - { label: "Figures composed for display", value: "0", change: "every number transcribed from a real tool run", isPositive: true }
+  - { label: "Ways to read the same data", value: "3", change: "palette, density, and a scoped search", isPositive: true }
+heroImage: "/images/twenty-six-tools-one-surface/hero.png"
+toolsUsed: ["HTML", "CSS", "JavaScript"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+Twenty-six deterministic finance tools, each individually correct, are not automatically
+something a person can operate. The naive next step — a page per tool — produces twenty-six
+tabs nobody opens in order, and answers a question nobody actually walked up asking. A
+controller does not open a dashboard wondering what `ap_three_way_match` has to say today.
+They open it wondering **what needs my attention**, across everything.
+
+That reframes the build entirely. The problem is not "visualize this tool's output" run
+twenty-six times. It is **information architecture**: what is the smallest surface that gets
+someone to the right finding, from any starting point, in the time they actually have.
+
+## The entry point is the findings, not the tools
+
+The front door is a single findings feed, aggregated across all twenty-six components and
+sorted worst-first — critical, then serious, then warning, then the positive ones. Every row
+names its source tool and links straight to it. That ordering is the whole design decision: it
+answers "what needs my attention" directly, and a reviewer only has to go tool-by-tool once
+they already know which tool matters right now.
+
+<MetricsGrid metrics={[
+  { label: "Findings feed", value: "worst-first", change: "critical -> serious -> warning -> positive", isPositive: true },
+  { label: "Every finding", value: "links to its tool", change: "one click from symptom to source", isPositive: true },
+  { label: "Full dashboard", value: "32 sections", change: "reachable, never the required first stop", isPositive: true }
+]} />
+
+## Interview Mode, and the mistake it was built to avoid
+
+A first-time or time-boxed viewer does not need thirty-two sections; they need five that
+actually demonstrate the pattern. That is Interview Mode — a toggle that collapses the sidebar
+and the page to a five-tool walkthrough.
+
+<DirectionComparison
+  label="Which 5 sections are 'the demo'"
+  takenTitle="Derive the subset from one source"
+  takenBlocks={[
+    { h: 2, label: "sidebar link carries data-demo" },
+    { h: 3, cols: 2, key: true },
+    { h: 2, label: "Interview Mode reads that attribute" },
+    { h: 2, label: "the 32-stop tour forces Full Dashboard first" }
+  ]}
+  takenNote="One source of truth. Add or change a demo tool by editing the sidebar link, and Interview Mode, the tour, and the nav all agree automatically because they all read the same attribute."
+  discardedTitle="A second, hand-maintained list"
+  discardedBlocks={[
+    { h: 2, label: "sidebar list" },
+    { h: 2, label: "separate 'interview tools' array" },
+    { h: 3, cols: 2, label: "the two silently drift apart" }
+  ]}
+  discardedNote="Reads as simpler at first. The two lists are correct on day one and diverge by day thirty, and nothing forces you to notice."
+  criterion="If I change the sidebar, does the demo update itself?"
+  cost="Slightly more indirection in the JS — the demo set is computed, not just written down where you'd first look for it."
+/>
+
+I built the hand-maintained version once already, on this same portfolio — a hardcoded route
+list quietly dropped pages from an accessibility audit four separate times before it was
+replaced with one that walks the filesystem. Interview Mode was the second time I hit the
+identical shape of bug, and this time I recognized it before shipping it: two lists that are
+supposed to agree will eventually stop agreeing, so there should only ever be one list.
+
+The guided tour gets the same discipline applied in the other direction: it forces Full
+Dashboard mode before it starts, specifically so every one of its 32 stops stays reachable
+regardless of which mode the page happened to load in. A tour that can silently walk into a
+section Interview Mode has hidden is the same bug wearing a different hat.
+
+## What "measured" means on this specific page
+
+Every figure — the finding counts, the pass/fail badges, the KPI tiles — is transcribed from a
+real, deterministic run of the underlying tool against synthetic sample data. Nothing is
+composed for display, and the page says so in its own disclaimer footer rather than leaving it
+implied. That distinction matters more here than almost anywhere else in this portfolio: a
+dashboard is the easiest kind of artifact to fake convincingly, because a screenshot of
+plausible numbers looks identical to a screenshot of real ones. The only way to tell the
+difference is to say plainly which one you're looking at, and I would rather a reviewer doubt
+me and check than trust me and be wrong.
+
+**[tjaiyen.github.io/tcf-finance-dashboard](https://tjaiyen.github.io/tcf-finance-dashboard/)**
+
+## Outcome
+
+One surface over twenty-six tools: a worst-first findings feed as the entry point, a full
+32-section dashboard one click away, a five-tool Interview Mode derived from the same data the
+full nav uses, palette and density controls, and a scoped `⌘K` search across every tool and
+finding.
+
+## What I would change
+
+**The findings feed has no way to say "I've seen this, stop showing it."** Worst-first sorting
+is right for a first look and wrong for a returning user who has already triaged yesterday's
+criticals — right now they re-read the same list every time, and the feed has no memory of
+what has already been acted on. That is a real gap between a demo surface and an operations
+tool someone uses daily.
+
+**Interview Mode is a good answer to "what should a stranger see first," and a weaker one to
+"what should today's on-call controller see first."** Those are different questions — one is
+about a fixed introduction, the other is about what changed since the last time someone
+looked — and I built the first because it was the one I could ship, not because I had decided
+the second one mattered less.

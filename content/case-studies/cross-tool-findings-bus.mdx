@@ -1,0 +1,117 @@
+---
+slug: cross-tool-findings-bus
+title: "The findings bus this engine names but doesn't build"
+subtitle: "A concept for the live aggregator behind a cross-tool prioritization interface — designed against a gap the engine's own code documents, not one I invented"
+client: "Self-directed concept — no commissioning client"
+role: "Sole concept designer — problem framing, interface, and the integration boundary it depends on"
+timeline: "Concept, 2026"
+projectType: concept
+metricsBasis: modelled
+basis: "Grounded in a real, self-declared gap inside a private finance-automation engine: its cross-tool synthesizer ships with a hand-curated findings fixture and states, in its own source file, that the live aggregator behind it does not exist and why."
+userResearchSummary: >-
+  No study was commissioned. The grounding is reading the engine's own synthesizer module directly: fourteen independently-built tools, each with its own result shape, feed one prioritization interface today through a fixture someone assembled by hand rather than a live read of the tools themselves. The module's own comment names the reason — thirteen-plus distinct result dataclasses, no shared severity or dollar-impact field, and the adapter layer that would normalize them is called out as a separate, larger integration project, deliberately out of scope. That is an unusually precise starting point for a concept: the gap is not a guess about what might be missing, it is a sentence already written down.
+tradeOffAnalysis: >-
+  The design question is not "what should the findings feed look like" — the existing interface already answers that, worst-first, one row per finding. The real question is what the aggregator underneath it should guarantee before the interface can trust what it's showing. I considered starting from the interface side — polish the display, defer the integration — and rejected it, because the one property this fixture already protects is exactly the property a naive live aggregator would be most likely to break silently: a tool's own severity judgment overriding a generic magnitude rule. The fixture has a real example of this. A concept that doesn't design the aggregator around preserving it isn't solving the actual problem, it's redecorating a mock.
+businessImpactMetrics:
+  - { label: "Tools this would unify", value: "14", change: "each with its own result shape today", isPositive: true }
+  - { label: "Distinct result dataclasses to reconcile", value: "13+", change: "no shared severity or dollar field yet", isPositive: true }
+  - { label: "Documented severity override to preserve", value: "1", change: "a statutory-risk finding marked critical against a magnitude-only rule", isPositive: true }
+  - { label: "Adapter layer built so far", value: "0", change: "named in the code as a separate, later project", isPositive: true }
+heroImage: "/images/cross-tool-findings-bus/hero.png"
+toolsUsed: ["Python", "pytest"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+A prioritization interface over many small, correct tools is only as honest as what feeds
+it. The engine's cross-tool synthesizer already does the hard part well: it takes a
+findings feed, asks a language model only to rank and narrate, and runs two deterministic
+guardrails against the model's own output — every critical-severity finding has to be
+referenced by some recommendation, and the top-ranked recommendation has to cite a finding
+whose severity actually is the worst in the set. Neither check trusts the model's words;
+both check the model's ranking against the severity the *feed* already carries.
+
+What the feed is, right now, is a fixture. Fourteen tools in the engine have already,
+independently, verified their own findings — but they were built with zero interface
+uniformity between them, and the fixture is a hand-curated snapshot of what those fourteen
+tools would say if something read them uniformly. Nothing in it is fabricated: every dollar
+figure and severity traces to a real assertion elsewhere in the engine. But *as a live
+system*, the feed does not exist, and the module's own source says so directly rather than
+implying it works.
+
+## The detail a live aggregator would have to get right
+
+One fixture row is not a data point, it's a design constraint. A borrowing-base checker
+flags an unpaid grower invoice as **critical**, even though the dashboard's own severity
+rule for that check is magnitude-only — it would call the same row a lower "warning,"
+because the dollar amount involved doesn't cross the rule's own threshold. The override
+exists because the exposure is a PACA statutory trust claim, a category of risk that a
+magnitude rule was never built to see.
+
+That is the whole argument for why this is worth designing before it's worth building. A
+generic aggregator that reduces every tool's finding to "a severity string and a dollar
+number" would flatten that override the first time it ran — not through a bug, but through
+its own normalization doing exactly what normalization does. The interface layer already
+protects this: `run_guardrails` checks the model's ranking against the feed's own severity,
+never the model's opinion of it. An aggregator that fed it anything less than each tool's
+real, already-computed severity would quietly disable a guardrail that reads as intact.
+
+<DirectionComparison
+  label="How the adapter layer should be shaped"
+  takenTitle="One normalized schema, adapters translate into it"
+  takenBlocks={[
+    { h: 2, label: "14 tools, 13+ result shapes" },
+    { h: 3, cols: 2, key: true, label: "per-tool adapter, one each" },
+    { h: 2, label: "shared schema: id · severity · $ · text" },
+    { h: 2, label: "synthesizer reads only the shared shape" }
+  ]}
+  takenNote="Each tool keeps its own internals. The adapter's only job is translating an already-computed severity into a shared field — never re-deriving one from a generic rule."
+  discardedTitle="A generic rule re-derives severity centrally"
+  discardedBlocks={[
+    { h: 6, cols: 2, label: "one magnitude-based severity function" },
+    { h: 2, label: "every tool's output run through it" }
+  ]}
+  discardedNote="Fewer moving parts, and it is exactly what would have called the PACA finding a 'warning.' A central rule that re-derives severity is a second opinion the fixture already proves is sometimes wrong."
+  criterion="Does the adapter preserve a judgment a tool already made, or replace it with one the aggregator invents?"
+  cost="Fourteen small, tool-specific adapters instead of one generic function — more code to write once, and more code to review when tool fifteen is added."
+/>
+
+<MetricsGrid metrics={[
+  { label: "Severity source of truth", value: "each tool", change: "never re-derived centrally", isPositive: true },
+  { label: "Model's role in ranking", value: "order only", change: "severity is authoritative input, not output", isPositive: true },
+  { label: "Guardrails this depends on", value: "2, already built", change: "coverage + priority-consistency, both re-run against real code", isPositive: true }
+]} />
+
+## Outcome
+
+Nothing here was built, so there is no outcome to report — only a stated design and what
+would falsify it. The interface and its guardrails already exist and are exercised by
+twenty-one passing tests today, re-run directly for this study; what's missing is only the
+adapter layer that would feed them from something other than a hand-curated file. The
+concept's actual claim is narrow: an adapter is worth building once there are enough
+onboarded tools that hand-curating the feed becomes the bottleneck, and it should be built
+as fourteen small translators into a shared shape, not one function that re-derives
+judgment the tools already made correctly.
+
+**What would falsify this:** if a tool's severity turned out to need re-interpretation at
+aggregation time — for instance, two tools disagreeing about whether the same underlying
+condition is critical — a per-tool adapter can't resolve that; only a cross-tool policy
+layer could, and that is a different, harder project than the one described here.
+
+## Where this would break
+
+**The one-directional guardrail argument only holds if every tool's severity is trustworthy
+on its own.** The design above assumes each tool already computed the right severity and
+the aggregator's only job is not to disturb it. If a tool's own severity logic turns out to
+be wrong in some case, an adapter that faithfully preserves it faithfully preserves the
+mistake — this concept has no mechanism for catching an error at the source, only for not
+introducing a new one downstream.
+
+**Fourteen adapters is a floor, not a ceiling.** The engine has more tools than the
+fourteen the synthesizer currently reads from; a real build would need to decide whether
+every tool eventually gets a findings adapter, or whether some tools' output was never
+meant to feed a cross-tool feed at all. That scoping question is unanswered here, and I
+would not want to guess at it without seeing which tools actually produce anything worth
+prioritizing across.

@@ -1,0 +1,158 @@
+---
+slug: trust-kernel-for-finance-automation
+title: "A design system for numbers people have to sign"
+subtitle: "One shared kernel — grounding, provenance, injection defence — that keeps twenty-six finance tools trustworthy the same way, instead of twenty-six times"
+client: "Self-directed — no commissioning client"
+role: "Sole designer and engineer — architecture, shared kernel, tool implementations"
+timeline: "2026"
+projectType: self-directed
+metricsBasis: measured
+basis: "The engine runs 772 pytest cases and 321 dbt tests green (ERROR=0), both re-run and counted directly rather than quoted from memory, and its output is published as a live operations dashboard at tjaiyen.github.io/tcf-finance-dashboard — every figure there comes from a real deterministic tool run against synthetic data. The engine repository itself is private; the dashboard is the part you can open and check."
+userResearchSummary: >-
+  No study was commissioned. The problem is one I worked inside as a cost accountant: a finance tool is only adopted if the person whose name goes under the number can defend it. Twenty-six separate tools each solving that trust problem their own way is how an engine becomes twenty-six different reliability stories, and a reviewer has to audit each one independently. The design question is therefore not "how do I make this tool correct" but "what is the smallest set of primitives that make correctness the default across all of them" — the same question a design system answers, applied to correctness rather than appearance.
+tradeOffAnalysis: >-
+  The obvious approach is a shared utility library each tool imports as convenient. I rejected leaving it optional. A trust primitive that a tool may or may not use produces exactly the failure the kernel exists to prevent — twenty-six tools with twenty-six different answers to "can this number be traced", and no way to reason about the engine as a whole. But I also rejected the opposite extreme, forcing every tool to delegate all logic to the kernel: where a tool's checking logic is tightly coupled to its own data shape, dragging it into a generic engine makes both worse. The kernel shares what is safely shareable — the parameters, the grounding, the provenance, the injection boundary — and explicitly leaves tightly-coupled logic local, with that boundary written down rather than left to taste.
+businessImpactMetrics:
+  - { label: "Tools on the shared kernel", value: "26", change: "one trust story, not twenty-six", isPositive: true }
+  - { label: "pytest cases green", value: "772", change: "plus 321 dbt tests, ERROR=0", isPositive: true }
+  - { label: "Version hashes behind every result", value: "4", change: "data × metric × config × code", isPositive: true }
+  - { label: "Unsupported LLM claims silently kept", value: "0", change: "flagged in the grounded text, never dropped", isPositive: true }
+heroImage: "/images/trust-kernel-for-finance-automation/hero.png"
+toolsUsed: ["Python", "dbt", "OpenLineage", "in-toto / DSSE", "Claude API"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+A finance tool is adopted or rejected on one question, and it is not "is this accurate". It
+is **can the person whose name goes under this number defend it.** Accuracy is necessary and
+nowhere near sufficient — a correct number nobody can trace is, in a close, indistinguishable
+from a wrong one.
+
+Now build twenty-six of them. Standard-cost validation, margin-leak recovery, vendor
+scoring, borrowing-base eligibility, food-safety traceability, earned value, yield and mix
+variance, AP three-way match. Each one is a small deterministic tool over its own domain data,
+and each one has the same trust problem.
+
+Solve it twenty-six times and you have twenty-six different reliability stories. A
+reviewer cannot form a view of the engine; they have to audit every tool separately, and the
+weakest one sets the trust level for all of them.
+
+## Why this is a design-system problem
+
+A design system exists because consistency cannot survive being everyone's individual
+responsibility. Buttons do not drift because someone reimplements a button badly; they drift
+because reimplementing one is *available*.
+
+The same logic applies to correctness, and that reframing is the whole design:
+
+**The primitives that make a number defensible must be shared infrastructure, not a
+convention each tool is trusted to follow.**
+
+Not a utility library a tool imports when convenient. A kernel — so that "can this be traced"
+has exactly one answer across the engine, and adding tool twenty-seven inherits the answer
+instead of re-litigating it.
+
+## What the kernel actually guarantees
+
+Four primitives do the real work.
+
+**Grounding — `narrative_verify`.** A narrative draft, from any language model, is decomposed
+into atomic numeric and directional claims. Each claim is verified against the deterministic
+tool output that produced the figures. An unsupported claim is **flagged inside the grounded
+text — never silently removed.** That last part is the design decision: quietly deleting a
+bad claim produces a clean-looking narrative that hides the fact the model drifted. Leaving
+the flag visible tells the reader the model overreached *here*, which is information they
+need.
+
+**Reproducibility — `as_of`.** Every result carries four hashes: the input data, the metric
+definitions, the tenant config, and the code. A number is not reproducible because someone
+remembers how it was produced; it is reproducible because all four inputs are pinned. If any
+one changes, the signature changes, and the difference is attributable rather than mysterious.
+
+**Provenance — `attestation`.** The as-of signature is wrapped in an in-toto statement inside
+a DSSE envelope and signed with ed25519. The choice of asymmetric signing over a shared-secret
+MAC is deliberate: **a third party holding only the public key can verify who produced a
+number and that it was not altered, and cannot forge one.** With an HMAC, the verifier holds
+the same secret as the signer — which makes it a check between parties who already trust each
+other, and that is not what an auditor needs.
+
+**Injection boundary — `injection_guard`.** Untrusted free text — vendor names, memo lines,
+document fields — is treated as data, never as instructions. In a finance engine, that text
+arrives from suppliers and scanned documents, which is precisely the surface an attacker
+controls.
+
+<MetricsGrid metrics={[
+  { label: "Narrative claims", value: "verified, not trusted", change: "unsupported ones flagged in place", isPositive: true },
+  { label: "Every result", value: "4 version hashes", change: "data · metric · config · code", isPositive: true },
+  { label: "Attestation", value: "ed25519, third-party verifiable", change: "not a shared-secret MAC", isPositive: true }
+]} />
+
+## Where the kernel deliberately stops
+
+The harder judgement was not what to share. It was what to leave alone.
+
+<DirectionComparison
+  label="Kernel boundary"
+  takenTitle="Share the primitives, leave coupled logic local"
+  takenBlocks={[
+    { h: 2, label: "shared: grounding · provenance · injection · KPI params" },
+    { h: 3, cols: 4, key: true },
+    { h: 2, label: "tool-local: checks coupled to that tool's data shape" }
+  ]}
+  takenNote="Every tool inherits the trust primitives. A tool whose checking logic is bound to its own data shape keeps that logic, and the boundary is written down rather than left to taste."
+  discardedTitle="One generic engine, everything delegates"
+  discardedBlocks={[
+    { h: 6, cols: 2, label: "generic check engine" },
+    { h: 2, label: "tools become thin config" },
+    { h: 2, label: "abstraction absorbs the domain" }
+  ]}
+  discardedNote="Maximum consistency on paper. In practice a generic engine wide enough to express every tool's domain checks becomes a language nobody can read, and the domain meaning disappears into configuration."
+  criterion="Does sharing this make both sides clearer, or only the diagram?"
+  cost="Some checking logic genuinely is duplicated across tools, and a reader has to look in two places to see everything a tool checks."
+/>
+
+A design system that abstracts everything stops being a system and becomes a framework you
+have to defeat. The interesting work was drawing the line and then **writing down why it sits
+there** — the same discipline as documenting why a component takes a variant instead of a
+one-off override.
+
+The lineage layer shows the same restraint. It emits spec-shaped OpenLineage events so a
+standard collector or an auditor can consume a column-level provenance graph — and the
+collector itself is **explicitly not built**. Naming a deferred boundary is worth more than a
+half-built version of it that implies more coverage than exists.
+
+## Outcome
+
+Twenty-six components run on the kernel, with **772 pytest cases and 321 dbt tests green**
+(`ERROR=0`) — re-run and counted directly for this study rather than quoted from an older
+number. The output is published as a live operations dashboard, and every figure on it comes
+from a real deterministic run of the underlying tool against synthetic sample data — nothing
+is composed for display:
+
+**[tjaiyen.github.io/tcf-finance-dashboard](https://tjaiyen.github.io/tcf-finance-dashboard/)**
+
+Being straight about what you can check: **the engine repository is private.** The dashboard
+is the artefact you can open, and the numbers above are from its own status line rather than
+my recollection. If that is not enough evidence for a given claim, treat the claim as
+unverified — that is the standard the rest of this portfolio holds itself to and this study
+should not get an exemption.
+
+## What this does not solve
+
+**A verified claim can still be a misleading one.** `narrative_verify` checks that every
+numeric and directional claim is supported by the deterministic output. It cannot check
+emphasis. A narrative can be entirely grounded, cover every material item, and still lead
+with the wrong one. Grounding and coverage are mechanical; salience is judgement, and I do
+not have a mechanism for it.
+
+**The kernel raises the floor, not the ceiling.** It guarantees a number is traceable,
+reproducible and attributable. Whether the number is the *right* number for the decision at
+hand is a modelling question the kernel never touches — and it would be a comfortable
+mistake to read a green attestation as a statement about relevance.
+
+**Signed provenance is only as good as key custody.** ed25519 gives a third party real
+verification, and that is the correct primitive. It also moves the trust problem to who holds
+the private key and how it rotates, which in a real deployment is an operational design
+problem I have specified rather than solved.

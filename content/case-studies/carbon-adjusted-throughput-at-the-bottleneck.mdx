@@ -1,0 +1,126 @@
+---
+slug: carbon-adjusted-throughput-at-the-bottleneck
+title: "Ranking product mix by dollars finds a different winner than ranking it by carbon"
+subtitle: "A bounded pilot testing whether Theory-of-Constraints throughput accounting and a carbon-intensity signal meaningfully diverge at the same bottleneck resource"
+client: "Self-directed concept — no commissioning client"
+role: "Sole concept designer — problem framing, the ranking logic, and its stated limits"
+timeline: "Concept, 2026"
+projectType: concept
+metricsBasis: modelled
+basis: "Grounded in a private finance-automation engine's own bounded-pilot module, whose docstring names its own prior-art search, its own caveats, and states plainly that it is a pilot, not a platform claim — the honesty framing is read directly from that source, not written for this study."
+userResearchSummary: >-
+  No study was commissioned. The tool this is grounded in already states its own research: a single-pass live web search across academic literature and sustainability-accounting vendors found no existing product or published methodology combining Theory-of-Constraints throughput accounting with a carbon-intensity signal at the same bottleneck resource. It calls that a genuine white space while immediately hedging it — one search pass is weaker evidence than a systematic citation trace, and absence of evidence is not evidence of absence. That hedge is the actual research summary; restating it more confidently than the source does would be the fabrication this portfolio's build gate exists to catch.
+tradeOffAnalysis: >-
+  The design decision worth defending is what the tool flags and what it deliberately does not. A product can rank well on dollar-throughput and poorly on carbon-efficiency at the same bottleneck, or the reverse. The engine's own logic only flags the first direction — a product pure dollar-logic would push toward, that is also disproportionately carbon-intensive at the constraint everything else competes for. A product with a bad dollar rank and a good carbon rank is left alone, because nothing in the dollar-driven decision was pushing toward it in the first place. I evaluated flagging both directions symmetrically and rejected it: it would double the alert volume for a case nobody asked about, since the actual decision this pilot exists to inform is "am I about to be nudged toward the wrong product by pure dollar logic," not "which products differ on any axis."
+businessImpactMetrics:
+  - { label: "Prior art found for this exact combination", value: "0", change: "single-pass search, not a systematic literature trace", isPositive: true }
+  - { label: "Bottleneck resources modelled", value: "1", change: "one freezer tunnel, illustrative — not yet confirmed as the real constraint", isPositive: true }
+  - { label: "Divergence directions flagged", value: "1 of 2", change: "only $-favored, carbon-penalized products flag, by design", isPositive: true }
+  - { label: "Carbon input error band this tool cannot resolve", value: "±30%+", change: "typical Scope 3 estimation error, carried forward as a caveat", isPositive: true }
+heroImage: "/images/carbon-adjusted-throughput-at-the-bottleneck/hero.png"
+toolsUsed: ["Python", "pytest"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+Theory-of-Constraints throughput accounting has one job: rank a plant's product mix by
+dollar contribution per unit of its scarcest resource, so the mix decision optimizes for
+whatever is actually the bottleneck rather than for volume or margin percentage. It is a
+sixty-year-old idea and it works. What it has never had to answer is whether the product a
+dollar-only ranking favors is also, at that exact same bottleneck, disproportionately
+carbon-intensive — a genuinely different question layered onto an established one, not a
+replacement for it.
+
+The pilot computes two independent rankings against one bottleneck — an individually-quick-
+frozen tunnel's own throughput minutes, the classic physical constraint in frozen-vegetable
+processing. Dollar-throughput per constraint-minute, descending, is the standard
+Theory-of-Constraints priority, unchanged. Carbon per constraint-minute, ascending, is the
+new signal. A product is flagged only when its carbon rank trails its dollar rank by more
+than a set threshold — the shape of a real tension, not a symmetric diff between two
+numbers.
+
+## What the pilot proves and what it explicitly does not
+
+The engine's own docstring is unusually disciplined about the difference, and the design
+here follows it rather than smoothing it over. Three limits are named directly in the
+source, not added for this study:
+
+**The constraint itself is assumed, not verified.** A real plant would need to confirm the
+freezer tunnel actually is its bottleneck — the first of Theory of Constraints' own
+"five focusing steps" — before this ranking means anything. No capacity-utilization study
+backing that assumption exists anywhere in the engine's source research; it is stated as an
+illustrative choice, one resource only, not a claim about any real plant's actual
+constraint.
+
+**The carbon input carries a stronger caveat than any other figure in the engine.**
+Sales price and variable cost are ordinary sample data. Carbon intensity per pound has no
+real product-level study, no GHG Protocol Scope 1–3 calculation, and no emissions-factor
+lookup behind it anywhere in the source research — it illustrates the mechanic the tool
+computes, not a number to act on. Layered on top of that: Scope 3 estimation error commonly
+runs ±30% or more, which can swamp a constraint-minute-level signal entirely, and the tool
+has no way to detect that from its own output — only a real measurement program could.
+
+**The flagging threshold is a stated guess, not a derived policy.** How many rank positions
+of divergence should trigger a flag is a module constant the code keeps deliberately local
+rather than promoting into the engine's shared configuration registry — because that
+registry's own governance rule requires a real, dated origin for a threshold, and this one
+has none to give honestly. A different plant could reasonably want it tighter or looser.
+
+<DirectionComparison
+  label="Which divergences to flag"
+  takenTitle="Flag one direction: $-favored, carbon-penalized"
+  takenBlocks={[
+    { h: 2, label: "rank by $/constraint-minute" },
+    { h: 2, label: "rank by carbon/constraint-minute" },
+    { h: 3, cols: 2, key: true, label: "flag only: good $ rank, bad carbon rank" },
+    { h: 2, label: "the reverse case: left alone" }
+  ]}
+  takenNote="Matches the actual decision this pilot informs — am I about to be pushed toward the wrong product by dollar logic alone. A product nobody was favoring doesn't need an alert."
+  discardedTitle="Flag every divergence, either direction"
+  discardedBlocks={[
+    { h: 3, cols: 2, label: "any rank gap beyond threshold" },
+    { h: 4, cols: 2, label: "roughly double the alert volume" }
+  ]}
+  discardedNote="Symmetric and simpler to state. It also surfaces a case nobody asked about — a product with a bad $ rank and a good carbon rank was never going to be chosen by dollar logic in the first place."
+  criterion="Does the flag correspond to a decision someone was actually about to make?"
+  cost="An asymmetric rule is one more sentence to explain than 'flag any gap' — the justification has to travel with the feature, not just the code."
+/>
+
+<MetricsGrid metrics={[
+  { label: "Ranking basis", value: "same bottleneck, twice", change: "$-throughput and carbon, both per constraint-minute", isPositive: true },
+  { label: "Formula changed from standard TOC", value: "0", change: "Goldratt's own dollar-throughput rule, untouched", isPositive: true },
+  { label: "Constant kept local, not centralized", value: "1", change: "divergence threshold — no honest dated origin to register", isPositive: true }
+]} />
+
+## Outcome
+
+Nothing here was deployed against a real plant, so there is no outcome to report — the
+pilot's own test suite, fifteen cases re-run directly for this study, covers the ranking
+arithmetic and the one-directional flag logic, not a claim about real product mix. The
+honest claim is narrower than a platform feature: this is the first real test of whether
+the signal is even worth building further, framed as a go/no-go pilot because a single
+search pass found no prior art to validate the approach against — not because the idea is
+untested elsewhere and unusually novel here.
+
+**What would falsify this:** if a real capacity study showed the freezer tunnel is not
+actually the plant's constraint, every ranking in this pilot is answering a question about
+the wrong resource, and the concept would need to restart from identifying the real
+bottleneck before the carbon signal means anything at all.
+
+## Where this would break
+
+**Scope 3 error could make the whole comparison noise, not signal.** A ±30% band on the
+input feeding a constraint-minute-level ranking is large enough to flip a product's carbon
+rank on its own, before any real change in the plant's operations. This pilot has no
+internal way to tell a real divergence from measurement error — that check has to come from
+outside it, from an actual emissions-measurement program, and until one exists the ranking
+should be read as directional at best.
+
+**A single-pass prior-art search is a weak claim to build a "white space" argument on.** It
+is stronger than nothing and weaker than a systematic citation trace across the accounting
+and sustainability literature. If a real methodology combining these two signals exists and
+the search simply missed it, the honest framing changes from "no one has built this" to
+"we didn't find who has" — a materially different claim, and one this pilot cannot
+distinguish from its own output.

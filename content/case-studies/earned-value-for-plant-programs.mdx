@@ -1,0 +1,129 @@
+---
+slug: earned-value-for-plant-programs
+title: "Five forecasts, not one — and a rule for which to trust"
+subtitle: "An earned-value engine over a real work-breakdown structure that refuses to launder five different assumptions about the future into a single confident number"
+client: "Self-directed — no commissioning client"
+role: "Sole designer and engineer — the EVM model, the flagging logic, the interface"
+timeline: "2026"
+projectType: self-directed
+metricsBasis: measured
+basis: "Part of the same engine as the trust-kernel case study, verified the same way: 15 of its own pytest cases pass, re-run directly for this study. Its output is one of the panels on the live dashboard at tjaiyen.github.io/tcf-finance-dashboard."
+userResearchSummary: >-
+  No study was commissioned. The problem is a standard one in capital-project accounting: earned value gives you several different formulas for "what will this cost at completion," and they disagree with each other by construction — each one assumes something different about whether current cost and schedule pressure continues. A tool that picks one and shows it as *the* forecast is making that assumption on the reader's behalf, silently. I have seen a program review derailed by exactly this: two people arguing over a number when they were actually arguing over which formula's assumption they believed.
+tradeOffAnalysis: >-
+  The obvious interface is one number: "Estimate at Completion: $4.2M." I rejected it, because that number always hides a choice among at least five formulas that can differ by hundreds of thousands of dollars on the same project, and picking one for the reader is picking their assumption for them without saying so. The alternative — showing all five plus a Monte Carlo band — costs screen space and a harder first read; a reviewer has to understand that disagreement between methods is itself information, not a bug. I chose it anyway, and added an explicit "not credible" flag for the one case where showing the at-budget number would be actively misleading: when the schedule recovery it implies has already been contradicted by CPI.
+businessImpactMetrics:
+  - { label: "EAC methods computed and shown together", value: "5", change: "typical · CPI · CPI×SPI · reforecast · Monte Carlo", isPositive: true }
+  - { label: "Rolled-up CPI/SPI averaged from children", value: "0", change: "always sum(EV)/sum(AC) at every WBS level", isPositive: true }
+  - { label: "Incomplete work packages silently zeroed", value: "0", change: "excluded from roll-up, flagged, never averaged in", isPositive: true }
+  - { label: "Monte Carlo runs using an RNG", value: "0", change: "closed-form triangular quantile — same input, same output", isPositive: true }
+heroImage: "/images/earned-value-for-plant-programs/hero.png"
+toolsUsed: ["Python", "pytest", "dbt", "DuckDB"]
+published: true
+ndaSanitized: true
+---
+
+## Problem
+
+Earned value management gives a program exactly three raw numbers per work package — planned
+value, earned value, actual cost — and from those, an honest tool has to answer the question
+everyone actually wants: **what will this cost when it's done?**
+
+The trouble is there is no single correct answer to that. There are at least five defensible
+ones, and they encode five different bets about the future:
+
+- **Typical** assumes today's variance is a one-time event; the rest of the work goes to plan.
+- **CPI-based** assumes today's cost efficiency continues for the whole remaining scope.
+- **CPI×SPI-based** assumes both cost *and* schedule pressure continue.
+- **Reforecast** throws the formulas out and uses a fresh bottoms-up estimate-to-complete.
+- **Monte Carlo** treats the remaining cost as a range, not a point.
+
+These can legitimately differ by a large fraction of the remaining budget on the same project,
+at the same status date, from the same three numbers. A tool that shows one of them as "the"
+EAC has made a choice on the reader's behalf and hidden that it made one.
+
+## What actually grounds this
+
+I have watched a program review spend twenty minutes arguing about a cost forecast that was
+really an argument about which formula's assumption the two people believed — neither of them
+knew that was the actual disagreement, because the dashboard in front of them showed one
+number with no method attached. That is the failure this is designed against, and it is a
+failure of interface, not of arithmetic: the formulas were all correct.
+
+## The interface decision
+
+<DirectionComparison
+  label="Estimate at completion"
+  takenTitle="Show all five, and disagreement is signal"
+  takenBlocks={[
+    { h: 2, label: "typical  ·  CPI  ·  CPI×SPI" },
+    { h: 2, label: "reforecast (bottoms-up)" },
+    { h: 3, cols: 2, key: true, label: "Monte Carlo p50 / p80 band" },
+    { h: 2, label: "'not credible' flag when it fires" }
+  ]}
+  takenNote="Five numbers and a band, side by side. Wide spread between them tells the reader the future is genuinely uncertain — that is information, not noise to average away."
+  discardedTitle="One number: 'the' EAC"
+  discardedBlocks={[
+    { h: 3, label: "pick one formula" },
+    { h: 6, cols: 1, label: "EAC: $4.2M" }
+  ]}
+  discardedNote="Reads cleanly and demos well. The assumption behind the number is invisible, and two readers can silently disagree about a forecast while agreeing on every input."
+  criterion="Does the interface let the reader see which assumption they're trusting?"
+  cost="A harder first read — a reviewer has to learn that five disagreeing numbers is the honest state of the world, not a defect in the tool."
+/>
+
+The one number I do refuse to show without a caveat is the at-budget forecast, and there is a
+specific, checkable condition for when: if the efficiency still required to hit the original
+budget (`TCPI-to-BAC`) has already run ahead of the efficiency the project is actually
+demonstrating (`CPI`) by more than a stated band, the at-budget number is not a forecast
+anymore — it is a number nobody can still reach. In that case the tool flags it not credible
+and names the CPI-based EAC as the honest one instead of just adding a caveat next to a number
+I already know is wrong.
+
+<MetricsGrid metrics={[
+  { label: "EAC (typical)", value: "one-time variance", change: "rest of the work at plan", isPositive: true },
+  { label: "EAC (CPI × SPI)", value: "pressure continues", change: "cost AND schedule", isPositive: true },
+  { label: "EAC (Monte Carlo)", value: "p50 / p80 band", change: "closed-form, no RNG", isPositive: true }
+]} />
+
+## Two roll-up decisions that are easy to get quietly wrong
+
+**A rolled-up CPI is not the average of the children's CPIs.** It has to be recomputed from
+the summed EV and AC at every level of the work-breakdown structure — project, control
+account, work package. Averaging the ratios weights a $10K work package the same as a $2M
+one, and on a real capital program that difference is the whole story. This is arithmetic, not
+design, except that it is exactly the kind of arithmetic a dashboard gets wrong silently, and
+nobody notices until the numbers stop reconciling.
+
+**A work package missing its baseline is excluded from the roll-up, not zeroed into it.** If a
+work package has no baseline PV, no actual cost recorded, or a units-based claiming method with
+no unit total to divide by, treating it as zero would drag every number above it toward zero
+along with it — and silently, since a zero looks like a real data point. Instead it is flagged
+and *excluded*, so one un-costed row never corrupts its parent's index. The same discipline
+appears elsewhere in the engine wherever a roll-up exists, which is the point of building it
+into the shared kernel rather than reimplementing the judgment call per tool.
+
+## Outcome
+
+The model computes bottom-up over the full WBS tree — project, control account, work package,
+time-phased baseline — with seven earned-value claiming methods (percent-complete, 0/100,
+50/50, units, milestone, level-of-effort, apportioned), each of which earns value differently
+and none of which the roll-up is allowed to average across incorrectly. Its own test suite —
+15 cases, re-run for this study — covers the roll-up arithmetic, the claiming methods, and the
+credibility check directly.
+
+Its output is one panel on the same live dashboard cited in the trust-kernel case study:
+**[tjaiyen.github.io/tcf-finance-dashboard](https://tjaiyen.github.io/tcf-finance-dashboard/)**
+
+## What I would want to test next
+
+**Whether "show five numbers" actually works for the person reading it under time pressure.**
+I am confident it is more honest than one number. I am not confident it is more *usable* in
+the fifteen seconds a program review actually gives a slide before moving on — that is an
+empirical question about the audience, not a question the engine can answer for itself, and I
+have not run it past a program manager to find out.
+
+**The realism band itself is a judgment call, not a law.** How far TCPI can outrun CPI before
+the at-budget forecast stops being credible is a threshold I set, not one derived from the
+data. A different program might reasonably want it tighter or looser, and right now it is a
+config value rather than something the tool helps a reviewer reason about.
