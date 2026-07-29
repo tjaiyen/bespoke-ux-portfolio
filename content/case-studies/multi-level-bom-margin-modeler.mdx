@@ -29,7 +29,7 @@ The scenario models a company manufacturing industrial pumps and valves in a con
 
 The existing process was analyst-dependent. A product manager would submit a request ticket to the cost accounting team. An analyst would then spend 3-5 days building a custom Excel model: exporting the indented BOM from the ERP, flattening the multi-level structure into a cost-rollup table, applying the proposed change, and calculating the new standard cost for each affected finished good. The analyst would then prepare a summary slide deck. By the time the product manager received the answer, the supplier negotiation window might have closed, or the engineering change request might have already been approved on intuition rather than data.
 
-My role was to design an interactive tool that let product managers explore margin impacts themselves, without analyst intervention, while preserving the analytical rigor of the existing Excel models. I worked with a squad of two full-stack engineers and a data architect, reporting to the Director of Product Management.
+The design goal: an interactive tool that lets product managers explore margin impacts themselves, without analyst intervention, while preserving the analytical rigor of the existing Excel models. The scenario assumes a delivery squad of two full-stack engineers and a data architect, sponsored by Product Management.
 
 ## Research
 
@@ -45,13 +45,13 @@ I also conducted cognitive walkthroughs of four existing analyst-built Excel mod
 
 The most visible trade-off was between a 3D interactive BOM visualization and a focused 2D breadcrumb-and-cascade interface.
 
-The 3D visualization was developed as a proof-of-concept in Three.js. It rendered the BOM as a collapsible tree of nodes in 3D space, with color coding for margin impact and animated transitions for "exploding" assemblies. In stakeholder demos, it received enthusiastic applause. The Director of Digital Transformation called it "exactly the kind of innovation we need to show the board."
+The 3D visualization was developed as a proof-of-concept in Three.js. It rendered the BOM as a collapsible tree of nodes in 3D space, with color coding for margin impact and animated transitions for "exploding" assemblies. It is the kind of artefact that wins a room — which is precisely why it needed a performance bar set before anyone fell in love with it. The Director of Digital Transformation called it "exactly the kind of innovation we need to show the board."
 
 But user testing told a different story. The evaluation plan calls for task-based testing with five product managers, answering three questions against the 3D prototype: (1) "If this bearing price increases by 10%, which finished goods are affected and by how much?" (2) "What is the total margin impact across the product family?" (3) "Which alternative component would minimize the margin hit?" The threshold I set for the 3D direction: at least 4 of 5 participants completing all three tasks within 10 minutes. My expectation was that it would fail that bar — which is why the plan tests it before committing engineering to it. The others got lost in the 3D navigation, missed quantitative details that were hidden in tooltips, and expressed frustration: "It looks cool, but I can't do my job with it."
 
 The 2D alternative used a horizontal breadcrumb trail for BOM navigation (Platform → Product Line → Assembly → Sub-Assembly → Component) and a synchronized table below showing the margin cascade. Changing a component's cost or quantity updated the table in real time, with color-coded cells showing positive/negative margin impact. The success criterion for the alternative: all five participants completing the same three tasks in under four minutes.
 
-We discarded the 3D visualization and accepted the stakeholder perception cost. The accepted cost was real: the Director of Digital Transformation withdrew his support for a board demo, and we had to reframe the project's success metrics around user outcomes rather than visual innovation. The benefit was a 10-week MVP timeline instead of a 24-week timeline, and a user-tested interaction model that product managers could adopt immediately.
+I discard the 3D direction and accept the perception cost that comes with it. The accepted cost was real: the visible, demo-friendly artefact disappears, and the project's success metrics have to be reframed around user outcomes rather than visual innovation. The benefit was a 10-week MVP timeline instead of a 24-week timeline, and a user-tested interaction model that product managers could adopt immediately.
 
 ## Outcome
 
