@@ -94,6 +94,20 @@ has none to give honestly. A different plant could reasonably want it tighter or
   { label: "Constant kept local, not centralized", value: "1", change: "divergence threshold — no honest dated origin to register", isPositive: true }
 ]} />
 
+Four illustrative products against the same bottleneck, ranked twice. Only the one that is
+both dollar-favored and carbon-penalized gets flagged — the asymmetric rule this study
+argues for, not a symmetric diff between two numbers:
+
+<SummaryKpiGrid
+  label="Same four products, ranked by $/constraint-minute and by carbon/constraint-minute"
+  items={[
+    { label: "Product A", value: "flagged", subtext: "$ rank 1, carbon rank 4 — dollar-favored, carbon-penalized", status: "critical" },
+    { label: "Product B", value: "aligned", subtext: "$ rank 2, carbon rank 2", status: "good" },
+    { label: "Product C", value: "aligned", subtext: "$ rank 3, carbon rank 1 — favorable carbon, not flagged by design", status: "good" },
+    { label: "Product D", value: "aligned", subtext: "$ rank 4, carbon rank 3", status: "good" },
+  ]}
+/>
+
 ## Outcome
 
 Nothing here was deployed against a real plant, so there is no outcome to report — the

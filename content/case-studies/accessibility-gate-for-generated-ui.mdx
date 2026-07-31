@@ -57,6 +57,30 @@ Each of these is a rule-follower's answer. That reframed the design problem: the
 does not need to be smarter, it needs to be **unbypassable**, and it needs to know the
 specific ways its own checks get satisfied without being met.
 
+<FlowChartSimulator
+  label="Three ways models satisfy a check's letter and miss its purpose"
+  steps={[
+    {
+      id: "visible-text",
+      label: "Told a page needs visible text",
+      detail: "Models add text that is off-screen, transparent, or one pixel tall.",
+      decision: "A word-count check reading innerText passes it — so the gate checks rendered bounding boxes and alpha instead.",
+    },
+    {
+      id: "contrast",
+      label: "Told contrast must pass",
+      detail: "Models place text over an image, where contrast is undeterminable rather than failing.",
+      decision: "An \"incomplete\" axe result is not a violation by default — so the gate treats incomplete contrast as a fail, not a pass.",
+    },
+    {
+      id: "canvas",
+      label: "Told a canvas needs a text alternative",
+      detail: "Models add one and leave the canvas as the only real content on the page.",
+      decision: "The gate requires the canvas to be aria-hidden and never the page's sole content — text over a canvas is refused outright.",
+    },
+  ]}
+/>
+
 ## Making finishing conditional
 
 The advisory scanner was the obvious build and I rejected it. What shipped instead makes

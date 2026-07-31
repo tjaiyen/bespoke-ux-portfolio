@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 /**
  * Colour-theme switch.
@@ -19,6 +19,11 @@ import { useEffect, useState } from "react";
  */
 type Choice = "light" | "dark" | "system";
 
+// applyTheme mutates classList directly rather than through an event, so the store's
+// subscribers need their own notification path — matchMedia's "change" only fires for
+// an actual OS-preference change, never for a class this function just set itself.
+const listeners = new Set<() => void>();
+
 export function applyTheme(choice: Choice) {
   const root = document.documentElement;
   root.classList.toggle("dark", choice === "dark");
@@ -30,6 +35,7 @@ export function applyTheme(choice: Choice) {
     // Private browsing or blocked storage: the class still applied, the choice just
     // will not survive a reload. Failing the toggle over this would be worse.
   }
+  listeners.forEach((l) => l());
 }
 
 function readDark(): boolean {
@@ -39,21 +45,30 @@ function readDark(): boolean {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
-export default function ThemeToggle() {
-  // Lazily read the initial value straight from the DOM/OS. `document` does not exist
-  // during the server render, so that pass still falls back to `null` (the label stays
-  // generic) — the mismatch is patched up on the client's first paint, same as before.
-  const [dark, setDark] = useState<boolean | null>(() =>
-    typeof document === "undefined" ? null : readDark(),
-  );
+// useSyncExternalStore, not useState+useEffect: the theme is external state (the DOM
+// class an inline pre-hydration script already applied from localStorage, or the OS
+// media query) that the server cannot see. getServerSnapshot forces `null` on BOTH the
+// server render and React's first client pass, so the two agree; only after hydration
+// commits does React re-invoke getSnapshot and pick up the real value. A useState lazy
+// initializer looks similar but has no such handshake — it reads the DOM immediately on
+// the client's first render, which almost always disagrees with the server's `null` and
+// produces exactly the hydration mismatch this pattern exists to avoid.
+function subscribe(onChange: () => void) {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", onChange);
+  listeners.add(onChange);
+  return () => {
+    mq.removeEventListener("change", onChange);
+    listeners.delete(onChange);
+  };
+}
 
-  useEffect(() => {
-    // Track the OS while the visitor is on "system", so the label stays honest.
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => setDark(readDark());
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+function getServerSnapshot(): boolean | null {
+  return null;
+}
+
+export default function ThemeToggle() {
+  const dark = useSyncExternalStore(subscribe, readDark, getServerSnapshot);
 
   const label =
     dark === null
@@ -65,11 +80,7 @@ export default function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={() => {
-        const next = dark ? "light" : "dark";
-        applyTheme(next);
-        setDark(!dark);
-      }}
+      onClick={() => applyTheme(dark ? "light" : "dark")}
       aria-label={label}
       title={label}
       className="flex min-h-11 min-w-11 items-center justify-center rounded text-text-muted hover:text-text-main focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"

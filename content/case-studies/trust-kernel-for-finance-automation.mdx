@@ -89,6 +89,36 @@ controls.
   { label: "Attestation", value: "ed25519, third-party verifiable", change: "not a shared-secret MAC", isPositive: true }
 ]} />
 
+<FlowChartSimulator
+  label="What the kernel actually guarantees, one primitive at a time"
+  steps={[
+    {
+      id: "grounding",
+      label: "Grounding — narrative_verify",
+      detail: "A narrative draft, from any language model, is decomposed into atomic numeric and directional claims. Each is verified against the deterministic tool output that produced the figures.",
+      decision: "An unsupported claim is flagged inside the grounded text, never silently removed — deleting it would produce a clean-looking narrative that hides the fact the model drifted.",
+    },
+    {
+      id: "reproducibility",
+      label: "Reproducibility — as_of",
+      detail: "Every result carries four hashes: the input data, the metric definitions, the tenant config, and the code.",
+      decision: "A number is reproducible because all four inputs are pinned, not because someone remembers how it was produced. If any one changes, the signature changes.",
+    },
+    {
+      id: "provenance",
+      label: "Provenance — attestation",
+      detail: "The as-of signature is wrapped in an in-toto statement inside a DSSE envelope and signed with ed25519.",
+      decision: "Asymmetric signing over a shared-secret MAC: a third party holding only the public key can verify who produced a number and that it was not altered, and cannot forge one.",
+    },
+    {
+      id: "injection",
+      label: "Injection boundary — injection_guard",
+      detail: "Untrusted free text — vendor names, memo lines, document fields — is treated as data, never as instructions.",
+      decision: "That text arrives from suppliers and scanned documents, which is precisely the surface an attacker controls.",
+    },
+  ]}
+/>
+
 ## Where the kernel deliberately stops
 
 The harder judgement was not what to share. It was what to leave alone.

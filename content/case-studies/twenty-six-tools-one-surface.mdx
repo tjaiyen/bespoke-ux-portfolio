@@ -49,6 +49,24 @@ they already know which tool matters right now.
   { label: "Full dashboard", value: "32 sections", change: "reachable, never the required first stop", isPositive: true }
 ]} />
 
+<FlowChartSimulator
+  label="From aggregate finding to source tool"
+  steps={[
+    {
+      id: "feed",
+      label: "Findings feed sorts worst-first",
+      detail: "Aggregated across all twenty-six components — critical, then serious, then warning, then the positive ones.",
+      decision: "Answers \"what needs my attention\" directly, instead of \"what does tool #14 say\" — a question nobody arrives asking.",
+    },
+    {
+      id: "link",
+      label: "Every row links to its source tool",
+      detail: "One click from symptom to source.",
+      decision: "A reviewer only has to go tool-by-tool once they already know which tool matters right now.",
+    },
+  ]}
+/>
+
 ## Interview Mode, and the mistake it was built to avoid
 
 A first-time or time-boxed viewer does not need thirty-two sections; they need five that

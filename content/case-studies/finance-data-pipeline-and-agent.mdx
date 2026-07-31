@@ -113,6 +113,35 @@ Coverage checking is the piece I would keep if I could keep only one. It is the 
 between "the model did not lie" and "the model did not leave anything out", and only the
 second is what a close actually requires.
 
+<FlowChartSimulator
+  label="run_guardrails — four ways the model's output gets rejected"
+  steps={[
+    {
+      id: "hallucinated-account",
+      label: "Hallucinated account",
+      detail: "Every account the model references must exist in the computed variance set.",
+      decision: "A narrative about an account that is not in the data destroys trust in the whole tool — the failure an LLM makes most fluently.",
+    },
+    {
+      id: "missed-variance",
+      label: "Missed material variance",
+      detail: "Every variance flagged material by the tested models must be addressed in the output.",
+      decision: "Catches the quiet failure: a report entirely accurate about what it mentions, silently omitting the item that mattered.",
+    },
+    {
+      id: "invalid-direction",
+      label: "Invalid direction",
+      detail: "Must be favorable, unfavorable, or neutral — nothing else.",
+    },
+    {
+      id: "malformed-schema",
+      label: "Malformed schema",
+      detail: "A missing narrative, or a non-list of exceptions.",
+      decision: "When the output is unverifiable, the system refuses rather than degrades — no partial report, no best-effort narrative with a caveat.",
+    },
+  ]}
+/>
+
 ## Outcome
 
 Seven runnable projects, and the thing that matters most about them is that you do not have

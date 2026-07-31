@@ -86,6 +86,21 @@ I already know is wrong.
   { label: "EAC (Monte Carlo)", value: "p50 / p80 band", change: "closed-form, no RNG", isPositive: true }
 ]} />
 
+Five numbers for one illustrative work package, not one — the same $4.2M the rejected
+single-number interface would have shown, now sitting next to the four other formulas that
+disagree with it by construction:
+
+<SummaryKpiGrid
+  label="Estimate at completion — five methods, one work package"
+  items={[
+    { label: "Typical", value: "$4.2M", subtext: "one-time variance; rest of the work at plan", status: "good" },
+    { label: "CPI-based", value: "$4.6M", subtext: "today's cost efficiency continues", status: "warning" },
+    { label: "CPI × SPI", value: "$4.9M", subtext: "cost AND schedule pressure continue", status: "critical" },
+    { label: "Reforecast", value: "$4.7M", subtext: "fresh bottoms-up estimate-to-complete", status: "warning" },
+    { label: "Monte Carlo p50 / p80", value: "$4.5M – $5.1M", subtext: "closed-form triangular quantile, no RNG", status: "warning" },
+  ]}
+/>
+
 ## Two roll-up decisions that are easy to get quietly wrong
 
 **A rolled-up CPI is not the average of the children's CPIs.** It has to be recomputed from
