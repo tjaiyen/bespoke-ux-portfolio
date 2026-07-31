@@ -2,11 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { contactLinks, site } from "@/lib/site";
 import VarianceStage from "@/components/stage/VarianceStage";
+import { listRealCaseStudies, listConceptCaseStudies } from "@/lib/mdxLoader";
 
 export const metadata: Metadata = {
   title: "About",
   description: site.tagline,
 };
+
+// Spelled out in prose rather than digits, matching "Twenty-six deterministic finance
+// tools" elsewhere on the site. Small, closed range — a case-study count in the tens
+// would read oddly spelled out anyway, so this isn't trying to generalise further.
+const SMALL_NUMBER_WORDS = [
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+];
+function spellOut(n: number): string {
+  return SMALL_NUMBER_WORDS[n] ?? String(n);
+}
 
 const FOCUS = [
   {
@@ -25,6 +36,8 @@ const FOCUS = [
 
 export default function AboutPage() {
   const links = contactLinks();
+  const builtCount = listRealCaseStudies().length;
+  const conceptCount = listConceptCaseStudies().length;
 
   return (
     <>
@@ -69,11 +82,13 @@ export default function AboutPage() {
               move from finance into designing and building the tools finance runs
               on, and I am early in it. I have not held a product-design title. What
               I have is the domain most design candidates spend their first year
-              trying to learn, and the two projects on this site that are actually
-              built, shipped and independently verifiable — you can clone them and
-              reproduce the results in about a minute. The three concept studies are
-              labelled as concepts on every card, and each one states what it assumes
-              and what would prove it wrong.
+              trying to learn, and {spellOut(builtCount)} projects on this site are
+              actually built, shipped and independently verifiable — open the live
+              dashboard or gallery receipt for any of them, or, for the finance data
+              pipeline, clone the repo and reproduce the numbers yourself in about a
+              minute. The other {spellOut(conceptCount)} are concept studies, labelled
+              as concepts on every card, and each one states what it assumes and what
+              would prove it wrong.
             </p>
             <p>
               I would rather be judged on that than on a job title I do not have yet.

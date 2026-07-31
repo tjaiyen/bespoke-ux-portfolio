@@ -32,23 +32,25 @@ export function applyTheme(choice: Choice) {
   }
 }
 
+function readDark(): boolean {
+  const root = document.documentElement;
+  if (root.classList.contains("dark")) return true;
+  if (root.classList.contains("light")) return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
 export default function ThemeToggle() {
-  // Rendered label is state-dependent, so it is only decided after mount — otherwise the
-  // server would have to guess the visitor's OS preference and hydration would mismatch.
-  const [dark, setDark] = useState<boolean | null>(null);
+  // Lazily read the initial value straight from the DOM/OS. `document` does not exist
+  // during the server render, so that pass still falls back to `null` (the label stays
+  // generic) — the mismatch is patched up on the client's first paint, same as before.
+  const [dark, setDark] = useState<boolean | null>(() =>
+    typeof document === "undefined" ? null : readDark(),
+  );
 
   useEffect(() => {
-    const read = () => {
-      const root = document.documentElement;
-      if (root.classList.contains("dark")) return true;
-      if (root.classList.contains("light")) return false;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    };
-    setDark(read());
-
     // Track the OS while the visitor is on "system", so the label stays honest.
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => setDark(read());
+    const onChange = () => setDark(readDark());
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);

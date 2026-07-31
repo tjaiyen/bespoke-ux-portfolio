@@ -298,6 +298,17 @@
   }
 }
 
+/* Caught by the site's own S9 keyboard audit: a tall .reveal block can land its top
+   edge at the very start of the viewport when focus-driven scrolling brings it in —
+   short of the "entry 10%" the animation-range needs to have even begun — leaving a
+   keyboard-focused link sitting at opacity 0. A CSS animation never overrides a
+   property an !important declaration also targets, so this unconditionally wins over
+   act-reveal for as long as focus is inside the block, independent of scroll position. */
+.reveal:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @keyframes rail-progress {
   from {
     transform: scaleX(0);

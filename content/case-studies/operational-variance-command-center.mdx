@@ -45,6 +45,61 @@ what you need is not a better summary of the $47,000 you already know about; it 
 link in the chain that explains it. The ERP hands you the aggregate and makes you rebuild
 the path by hand, every time, through modules that each navigate differently.
 
+This is that exact trail, not a description of it — expand each row the way a controller
+would, work order down to the entry that actually explains the number:
+
+<ItemizedDrawer
+  label="Work order 4471 variance trail"
+  items={[
+    {
+      id: "wo-4471",
+      label: "WO 4471 — Labor Variance",
+      amount: "$47,000",
+      variance: "-$47,000",
+      children: [
+        {
+          id: "op-30",
+          label: "Op 30 Machining — Labor Routing",
+          amount: "312 hrs",
+          variance: "-$28,400",
+          children: [
+            {
+              id: "op-30-shift-2",
+              label: "Shift 2 / Cell 4 — Time Card Detail",
+              amount: "96 hrs",
+              variance: "-$18,600",
+              children: [
+                {
+                  id: "op-30-override",
+                  label: "Supervisor override — unplanned OT approved outside standard routing",
+                  amount: "1 entry",
+                  variance: "-$18,600",
+                },
+              ],
+            },
+            {
+              id: "op-30-shift-1",
+              label: "Shift 1 / Cell 4 — Time Card Detail",
+              amount: "48 hrs",
+              variance: "-$9,800",
+            },
+          ],
+        },
+        {
+          id: "op-40",
+          label: "Op 40 Assembly — Labor Routing",
+          amount: "204 hrs",
+          variance: "-$18,600",
+        },
+      ],
+    },
+  ]}
+/>
+
+Four clicks, not four modules: the $18,600 root cause — an unplanned-overtime override
+that never went through the standard routing — sits at the bottom of one expandable list
+instead of a fourth screen with its own navigation to learn.
+
 That reframes the obvious brief. "A better dashboard with more visualisations" is the wrong
 shape for this problem — it improves the view you already have instead of the traversal you
 actually perform. So the concept is organised as a *variance detective*: a path from
