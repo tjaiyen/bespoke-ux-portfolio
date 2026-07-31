@@ -139,7 +139,12 @@ export default function Home() {
                     href={`/case-studies/${e.slug}`}
                     className="group block rounded focus-visible:ring-2 focus-visible:ring-accent-focus focus-visible:outline-none"
                   >
-                    <span className="flex items-baseline gap-2 font-mono text-xl text-text-main">
+                    {/* At the number itself, not just in the paragraph above the grid —
+                        a skimmer's eye lands here first. */}
+                    <span className="inline-flex items-center rounded-full border border-accent-brand/40 px-2.5 py-0.5 font-mono text-[10px] tracking-widest text-accent-brand uppercase">
+                      Modelled
+                    </span>
+                    <span className="mt-2 flex items-baseline gap-2 font-mono text-xl text-text-main">
                       <span className="text-text-muted line-through decoration-1">
                         {e.from}
                       </span>
@@ -162,13 +167,13 @@ export default function Home() {
 
         <Act
           numeral="IV"
-          kicker="The full set"
-          title="Selected work"
+          kicker="Concept work"
+          title="Concept explorations"
           id="act-work"
           tone="surface"
         >
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {[...real, ...concepts].map((study) => (
+            {concepts.map((study) => (
               <li key={study.slug}>
                 <Link
                   href={`/case-studies/${study.slug}`}
